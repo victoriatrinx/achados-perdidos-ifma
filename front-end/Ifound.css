@@ -1,0 +1,1435 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #171717;
+    line-height: 1.4;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root {
+    --verde: #07552f;
+    --verde-escuro: #034a29;
+    --verde-claro: #0b6a3b;
+
+    --vermelho: #92001f;
+    --vermelho-escuro: #760018;
+
+    --amarelo: #f5b400;
+    --amarelo-laranja: #E9A800;
+
+    --branco: #ffffff;
+
+    --cinza: #666666;
+    --cinza-claro: #f5f5f3;
+    --borda: #e5e5e5;
+
+    --raio: 8px;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+/*
+   A parte branca fica reservada para o logo.
+   A faixa verde começa depois do espaço do logo.
+*/
+
+#cabecalho {
+    width: calc(100% - 32px);
+    max-width: 1470px;
+    height: 80px;
+    margin: 18px auto 0;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 0 14px;
+
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Faixa verde do cabeçalho */
+
+#cabecalho::after {
+    content: "";
+    position: absolute;
+
+    left: 185px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    background: var(--verde);
+
+    border-radius: 0 10px 10px 0;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   IDENTIDADE / LOGO
+========================================================= */
+
+#identidade {
+    width: 185px;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    flex-shrink: 0;
+
+    background: transparent;
+    overflow: visible;
+}
+
+#logo {
+    width: 165px;
+    height: 100px;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: left center;
+}
+
+
+/* =========================================================
+   MENU PRINCIPAL
+========================================================= */
+
+#menu-principal {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+#menu-principal a {
+    position: relative;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    padding: 31px 0 27px;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+#menu-principal a:hover {
+    color: var(--amarelo);
+}
+
+
+/* Página inicial selecionada */
+
+#menu-principal a:first-child {
+    color: white;
+}
+
+#menu-principal a:first-child::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 18px;
+
+    height: 3px;
+
+    background: var(--amarelo);
+
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   ÁREA DE ACESSO
+========================================================= */
+
+#acesso-usuario {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    flex-shrink: 0;
+}
+
+#acesso-usuario button {
+    height: 39px;
+
+    padding: 0 17px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    transition: 0.2s ease;
+}
+
+
+/* Entrar */
+
+#btn-entrar {
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+#btn-entrar:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Cadastrar */
+
+#btn-cadastrar {
+    background: var(--amarelo);
+
+    color: #151515;
+
+    border: 1px solid var(--amarelo);
+}
+
+#btn-cadastrar:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+========================================================= */
+
+#conteudo-principal {
+    /*
+       O conteúdo principal agora ocupa toda a largura.
+       Isso permite que o HERO e suas bolinhas
+       encostem nas laterais da página.
+    */
+
+    width: 100%;
+    max-width: none;
+
+    margin: 30px 0 0;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+#inicio {
+    width: 100%;
+    height: 280px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    /*
+       Espaçamento interno do conteúdo.
+       O fundo continua ocupando 100% da tela.
+    */
+    padding: 20px 48px;
+
+    border-bottom: 1px solid var(--borda);
+}
+
+
+/* =========================================================
+   CÍRCULO AMARELO ESQUERDO
+========================================================= */
+
+#inicio::before {
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    /*
+       Metade do círculo fica para fora da tela.
+       Assim ele encosta na lateral esquerda.
+    */
+    left: -40px;
+    bottom: 10px;
+
+    border-radius: 50%;
+
+    background: var(--amarelo);
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CÍRCULO VERDE DIREITO
+========================================================= */
+
+#inicio::after {
+    content: "";
+
+    position: absolute;
+
+    width: 75px;
+    height: 75px;
+
+    /*
+       Metade do círculo fica para fora da tela.
+       Assim ele encosta na lateral direita.
+    */
+    right: -37px;
+    bottom: 0;
+
+    border-radius: 50%;
+
+    background: var(--verde);
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   TEXTO DO HERO
+========================================================= */
+
+#hero-texto {
+    width: 48%;
+
+    padding-left: 0;
+
+    position: relative;
+    z-index: 2;
+}
+
+#hero-texto h2 {
+    max-width: 500px;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+
+/* Parte destacada da frase */
+
+#hero-texto h2 strong {
+    color: var(--amarelo-laranja);
+
+    /*
+       Impede que "Tudo em um só lugar!"
+       seja quebrado em várias linhas.
+    */
+    white-space: nowrap;
+}
+
+
+#descricao {
+    max-width: 430px;
+
+    color: #444;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   BOTÃO PUBLICAR
+========================================================= */
+
+#btn-publicar {
+    background: var(--vermelho);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 11px 18px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: 0.2s ease;
+}
+
+#btn-publicar::before {
+    content: "+";
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 17px;
+    height: 17px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: var(--vermelho);
+
+    font-weight: bold;
+}
+
+#btn-publicar:hover {
+    background: var(--vermelho-escuro);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   IMAGEM DO HERO
+========================================================= */
+
+#hero-imagem {
+    width: 52%;
+    height: 260px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+#hero-imagem img {
+    width: 100%;
+
+    max-width: 560px;
+    max-height: 250px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================================
+   BUSCA
+========================================================= */
+
+#busca {
+    width: 100%;
+
+    padding: 15px 48px;
+}
+
+#barra-busca {
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid var(--borda);
+
+    border-radius: 7px;
+
+    background: white;
+
+    padding: 0 14px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+#barra-busca::before {
+    content: "⌕";
+
+    font-size: 28px;
+
+    color: #333;
+
+    margin-right: 8px;
+}
+
+#campo-busca {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 14px;
+
+    color: #222;
+}
+
+#campo-busca::placeholder {
+    color: #999;
+}
+
+#btn-buscar {
+    width: 0;
+    height: 0;
+
+    overflow: hidden;
+
+    border: 0;
+    padding: 0;
+}
+
+
+/* =========================================================
+   CATEGORIAS
+========================================================= */
+
+#categorias {
+    padding: 12px 48px 20px;
+}
+
+#categorias > h2 {
+    display: none;
+}
+
+
+/* Grid */
+
+#lista-categorias {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+/* Card */
+
+.categoria {
+    height: 140px;
+    min-height: 140px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    text-align: center;
+
+    padding: 15px 12px;
+
+    border: 1px solid #ededed;
+
+    border-radius: 7px;
+
+    background: white;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.035);
+
+    transition: 0.2s ease;
+}
+
+.categoria:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   ÍCONES DAS CATEGORIAS
+========================================================= */
+
+.icone-categoria {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 7px;
+
+    border-radius: 50%;
+
+    background: var(--verde);
+
+    color: white;
+}
+
+
+/* Cores */
+
+#perdidos .icone-categoria {
+    background: var(--vermelho);
+}
+
+#doacoes .icone-categoria {
+    background: var(--amarelo);
+}
+
+#vendas .icone-categoria {
+    background: var(--verde);
+}
+
+
+/* Ícones */
+
+#achados .icone-categoria::before {
+    content: "⌖";
+
+    font-size: 25px;
+}
+
+#perdidos .icone-categoria::before {
+    content: "♦";
+
+    font-size: 23px;
+}
+
+#doacoes .icone-categoria::before {
+    content: "♡";
+
+    color: white;
+
+    font-size: 26px;
+}
+
+#vendas .icone-categoria::before {
+    content: "🛒";
+
+    font-size: 21px;
+}
+
+
+/* Textos */
+
+.categoria h3 {
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 4px;
+}
+
+.categoria p {
+    font-size: 11px;
+
+    color: #555;
+
+    max-width: 180px;
+
+    margin-bottom: 0;
+}
+
+
+/* Botões escondidos */
+
+.categoria button {
+    display: none;
+}
+
+
+/* =========================================================
+   PUBLICAÇÕES RECENTES
+========================================================= */
+
+#publicacoes-recentes {
+    padding: 12px 48px 25px;
+}
+
+#cabecalho-publicacoes {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+#cabecalho-publicacoes h2 {
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+#cabecalho-publicacoes a {
+    color: var(--vermelho);
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+#cabecalho-publicacoes a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   GRID DAS PUBLICAÇÕES
+========================================================= */
+
+#lista-publicacoes {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+/* =========================================================
+   CARD DA PUBLICAÇÃO
+========================================================= */
+
+.publicacao {
+    min-width: 0;
+
+    overflow: hidden;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 8px;
+
+    background: white;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
+
+    transition: 0.2s ease;
+}
+
+.publicacao:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   IMAGEM DA PUBLICAÇÃO
+========================================================= */
+
+.imagem-publicacao {
+    width: 100%;
+    height: 145px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #f5f5f5;
+}
+
+.imagem-publicacao img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA PUBLICAÇÃO
+========================================================= */
+
+.informacoes-publicacao {
+    position: relative;
+
+    padding: 10px 11px 13px;
+}
+
+.categoria-publicacao {
+    display: inline-block;
+
+    padding: 3px 8px;
+
+    margin-bottom: 7px;
+
+    border-radius: 5px;
+
+    background: var(--verde);
+
+    color: white;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+}
+
+
+/* Cores das publicações */
+
+.publicacao:nth-child(2) .categoria-publicacao {
+    background: var(--vermelho);
+}
+
+.publicacao:nth-child(3) .categoria-publicacao {
+    background: var(--amarelo);
+
+    color: #222;
+}
+
+.publicacao:nth-child(4) .categoria-publicacao {
+    background: var(--verde);
+}
+
+
+/* Texto */
+
+.informacoes-publicacao h3 {
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+.informacoes-publicacao p {
+    color: #666;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   BANNER
+========================================================= */
+
+#banner {
+    min-height: 95px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 15px 30px;
+
+    margin: 0 48px;
+
+    border-radius: 5px;
+
+    background: #fff8e7;
+
+    border: 1px solid #f1e6c9;
+}
+
+
+/* =========================================================
+   IMAGEM / TROFÉU
+========================================================= */
+
+#banner-imagem {
+    width: 115px;
+    height: 70px;
+
+    position: relative;
+}
+
+#banner-imagem::before {
+    content: "🏆";
+
+    position: absolute;
+
+    left: 20px;
+    top: 0;
+
+    font-size: 52px;
+}
+
+
+/* =========================================================
+   CONTEÚDO DO BANNER
+========================================================= */
+
+#banner-conteudo {
+    flex: 1;
+
+    padding-left: 10px;
+}
+
+#banner-conteudo h2 {
+    font-size: 17px;
+
+    margin-bottom: 4px;
+}
+
+#banner-conteudo p {
+    color: #555;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   BOTÃO DO BANNER
+========================================================= */
+
+#banner-conteudo button {
+    position: absolute;
+
+    right: 30px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: var(--vermelho);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 10px 20px;
+
+    font-weight: bold;
+
+    font-size: 12px;
+}
+
+#banner-conteudo button:hover {
+    background: var(--vermelho-escuro);
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+#rodape {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 25px 40px 10px;
+
+    display: grid;
+
+    grid-template-columns: 1.4fr 1fr 1.5fr;
+
+    column-gap: 50px;
+
+    position: relative;
+
+    background: var(--verde);
+
+    color: white;
+}
+
+
+/* =========================================================
+   IDENTIDADE DO RODAPÉ
+========================================================= */
+
+#rodape-identidade img {
+    width: 145px;
+
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+#rodape-identidade p {
+    max-width: 220px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   LINKS RÁPIDOS
+========================================================= */
+
+#links-rapidos {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+#links-rapidos h3,
+#suporte h3 {
+    font-size: 13px;
+
+    margin-bottom: 9px;
+}
+
+#links-rapidos a {
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#links-rapidos a:hover {
+    color: var(--amarelo);
+}
+
+
+/* =========================================================
+   SUPORTE
+========================================================= */
+
+#suporte p {
+    font-size: 11px;
+
+    margin-bottom: 5px;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+#copyright {
+    grid-column: 1 / -1;
+
+    margin-top: 18px;
+
+    padding-top: 9px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    text-align: center;
+}
+
+#copyright p {
+    font-size: 10px;
+
+    color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    #cabecalho {
+        background: linear-gradient(
+            to right,
+            #ffffff 0,
+            #ffffff 170px,
+            var(--verde) 170px,
+            var(--verde) 100%
+        );
+    }
+
+    #identidade {
+        width: 170px;
+    }
+
+    #logo {
+        width: 150px;
+        height: 65px;
+    }
+
+    #menu-principal {
+        gap: 15px;
+
+        margin-right: 15px;
+    }
+
+    #menu-principal a {
+        font-size: 12px;
+    }
+
+    #acesso-usuario button {
+        padding: 0 12px;
+    }
+
+    #hero-texto h2 {
+        font-size: 28px;
+    }
+
+    #hero-texto {
+        width: 48%;
+    }
+
+    #hero-imagem {
+        width: 52%;
+    }
+}
+
+
+/* =========================================================
+   TABLET / TELAS MENORES
+========================================================= */
+
+@media (max-width: 850px) {
+
+    #cabecalho {
+        height: auto;
+
+        flex-wrap: wrap;
+
+        padding: 12px 18px;
+
+        gap: 10px;
+
+        background: var(--verde);
+    }
+
+    #identidade {
+        width: auto;
+
+        height: auto;
+    }
+
+    #logo {
+        width: 155px;
+
+        height: 65px;
+    }
+
+    #menu-principal {
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        margin: 0;
+
+        gap: 20px;
+    }
+
+    #menu-principal a {
+        padding: 10px 0;
+    }
+
+    #menu-principal a:first-child::after {
+        bottom: 2px;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    #inicio {
+        width: 100%;
+
+        height: auto;
+
+        min-height: 500px;
+
+        flex-direction: column;
+
+        padding: 30px 24px;
+    }
+
+    #hero-texto {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    #hero-texto h2 {
+        margin-left: auto;
+
+        margin-right: auto;
+
+        max-width: 600px;
+    }
+
+    #hero-texto h2 strong {
+        white-space: normal;
+    }
+
+    #descricao {
+        margin-left: auto;
+
+        margin-right: auto;
+    }
+
+    #hero-imagem {
+        width: 100%;
+    }
+
+
+    /* =====================================================
+       BUSCA
+    ===================================================== */
+
+    #busca {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+
+    /* =====================================================
+       CATEGORIAS
+    ===================================================== */
+
+    #categorias {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    #lista-categorias,
+    #lista-publicacoes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* =====================================================
+       PUBLICAÇÕES
+    ===================================================== */
+
+    #publicacoes-recentes {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+
+    /* =====================================================
+       BANNER
+    ===================================================== */
+
+    #banner {
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+
+
+    /* =====================================================
+       RODAPÉ
+    ===================================================== */
+
+    #rodape {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 550px) {
+
+    #conteudo-principal {
+        width: 100%;
+
+        margin-top: 20px;
+    }
+
+    #cabecalho {
+        width: calc(100% - 20px);
+
+        background: var(--verde);
+    }
+
+    #acesso-usuario {
+        margin-left: auto;
+    }
+
+    #btn-entrar {
+        display: none;
+    }
+
+    #menu-principal {
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        gap: 18px;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    #inicio {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #hero-texto h2 {
+        font-size: 26px;
+    }
+
+    #hero-texto h2 strong {
+        white-space: normal;
+    }
+
+
+    /* =====================================================
+       BUSCA
+    ===================================================== */
+
+    #busca {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    /* =====================================================
+       CATEGORIAS
+    ===================================================== */
+
+    #categorias {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #lista-categorias,
+    #lista-publicacoes {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* =====================================================
+       PUBLICAÇÕES
+    ===================================================== */
+
+    #publicacoes-recentes {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    /* =====================================================
+       BANNER
+    ===================================================== */
+
+    #banner {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 20px;
+
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #banner-imagem {
+        height: 55px;
+    }
+
+    #banner-conteudo {
+        padding: 0;
+    }
+
+    #banner-conteudo button {
+        position: static;
+
+        transform: none;
+
+        margin-top: 12px;
+    }
+
+
+    /* =====================================================
+       RODAPÉ
+    ===================================================== */
+
+    #rodape {
+        grid-template-columns: 1fr;
+
+        row-gap: 25px;
+
+        padding: 25px 25px 10px;
+    }
+}

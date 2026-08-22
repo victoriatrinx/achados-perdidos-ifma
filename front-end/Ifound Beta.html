@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Ifound.css">
+    <title>iFound - Campus Rosário</title>
+</head>
+
+<body>
+
+
+    <!-- =========================================================
+         CABEÇALHO
+         ---------------------------------------------------------
+         Estrutura principal do topo da página.
+         
+         Contém:
+         - Logo
+         - Nome do site
+         - Localização
+         - Menu
+         - Área de acesso
+    ========================================================== -->
+
+    <header id="cabecalho">
+
+        <!-- Identidade do site -->
+        <div id="identidade">
+
+            <img
+                src="Ifound.png"
+                alt="Logo iFound"
+                id="logo"
+            >
+            </div>
+
+        </div>
+
+
+        <!-- Menu principal -->
+        <nav id="menu-principal">
+
+            <a href="#inicio">
+                Início
+            </a>
+
+            <a href="#achados">
+                Achados
+            </a>
+
+            <a href="#perdidos">
+                Perdidos
+            </a>
+
+            <a href="#doacoes">
+                Doações
+            </a>
+
+            <a href="#vendas">
+                Vendas
+            </a>
+
+        </nav>
+
+
+        <!-- Área de acesso -->
+        <div id="acesso-usuario">
+
+            <button id="btn-entrar">
+                Entrar
+            </button>
+
+            <button id="btn-cadastrar">
+                Cadastrar
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         CONTEÚDO PRINCIPAL
+    ========================================================== -->
+
+    <main id="conteudo-principal">
+
+
+        <!-- =====================================================
+             SEÇÃO PRINCIPAL / HERO
+             -----------------------------------------------------
+             Área de destaque da página.
+
+             LADO ESQUERDO:
+             - Slogan
+             - Descrição
+             - Botão de publicação
+
+             LADO DIREITO:
+             - Imagem principal
+        ====================================================== -->
+
+        <section id="inicio">
+
+            <!-- Texto do hero -->
+            <div id="hero-texto">
+
+                <h2>
+                    Onde a comunidade IFMA encontra o que procura e compartilha o que tem.
+                    <strong> Tudo em um só lugar</strong>!
+                </h2>
+
+                <p id="descricao">
+                    Encontre, devolva, doe ou compre itens
+                    com segurança dentro do IFMA Campus Rosário.
+                </p>
+
+                <button id="btn-publicar">
+                    Publicar item
+                </button>
+
+            </div>
+
+
+            <!-- Imagem do hero -->
+            <div id="hero-imagem">
+
+                <img
+                    src="ItensIlu.png"
+                    alt="Objetos do iFound"
+                >
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             BUSCA
+             -----------------------------------------------------
+             Área reservada para a ferramenta de busca.
+             
+             A funcionalidade da busca será adicionada
+             posteriormente.
+        ====================================================== -->
+
+        <section id="busca">
+
+            <div id="barra-busca">
+
+                <input
+                    type="text"
+                    id="campo-busca"
+                    placeholder="Buscar itens..."
+                >
+
+                <button id="btn-buscar">
+                    Buscar
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CATEGORIAS
+             -----------------------------------------------------
+             Divide os conteúdos em quatro nichos:
+             
+             - Achados
+             - Perdidos
+             - Doações
+             - Vendas
+        ====================================================== -->
+
+        <section id="categorias">
+
+            <h2>
+                Encontre o que procura
+            </h2>
+
+
+            <!-- Container das categorias -->
+            <div id="lista-categorias">
+
+
+                <!-- ACHADOS -->
+                <article
+                    class="categoria"
+                    id="achados"
+                >
+
+                    <div class="icone-categoria">
+                        <!-- Ícone será adicionado posteriormente -->
+                    </div>
+
+                    <h3>
+                        Achados
+                    </h3>
+
+                    <p>
+                        Encontre itens que foram encontrados.
+                    </p>
+
+                    <button>
+                        Ver achados
+                    </button>
+
+                </article>
+
+
+
+                <!-- PERDIDOS -->
+                <article
+                    class="categoria"
+                    id="perdidos"
+                >
+
+                    <div class="icone-categoria">
+                        <!-- Ícone será adicionado posteriormente -->
+                    </div>
+
+                    <h3>
+                        Perdidos
+                    </h3>
+
+                    <p>
+                        Procure por itens que foram perdidos.
+                    </p>
+
+                    <button>
+                        Ver perdidos
+                    </button>
+
+                </article>
+
+
+
+                <!-- DOAÇÕES -->
+                <article
+                    class="categoria"
+                    id="doacoes"
+                >
+
+                    <div class="icone-categoria">
+                        <!-- Ícone será adicionado posteriormente -->
+                    </div>
+
+                    <h3>
+                        Doações
+                    </h3>
+
+                    <p>
+                        Encontre itens disponíveis para doação.
+                    </p>
+
+                    <button>
+                        Ver doações
+                    </button>
+
+                </article>
+
+
+
+                <!-- VENDAS -->
+                <article
+                    class="categoria"
+                    id="vendas"
+                >
+
+                    <div class="icone-categoria">
+                        <!-- Ícone será adicionado posteriormente -->
+                    </div>
+
+                    <h3>
+                        Vendas
+                    </h3>
+
+                    <p>
+                        Encontre itens disponíveis para venda.
+                    </p>
+
+                    <button>
+                        Ver vendas
+                    </button>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PUBLICAÇÕES RECENTES
+             -----------------------------------------------------
+             Área onde serão exibidos os itens publicados
+             recentemente.
+             
+             Os dados reais das publicações serão adicionados
+             posteriormente.
+        ====================================================== -->
+
+        <section id="publicacoes-recentes">
+
+            <div id="cabecalho-publicacoes">
+
+                <h2>
+                    Publicações recentes
+                </h2>
+
+                <a href="#">
+                    Ver todas
+                </a>
+
+            </div>
+
+
+            <!-- Lista de publicações -->
+            <div id="lista-publicacoes">
+
+
+                <!-- PUBLICAÇÃO 1 -->
+                <article class="publicacao">
+
+                    <div class="imagem-publicacao">
+
+                        <img
+                            src="ItensIlu(2).png"
+                            alt="Imagem do item"
+                        >
+
+                    </div>
+
+                    <div class="informacoes-publicacao">
+
+                        <span class="categoria-publicacao">
+                            Achado
+                        </span>
+
+                        <h3>
+                            Mochila Preta
+                        </h3>
+
+                        <p>
+                            Localização: Sala de Aula 101
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PUBLICAÇÃO 2 -->
+                <article class="publicacao">
+
+                    <div class="imagem-publicacao">
+
+                        <img
+                            src="ItensIlu(3).jpg"
+                            alt="Imagem do item"
+                        >
+
+                    </div>
+
+                    <div class="informacoes-publicacao">
+
+                        <span class="categoria-publicacao">
+                            Perdido
+                        </span>
+
+                        <h3>
+                            Chaveiro
+                        </h3>
+
+                        <p>
+                            Localização: Biblioteca
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PUBLICAÇÃO 3 -->
+                <article class="publicacao">
+
+                    <div class="imagem-publicacao">
+
+                        <img
+                            src="ItensIlu(5).jpg"
+                            alt="Imagem do item"
+                        >
+
+                    </div>
+
+                    <div class="informacoes-publicacao">
+
+                        <span class="categoria-publicacao">
+                            Doação
+                        </span>
+
+                        <h3>
+                            Livros de Literatura
+                        </h3>
+
+                        <p>
+                            Localização: Biblioteca
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- PUBLICAÇÃO 4 -->
+                <article class="publicacao">
+
+                    <div class="imagem-publicacao">
+
+                        <img
+                            src="ItensIlu(4).jpg"
+                            alt="Imagem do item"
+                        >
+
+                    </div>
+
+                    <div class="informacoes-publicacao">
+
+                        <span class="categoria-publicacao">
+                            Venda
+                        </span>
+
+                        <h3>
+                            Calculadora Científica
+                        </h3>
+
+                        <p>
+                            Localização: Laboratório de Informática
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             BANNER / ÁREA EXTRA
+             -----------------------------------------------------
+             Área reservada para informações adicionais do site.
+             
+             O conteúdo poderá ser definido posteriormente.
+        ====================================================== -->
+
+        <section id="banner">
+
+            <div id="banner-imagem">
+
+                <!-- Imagem será adicionada posteriormente -->
+
+            </div>
+
+            <div id="banner-conteudo">
+
+                <h2>
+                    Participe da comunidade
+                </h2>
+
+                <p>
+                    Ajude a conectar pessoas e objetos dentro
+                    do IFMA Campus Rosário.
+                </p>
+
+                <button>
+                    Saiba mais
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         RODAPÉ
+         ---------------------------------------------------------
+         Estrutura final da página.
+    ========================================================== -->
+
+    <footer id="rodape">
+
+
+        <!-- Identidade -->
+        <div id="rodape-identidade">
+
+            <img
+                src="logo.png"
+                alt="Logo iFound"
+            >
+
+            <p>
+                Plataforma iFound - Campus Rosário.
+            </p>
+
+        </div>
+
+
+        <!-- Links rápidos -->
+        <div id="links-rapidos">
+
+            <h3>
+                Links rápidos
+            </h3>
+
+            <a href="#">
+                Sobre o projeto
+            </a>
+
+            <a href="#">
+                Regras
+            </a>
+
+            <a href="#">
+                Dúvidas frequentes
+            </a>
+
+            <a href="#">
+                Fale conosco
+            </a>
+
+        </div>
+
+
+        <!-- Suporte -->
+        <div id="suporte">
+
+            <h3>
+                Suporte
+            </h3>
+
+            <p>
+                Diretoria de Desenvolvimento Educacional
+            </p>
+
+            <p>
+                E-mail de suporte
+            </p>
+
+            <p>
+                Telefone
+            </p>
+
+        </div>
+
+
+        <!-- Direitos autorais -->
+        <div id="copyright">
+
+            <p>
+                © 2026 IFMA Campus Rosário.
+                Todos os direitos reservados.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

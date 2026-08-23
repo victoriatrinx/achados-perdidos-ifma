@@ -1,79 +1,315 @@
-/* Configuração Geral */
+/* ==============================
+   CONFIGURAÇÃO GERAL
+================================= */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: linear-gradient(135deg, #ffffff, #fcffe3); /* Cor de fundo arroxeada */
+    background-color: #ffffff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Área que contém o formulário (cresce para empurrar o rodapé para baixo) */
+
+/* ==============================
+   ÁREA PRINCIPAL
+================================= */
+
 .login-wrapper {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 35px 20px;
 }
 
-/* O "Card" do formulário */
+
+/* ==============================
+   LOGO
+================================= */
+
+.page-logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.page-logo img {
+    width: 180px;
+    height: auto;
+    display: block;
+}
+
+
+/* ==============================
+   CARD DO LOGIN
+================================= */
+
 .login-container {
     background-color: #ffffff;
     width: 100%;
     max-width: 400px;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 35px 40px;
+    border-radius: 16px;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     text-align: center;
 }
 
-/* Tamanho corrigido da Logo dentro do Login */
-.logo img {
-    width: 90px; /* Tamanho fixo e controlado */
-    height: auto;
-    margin-bottom: 10px;
+
+/* ==============================
+   BOAS-VINDAS
+================================= */
+
+.welcome-text h2 {
+    font-size: 1.4rem;
+    color: #1B4D3E;
+    margin: 0 0 12px;
 }
 
-.logo h1 { font-size: 1.5rem; color: #1B4D3E; margin: 0; }
-.logo p { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+.welcome-text p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555555;
+    margin: 0 0 25px;
+}
 
-.welcome-text h2 { font-size: 1.3rem; color: #333; }
-.welcome-text p { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
 
-/* Formulário */
-.input-group { text-align: left; margin-bottom: 15px; }
-label { display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px; }
-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+/* ==============================
+   FORMULÁRIO
+================================= */
 
-.password-header { display: flex; justify-content: space-between; }
-.forgot-password { font-size: 0.75rem; color: #780D26; text-decoration: none; font-weight: bold; }
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 7px;
+    color: #222222;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+input:focus {
+    border-color: #780D26;
+}
+
+
+/* ==============================
+   SENHA
+================================= */
+
+.password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-password {
+    font-size: 0.75rem;
+    color: #780D26;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/* ==============================
+   BOTÃO ENTRAR
+================================= */
 
 .btn-primary {
-    width: 100%; padding: 12px; background-color: #1B4D3E; color: white;
-    border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px;
+    width: 100%;
+    padding: 13px;
+    background-color: #780D26;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
-.divider { margin: 15px 0; color: #888; font-size: 0.9rem; }
+.btn-primary:hover {
+    background-color: #650a20;
+}
+
+
+/* ==============================
+   DIVISOR
+================================= */
+
+.divider {
+    margin: 18px 0;
+    color: #555555;
+    font-size: 0.85rem;
+}
+
+
+/* ==============================
+   CRIAR NOVA CONTA
+================================= */
 
 .btn-secondary {
-    display: block; width: 100%; padding: 12px; border: 1px solid #1B4D3E;
-    background: transparent; border-radius: 8px; text-decoration: none;
-    color: #1B4D3E; font-weight: bold; box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #780D26;
+    background-color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #780D26;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
-.terms { font-size: 0.7rem; color: #888; margin-top: 20px; }
+.btn-secondary:hover {
+    background-color: #fff5f7;
+}
 
-/* Rodapé */
+
+/* ==============================
+   TERMOS
+================================= */
+
+.terms {
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: #777777;
+    margin: 20px 0 0;
+}
+
+.terms strong {
+    color: #780D26;
+}
+
+
+/* ==============================
+   RODAPÉ
+================================= */
+
 .main-footer {
-    background-color: #1B4D3E;
-    color: white;
+    background-color: #780D26;
+    color: #ffffff;
     padding: 20px;
     display: flex;
     justify-content: center;
 }
 
-.footer-content { display: flex; align-items: center; gap: 15px; }
-.footer-content img { width: 90px; } /* Logo pequena no rodapé */
-.footer-text { text-align: left; font-size: 0.8rem; }
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-content img {
+    width: 120px;
+    height: auto;
+}
+
+.footer-text {
+    text-align: left;
+    font-size: 0.8rem;
+}
+
+.copyright {
+    margin: 0;
+}
+/* ==============================
+   FUNDO DECORATIVO
+================================= */
+
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+/* Garante que o conteúdo fique acima das decorações */
+
+.login-wrapper,
+.main-footer {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ==============================
+   DECORAÇÕES DO FUNDO
+================================= */
+
+/* Círculo amarelo no canto superior esquerdo */
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background-color: #F2C94C;
+    border-radius: 50%;
+    top: -55px;
+    left: -55px;
+    z-index: 0;
+}
+
+
+/* Curva verde no lado esquerdo */
+
+body::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 18px solid #1B4D3E;
+    border-radius: 50%;
+    left: -120px;
+    top: 35%;
+    z-index: 0;
+}
+
+
+/* ==============================
+   DECORAÇÕES EXTRAS
+================================= */
+
+.login-wrapper::before {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border: 15px solid #780D26;
+    border-radius: 50%;
+    right: -50px;
+    top: 20%;
+    z-index: -1;
+}
+
+
+.login-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: #F2C94C;
+    border-radius: 50%;
+    right: -60px;
+    bottom: 5%;
+    z-index: -1;
+}

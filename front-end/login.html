@@ -2,112 +2,60 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
     <title>Login - iFound Campus Rosário</title>
 </head>
-
 <body>
 
     <main class="login-wrapper">
-
-        <!-- Logo da página -->
-        <div class="page-logo">
-            <img src="Ifound.png" alt="Logo iFound">
-        </div>
-
-        <!-- Card de Login -->
+        <!-- Container Central -->
         <section class="login-container">
+            <div class="logo">
+                <img src="Imagens/logo.png" alt="Logo iFound"> <!-- Ajuste o caminho da imagem aqui -->
+                <h1>iFound</h1>
+                <p>Campus Rosário</p>
+            </div>
 
             <div class="welcome-text">
                 <h2>Bem-vindo de volta!</h2>
-                <p>Entre para continuar conectando<br>
-                pessoas e coisas.</p>
+                <p>Entre para continuar conectando pessoas e coisas.</p>
             </div>
 
             <form action="/login" method="POST" id="login-form">
-
                 <div class="input-group">
                     <label for="user-identifier">E-mail ou matrícula</label>
-
-                    <input
-                        type="text"
-                        id="user-identifier"
-                        name="user_identifier"
-                        placeholder="Digite seu e-mail ou matrícula"
-                        required
-                    >
+                    <input type="text" id="user-identifier" name="user_identifier" placeholder="Digite seu e-mail ou matrícula" required>
                 </div>
 
                 <div class="input-group">
-
                     <div class="password-header">
                         <label for="password">Senha</label>
-
-                        <a href="/recuperar-senha" class="forgot-password">
-                            Esqueceu a senha?
-                        </a>
+                        <a href="/recuperar-senha" class="forgot-password">Esqueceu a senha?</a>
                     </div>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Digite sua senha"
-                        required
-                    >
-
+                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
                 </div>
 
-                <button type="submit" class="btn-primary">
-                    Entrar
-                </button>
+                <button type="submit" class="btn-primary">Entrar</button>
 
-                <div class="divider">
-                    ou
-                </div>
+                <div class="divider">ou</div>
 
-                <a href="/cadastro" class="btn-secondary">
-                    Criar nova conta
-                </a>
-
+                <a href="Cadastro.html" class="btn-secondary">Criar nova conta</a>
             </form>
 
-            <p class="terms">
-                Ao continuar, você concorda com os
-                <strong>Termos de uso</strong> e
-                <strong>Política de privacidade</strong>.
-            </p>
-
+            <p class="terms">Ao continuar, você concorda com os <strong>Termos de uso</strong> e <strong>Política de privacidade</strong>.</p>
         </section>
-
     </main>
 
-
-   <!-- Rodapé -->
-<footer class="main-footer">
-
-    <div class="footer-content">
-
-        <!-- Símbolo do logo -->
-        <img src="logo-rodape.png" alt="Logo iFound">
-
-        <div class="footer-text">
-
-            <h3>iFound Campus Rosário</h3>
-
-            <p class="copyright">
-                © 2024 IFMA Campus Rosário.
-            </p>
-
-            <p class="copyright">
-                Todos os direitos reservados.
-            </p>
-
+    <!-- Rodapé específico da referência -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <img src="Imagens/logo.png" alt="Logo iFound"> <!-- Ajuste o caminho da imagem aqui -->
+            <div class="footer-text">
+                <p class="brand"><strong>iFound</strong> • Campus Rosário</p>
+                <p class="copyright">© 2024 IFMA Campus Rosário. Todos os direitos reservados.</p>
+            </div>
         </div>
+    </footer>
 
-    </div>
-
-</footer>
 </body>
 </html>

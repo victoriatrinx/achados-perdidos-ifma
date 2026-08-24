@@ -1,0 +1,187 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:url(Imagens/background.jpeg) center center/cover no-repeat fixed;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+.cadastro-wrapper{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.cadastro-container{
+    width:100%;
+    max-width:680px;
+    background:#ffffffee;
+    backdrop-filter:blur(5px);
+    border-radius:22px;
+    padding:40px;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo img{
+    width:95px;
+    margin-bottom:8px;
+}
+
+.logo h1{
+    color:#1B4D3E;
+    font-size:34px;
+}
+
+.logo p{
+    color:#666;
+}
+
+.cadastro-text{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.cadastro-text h2{
+    color:#1B4D3E;
+    margin-bottom:8px;
+}
+
+.cadastro-text p{
+    color:#666;
+    line-height:1.5;
+}
+
+.form-row{
+    display:flex;
+    gap:15px;
+}
+
+.input-group{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    margin-bottom:16px;
+}
+
+.input-group label{
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:6px;
+    color:#333;
+}
+
+.input-group input,
+.input-group select{
+    padding:13px;
+    border:1px solid #d3d3d3;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border-color:#1B4D3E;
+    box-shadow:0 0 0 3px rgba(27,77,62,.12);
+}
+
+.terms-check{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size:12px;
+    color:#666;
+    margin-bottom:18px;
+}
+
+.btn-primary{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#7B001C;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-primary:hover{
+    background:#5f0015;
+}
+
+.divider{
+    text-align:center;
+    margin:18px 0;
+    color:#777;
+}
+
+.btn-secondary{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    color:#7B001C;
+    border:1px solid #7B001C;
+    border-radius:10px;
+    padding:13px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn-secondary:hover{
+    background:#7B001C;
+    color:white;
+}
+
+.main-footer{
+    background:#0E5A36;
+    color:white;
+    padding:18px 25px;
+}
+
+.footer-content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+}
+
+.footer-content img{
+    width:70px;
+}
+
+.footer-text{
+    font-size:13px;
+}
+
+@media(max-width:650px){
+
+    .cadastro-container{
+        padding:28px;
+    }
+
+    .form-row{
+        flex-direction:column;
+        gap:0;
+    }
+
+    .footer-content{
+        flex-direction:column;
+        text-align:center;
+    }
+
+}

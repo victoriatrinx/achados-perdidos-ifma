@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="vendas.css">
+
+    <title>iFound - Formulário de Venda</title>
+</head>
+
+<body>
+
+<div class="pagina-ifound">
+
+    <aside class="menu-lateral">
+
+        <div class="marca">
+            <img src="../imagens/Ifound.png" alt="Logo iFound">
+        </div>
+
+        <nav class="menu">
+
+            <a class="menu-item" href="../iFound.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 11.5 12 4l9 7.5v8a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>
+                </svg>
+                <span>Início</span>
+            </a>
+
+            <a class="menu-item" href="../iFound.html#publicacoes">
+                <svg viewBox="0 0 24 24">
+                    <rect x="4" y="3" width="16" height="18" rx="2"/>
+                    <path d="M8 7h8M8 11h8M8 15h5"/>
+                </svg>
+                <span>Mural</span>
+            </a>
+
+            <a class="menu-item destaque" href="../iFound.html#publicar">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 8v8M8 12h8"/>
+                </svg>
+                <span>Publicar</span>
+            </a>
+
+            <a class="menu-item" href="../iFound.html#busca">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m16.5 16.5 4 4"/>
+                </svg>
+                <span>Busca</span>
+            </a>
+
+            <a class="menu-item" href="#">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>
+                </svg>
+                <span>Notificações</span>
+            </a>
+
+        </nav>
+
+        <div class="frase-campus">
+
+            <div class="icone-campus">
+                <svg viewBox="0 0 90 82">
+                    <path d="M7 69V48l18-9v30M25 69V27h18v42M43 69V18h14v51M57 69V39l18 9v21M35 27v-8h-4v-5h8v13M48 18V8h5v10M12 53h8M30 36h8M30 46h8M48 28h6M48 38h6M63 50h7"/>
+                </svg>
+            </div>
+
+            <p>
+                Juntos por um<br>
+                campus mais<br>
+                conectado!
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <main class="conteudo-formulario">
+
+        <div class="decoracao-pontos"></div>
+        <div class="arco arco-laranja"></div>
+
+        <a href="../iFound.html" class="voltar">
+            <span>←</span>
+            Voltar
+        </a>
+
+        <section class="cabecalho-formulario">
+
+            <div class="icone-formulario">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 13 13 20 4 11V4h7z"/>
+                    <circle cx="8.5" cy="8.5" r="1"/>
+                </svg>
+            </div>
+
+            <div>
+                <h1>Formulário de Venda</h1>
+
+                <p>
+                    Anuncie seu item para a comunidade.
+                    Preencha as informações para publicar sua venda.
+                </p>
+            </div>
+
+        </section>
+
+
+        <form class="formulario">
+
+            <div class="grupo-campo">
+
+                <label for="titulo">
+                    Título do item <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    placeholder="Ex: Calculadora científica"
+                    required
+                >
+
+            </div>
+
+
+            <div class="grupo-campo">
+
+                <label for="descricao">
+                    Descrição <span>*</span>
+                </label>
+
+                <div class="textarea-area">
+
+                    <textarea
+                        id="descricao"
+                        name="descricao"
+                        maxlength="350"
+                        placeholder="Conte detalhes sobre o item, estado de conservação, modelo, etc."
+                        required
+                    ></textarea>
+
+                    <span class="contador">0/350</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="grupo-campo">
+
+                <label for="preco">
+                    Preço <span>*</span>
+                </label>
+
+                <input
+                    type="number"
+                    id="preco"
+                    name="preco"
+                    step="0.01"
+                    min="0"
+                    placeholder="Ex: 50,00"
+                    required
+                >
+
+            </div>
+
+
+            <div class="grupo-campo">
+
+                <label for="estado">
+                    Estado do item <span>*</span>
+                </label>
+
+                <select id="estado" name="estado" required>
+
+                    <option value="" selected disabled>
+                        Selecione o estado do item
+                    </option>
+
+                    <option value="novo">
+                        Novo
+                    </option>
+
+                    <option value="seminovo">
+                        Seminovo
+                    </option>
+
+                    <option value="usado">
+                        Usado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="grupo-campo">
+
+                <label for="local">
+                    Local para negociação <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="local"
+                    name="local"
+                    placeholder="Ex: Pátio, biblioteca ou bloco B"
+                    required
+                >
+
+            </div>
+
+
+            <div class="grupo-campo">
+
+                <label>
+                    Fotos
+                </label>
+
+                <label class="upload-area">
+
+                    <input
+                        type="file"
+                        name="fotos"
+                        accept="image/*"
+                        multiple
+                    >
+
+                    <svg class="camera" viewBox="0 0 24 24">
+                        <path d="M4 7h4l1.5-2h5L16 7h4v12H4z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+
+                    <span class="upload-texto">
+                        Selecione ou arraste as fotos
+                    </span>
+
+                    <span class="upload-legenda">
+                        até 3 imagens
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <button type="submit" class="btn-publicar">
+
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 19V5M5 12h14"/>
+                </svg>
+
+                Publicar venda
+
+            </button>
+
+        </form>
+
+    </main>
+
+</div>
+
+</body>
+</html>

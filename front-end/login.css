@@ -77,3 +77,4 @@ input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; 
 .footer-content { display: flex; align-items: center; gap: 15px; }
 .footer-content img { width: 90px; } /* Logo pequena no rodapé */
 .footer-text { text-align: left; font-size: 0.8rem; }
+.input-error { border-color: #780D26; }

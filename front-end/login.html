@@ -21,7 +21,7 @@
                 <p>Entre para continuar conectando pessoas e coisas.</p>
             </div>
 
-            <form action="/login" method="POST" id="login-form">
+            <form id="login-form">
                 <div class="input-group">
                     <label for="user-identifier">E-mail</label>
                     <input type="email" id="user-identifier" name="user_identifier" placeholder="Digite seu e-mail acadêmico" required>
@@ -30,7 +30,7 @@
                 <div class="input-group">
                     <div class="password-header">
                         <label for="password">Senha</label>
-                        <a href="/recuperar-senha" class="forgot-password">Esqueceu a senha?</a>
+                       <a href="RecuperarSenha.html" class="forgot-password">Esqueceu a senha?</a>
                     </div>
                     <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
                 </div>
@@ -56,6 +56,7 @@
             </div>
         </div>
     </footer>
- <script src="login.js"></script>
+<script src="auth.js"></script>
+<script src="login.js"></script>
 </body>
 </html>

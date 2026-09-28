@@ -602,7 +602,9 @@ svg {
     gap: 24px;
     padding: 20px 28px 20px 20px;
     border-radius: 16px;
-    background: #E4F5EB;
+    background-image: url(Imagens/background.jpeg);
+    background-size: cover;
+    background-position: center;
     border: 1px solid #C5E6D3;
     position: relative;
     overflow: hidden;
@@ -622,7 +624,7 @@ svg {
 }
 
 .banner-texto h2 {
-    font-size: 22px;
+    font-size: 35px;
     font-weight: 800;
     color: #12383F;
     max-width: 420px;

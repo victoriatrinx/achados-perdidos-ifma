@@ -1,14 +1,7 @@
 // IFOUND.js
-// Comportamentos da home pré-login do iFound
+// Comportamentos da página inicial do iFound
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    // --- BOTÃO "PUBLICAR ITEM" ---
-    // Só quem está logado pode publicar, então manda pro login
-    document.getElementById('btn-publicar').addEventListener('click', function () {
-        window.location.href = 'login.html';
-    });
-
 
     // --- BUSCA ---
     // Filtra os cards de "Publicações recentes" enquanto a pessoa digita
@@ -16,52 +9,55 @@ document.addEventListener('DOMContentLoaded', function () {
     campoBusca.addEventListener('input', filtrarPublicacoes);
 
 
-    // --- BOTÕES DA BARRA LATERAL (Achados, Perdidos, Doações, Vendas) ---
-    // As páginas de listagem ainda não existem, então por enquanto
-    // avisa que está em construção em vez de dar link quebrado
-    const itensCategoria = document.querySelectorAll('.item-categoria');
+    // --- IMAGENS DOS PRODUTOS ---
+    // Se a foto não existir/carregar, esconde o ícone de imagem quebrada
+    document.querySelectorAll('.foto-item img').forEach(function (img) {
+        function marcarErro() { img.classList.add('sem-imagem'); }
+        img.addEventListener('error', marcarErro);
+        if (img.complete && img.naturalWidth === 0) marcarErro();
+    });
 
-    itensCategoria.forEach(function (item) {
-        item.addEventListener('click', function (event) {
-            event.preventDefault();
-            alert('Essa listagem ainda está em construção.');
+
+    // --- CORAÇÃO (curtir) ---
+    // Alterna o estado e atualiza o contador
+    document.querySelectorAll('.coracao').forEach(function (botao) {
+        botao.addEventListener('click', function () {
+            const contador = botao.querySelector('span');
+            let total = parseInt(contador.textContent, 10) || 0;
+
+            if (botao.classList.toggle('curtido')) {
+                total++;
+            } else {
+                total--;
+            }
+
+            contador.textContent = total;
         });
-    });
-
-
-    // --- "VER TODAS" (publicações recentes) ---
-    // Também não existe página de listagem completa ainda
-    const linkVerTodas = document.querySelector('#cabecalho-publicacoes a');
-    linkVerTodas.addEventListener('click', function (event) {
-        event.preventDefault();
-        alert('Essa página ainda está em construção.');
-    });
-
-
-    // --- BOTÃO "SAIBA MAIS" (banner de gamificação) ---
-    const btnSaibaMais = document.querySelector('#banner-conteudo button');
-    btnSaibaMais.addEventListener('click', function () {
-        alert('Essa página ainda está em construção.');
     });
 
 });
 
 
-// Esconde os cards cujo título não bate com o texto digitado
+// Esconde os cards que não batem com o texto digitado
+// (procura no título, no local/data e na etiqueta do card)
 function filtrarPublicacoes() {
     const termo = document.getElementById('campo-busca').value
         .trim()
         .toLowerCase();
 
     const publicacoes = document.querySelectorAll('.publicacao');
+    let visiveis = 0;
 
     publicacoes.forEach(function (publicacao) {
-        const titulo = publicacao.querySelector('h3').textContent.toLowerCase();
+        const texto = publicacao.textContent.toLowerCase();
 
-        if (termo === '' || titulo.includes(termo)) {
+        if (termo === '' || texto.includes(termo)) {
             publicacao.style.display = '';
+            visiveis++;
         } else {
             publicacao.style.display = 'none';
         }
     });
+
+    document.getElementById('sem-resultado').hidden = visiveis > 0;
 }

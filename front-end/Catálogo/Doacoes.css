@@ -1,0 +1,105 @@
+/* Doacoes.css - só o que é exclusivo da página Doações.
+   O resto (cabeçalho, cards, tags, rodapé) vem do Ifound.css */
+
+.pagina-titulo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pagina-titulo h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    color: var(--verde);
+}
+
+.btn-voltar {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--verde);
+    color: var(--branco);
+    transition: transform .15s ease, background .15s ease;
+}
+
+.btn-voltar svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 2.4;
+}
+
+.btn-voltar:hover {
+    background: var(--verde-medio);
+    transform: translateX(-3px);
+}
+
+/* Cards um pouco mais altos que os da home, como no layout */
+.grid-doacoes {
+    margin-top: 28px;
+    margin-bottom: 8px;
+}
+
+.grid-doacoes .foto-item {
+    height: 170px;
+}
+
+.grid-doacoes .info-item h3 {
+    font-size: 18px;
+}
+
+.grid-doacoes .linha-info {
+    font-size: 14px;
+}
+
+/* Etiqueta amarela "Doação" com ícone de presente */
+.tag-doacao {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amarelo);
+    color: var(--verde);
+}
+
+.tag-doacao svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Rodapé desta página: setinha antes dos links rápidos */
+.rodape-links a::before {
+    content: "›";
+    margin-right: 8px;
+    font-weight: 700;
+    color: var(--amarelo);
+}
+
+@media (max-width: 560px) {
+    .pagina-titulo {
+        gap: 14px;
+    }
+
+    .btn-voltar {
+        width: 48px;
+        height: 48px;
+    }
+
+    .btn-voltar svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .grid-doacoes .foto-item {
+        height: 130px;
+    }
+}

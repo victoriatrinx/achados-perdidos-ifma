@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iFound - Início</title>
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="logo">
+      <img src="Imagens/logo.png" alt="iFound" class="logo-icone">
+      <div class="logo-text">
+        <strong>iFound</strong>
+        <span>Campus Rosário</span>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="inputBusca" placeholder="Pesquisar por item, local, categoria...">
+    </div>
+
+    <div class="user-menu" id="userMenu">
+      <div class="user-avatar">👤</div>
+      <div class="user-text">
+        <strong>Aluno(a)</strong>
+        <span>Trocar conta</span>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+
+      <nav class="sidebar-nav">
+        <a href="home.html" class="nav-item active" data-page="inicio">
+          <span class="nav-icon">🏠</span> Início
+        </a>
+        <a href="#" class="nav-item" data-page="perfil">
+          <span class="nav-icon">👤</span> Meu perfil
+        </a>
+        <a href="publicar.html" class="nav-item">
+          <span class="nav-icon">➕</span> Publicar item
+        </a>
+        <a href="#" class="nav-item" data-page="anuncios">
+          <span class="nav-icon">🏷️</span> Meus anúncios
+        </a>
+        <a href="#" class="nav-item" data-page="mensagens">
+          <span class="nav-icon">💬</span> Mensagens
+          <span class="badge" id="badgeMensagens" hidden></span>
+        </a>
+        <a href="#" class="nav-item" data-page="favoritos">
+          <span class="nav-icon">🤍</span> Favoritos
+        </a>
+        <a href="#" class="nav-item" data-page="config">
+          <span class="nav-icon">⚙️</span> Configurações
+        </a>
+      </nav>
+
+      <!-- "Filtros" agora é a própria aba: um botão verde que abre/fecha
+           o painel inteiro. Dentro dele, cada grupo (Local/Categoria/Data)
+           continua com o próprio accordion e seleção única (radio) -->
+      <div class="filtros-secao aberta" id="secaoFiltros">
+        <button class="filtros-header" id="btnFiltros" type="button">
+          <span class="nav-icon">🎚️</span> Filtros <span class="seta">▾</span>
+        </button>
+
+        <div class="filtros" id="painelFiltros">
+
+          <div class="filtro-grupo">
+            <button class="filtros-titulo" type="button">📍 Local <span class="seta">▾</span></button>
+            <div class="filtros-lista">
+              <label><input type="radio" name="local" value="todos" checked> Todos os locais</label>
+              <label><input type="radio" name="local" value="Biblioteca"> Biblioteca</label>
+              <label><input type="radio" name="local" value="Auditório"> Auditório</label>
+              <label><input type="radio" name="local" value="Sala"> Sala - todas as salas</label>
+              <label><input type="radio" name="local" value="Outros"> Outros - DDE, ônibus e outros locais</label>
+            </div>
+          </div>
+
+          <div class="filtro-grupo">
+            <button class="filtros-titulo" type="button">🏷️ Categoria <span class="seta">▾</span></button>
+            <div class="filtros-lista">
+              <label><input type="radio" name="categoria" value="todas" checked> Todas as categorias</label>
+              <label><input type="radio" name="categoria" value="Achado"> Achados</label>
+              <label><input type="radio" name="categoria" value="Perdido"> Perdidos</label>
+              <label><input type="radio" name="categoria" value="Venda"> Vendas</label>
+              <label><input type="radio" name="categoria" value="Doação"> Doações</label>
+            </div>
+          </div>
+
+          <div class="filtro-grupo">
+            <button class="filtros-titulo" type="button">📅 Data <span class="seta">▾</span></button>
+            <div class="filtros-lista">
+              <label><input type="radio" name="data" value="qualquer" checked> Qualquer data</label>
+              <label><input type="radio" name="data" value="recentes"> Recentes - Ontem e Hoje</label>
+              <label><input type="radio" name="data" value="3dias"> Há 3 dias</label>
+              <label><input type="radio" name="data" value="semana"> Há uma semana</label>
+            </div>
+          </div>
+
+          <button class="btn-aplicar" id="btnAplicarFiltros">Aplicar filtros</button>
+        </div>
+      </div>
+
+      <div class="mascote">
+        <span>🎒</span>
+        <p>Juntos por um Campus mais solidário!</p>
+      </div>
+    </aside>
+
+    <!-- ===================== CONTEÚDO PRINCIPAL ===================== -->
+    <main class="conteudo">
+
+      <section class="boas-vindas">
+        <h1>Olá, Aluno(a)! 👋</h1>
+        <h2>Que bom ter você por aqui!</h2>
+        <p>Aqui você pode encontrar, publicar e trocar itens com a comunidade do IFMA Campus Rosário.</p>
+      </section>
+
+      <section class="publicacoes">
+        <div class="publicacoes-topo">
+          <h3>📣 Publicações recentes</h3>
+          <a href="#" id="linkVerTodas">Ver todas →</a>
+        </div>
+
+        <!-- Os cards são criados pelo JavaScript a partir da lista de itens fictícios -->
+        <div class="grid-cards" id="gridPublicacoes"></div>
+
+        <p class="msg-vazio" id="msgVazio" hidden>Nenhum item encontrado com esses filtros.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="Imagens/logo.png" alt="iFound" class="footer-logo-icone">
+      <div>
+        <strong>iFound</strong>
+        <span>Campus Rosário</span>
+      </div>
+    </div>
+    <p>Plataforma oficial do IFMA Campus Rosário.<br>Achados, Perdidos, Doações e Vendas.</p>
+    <div class="footer-social">
+      <span>📷</span><span>📘</span><span>▶️</span>
+    </div>
+    <p>© 2026 IFMA Campus Rosário.<br>Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="home.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir senha - iFound</title>
+    <!-- O visual base é o mesmo da tela Recuperar senha -->
+    <link rel="stylesheet" href="RecuperarSenha.css">
+    <link rel="stylesheet" href="RedefinirSenha.css">
+</head>
+<body>
+
+    <main class="recuperar-wrapper">
+
+        <!-- Enfeites do design (só visuais) -->
+        <div class="deco deco-pontos"></div>
+        <div class="deco deco-circulo-topo"></div>
+        <div class="deco deco-verde"></div>
+        <div class="deco deco-circulo-amarelo"></div>
+
+        <!-- Cadeado com seta de atualizar, desenhado em SVG -->
+        <svg class="icone-topo" viewBox="0 0 220 170" aria-hidden="true">
+            <g stroke="#F4B400" stroke-width="7" stroke-linecap="round">
+                <line x1="14" y1="72" x2="34" y2="72"/>
+                <line x1="30" y1="34" x2="46" y2="46"/>
+                <line x1="178" y1="34" x2="194" y2="22"/>
+                <line x1="160" y1="16" x2="168" y2="34"/>
+                <line x1="186" y1="72" x2="206" y2="72"/>
+            </g>
+            <path d="M66 70 V48 A30 30 0 0 1 126 48 V70" fill="none" stroke="#8B0A24" stroke-width="16" stroke-linecap="round"/>
+            <rect x="48" y="66" width="100" height="74" rx="14" fill="#8B0A24"/>
+            <circle cx="98" cy="94" r="9" fill="#fff"/>
+            <rect x="93" y="98" width="10" height="24" rx="4" fill="#fff"/>
+            <circle cx="148" cy="112" r="34" fill="#F4B400"/>
+            <path d="M148 92 A20 20 0 1 1 129 108" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+            <polygon points="118,104 138,104 128,120" fill="#fff"/>
+        </svg>
+
+        <h1>Redefinir senha</h1>
+        <p class="subtitulo">
+            Crie uma nova senha para continuar<br>acessando sua conta no iFound.
+        </p>
+
+        <form id="redefinir-form" class="card" novalidate>
+
+            <div class="input-group">
+                <label for="senha">Nova senha <span class="obrigatorio">*</span></label>
+                <div class="campo-icone">
+                    <span class="icone-campo" aria-hidden="true">🔒</span>
+                    <input type="password" id="senha" placeholder="Digite sua nova senha" required>
+                    <button type="button" class="toggle-senha" data-alvo="senha" aria-label="Mostrar ou esconder a senha">👁</button>
+                </div>
+                <p class="dica">A senha deve ter no mínimo 8 caracteres.</p>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmar">Confirmar nova senha <span class="obrigatorio">*</span></label>
+                <div class="campo-icone">
+                    <span class="icone-campo" aria-hidden="true">🔒</span>
+                    <input type="password" id="confirmar" placeholder="Confirme sua nova senha" required>
+                    <button type="button" class="toggle-senha" data-alvo="confirmar" aria-label="Mostrar ou esconder a senha">👁</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Redefinir senha &rarr;</button>
+
+            <a href="login.html" class="voltar voltar-espaco">&larr; Voltar para o login</a>
+        </form>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-colunas">
+
+            <div class="footer-marca">
+                <div class="marca-topo">
+                    <img src="Imagens/logo.png" alt="Logo iFound">
+                    <div>
+                        <strong>iFound</strong>
+                        <span>&bull; Campus Rosário &bull;</span>
+                    </div>
+                </div>
+                <p>Plataforma oficial do IFMA Campus Rosário. Achados, Perdidos, Doações e Vendas da comunidade acadêmica.</p>
+                <div class="redes">
+                    <span>IG</span>
+                    <span>f</span>
+                    <span>&#9654;</span>
+                </div>
+            </div>
+
+            <div>
+                <h3>Links rápidos</h3>
+                <p>Sobre o projeto</p>
+                <p>Regras</p>
+                <p>Dúvidas frequentes</p>
+                <p>Fale conosco</p>
+            </div>
+
+            <div>
+                <h3>Suporte</h3>
+                <p>DDE - Diretoria de Desenvolvimento Educacional</p>
+                <p>&#9993; dde-cro@ifma.edu.br</p>
+                <p>&#9742; (98) 00000-0000</p>
+            </div>
+
+        </div>
+        <p class="copyright">© 2024 IFMA Campus Rosário. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="RedefinirSenha.js"></script>
+</body>
+</html>

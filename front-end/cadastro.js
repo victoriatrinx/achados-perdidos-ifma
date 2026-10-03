@@ -15,10 +15,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formValido = validarFormulario();
 
-        if (formValido) {
-            alert('Cadastro validado com sucesso! (por enquanto sem banco de dados)');
-            // form.submit(); // quando o back-end estiver pronto, descomenta essa linha
-        }
+       if (formValido) {
+    const email = document.getElementById('email');
+
+    const resultado = Auth.cadastrar({
+        nome: document.getElementById('nome').value,
+        email: email.value,
+        curso: document.getElementById('curso').value,
+        telefone: document.getElementById('telefone').value,
+        senha: document.getElementById('senha').value
+    });
+
+    if (resultado.ok) {
+        alert('Conta criada com sucesso! Faça login para entrar.');
+        window.location.href = 'login.html';
+    } else {
+        mostrarErro(email, resultado.mensagem);
+    }
+}
     });
 
 });

@@ -11,12 +11,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formValido = validarLogin();
 
-        if (formValido) {
-            alert('Login validado com sucesso! (por enquanto sem banco de dados)');
-            // form.submit(); // quando o back-end estiver pronto, descomenta essa linha
-        }
-    });
+       if (formValido) {
+    const email = document.getElementById('user-identifier');
+    const senha = document.getElementById('password');
 
+    const resultado = Auth.entrar(email.value, senha.value);
+
+    if (resultado.ok) {
+        window.location.href = 'Home.html';
+        } else {
+        mostrarErro(senha, resultado.mensagem);
+        }
+   }
+ });
 });
 
 

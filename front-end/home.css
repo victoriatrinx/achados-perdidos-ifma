@@ -132,10 +132,11 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   gap: 4px;
 }
-/* "Filtros" é a própria aba: botão verde que abre/fecha tudo */
+/* "Filtros" é a própria aba, mas com o visual normal (igual aos
+   outros botões da sidebar) — só abre/fecha o painel ao clicar */
 .filtros-header {
   width: 100%;
-  background: var(--verde-claro);
+  background: none;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -147,7 +148,7 @@ a { text-decoration: none; color: inherit; }
   gap: 10px;
   cursor: pointer;
 }
-.filtros-header:hover { background: var(--verde-principal); }
+.filtros-header:hover { background: rgba(255,255,255,.08); }
 .filtros-header .seta { margin-left: auto; }
 
 /* Painel (Local/Categoria/Data) só aparece quando a aba está aberta */
@@ -206,10 +207,15 @@ a { text-decoration: none; color: inherit; }
 .mascote {
   margin-top: auto;
   text-align: center;
-  font-size: 12px;
-  opacity: .9;
+  padding: 0 8px;
 }
-.mascote span { font-size: 30px; display: block; }
+.mascote p {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--amarelo);
+  line-height: 1.2;
+}
 
 /* ===================== CONTEÚDO PRINCIPAL ===================== */
 .conteudo { flex: 1; padding: 28px; }
@@ -305,6 +311,64 @@ a { text-decoration: none; color: inherit; }
 .footer-logo-icone { width: 30px; height: 30px; object-fit: contain; }
 .footer-logo div { display: flex; flex-direction: column; text-align: left; }
 .footer-social { display: flex; gap: 12px; font-size: 16px; }
+
+/* ===================== TELA DE CATEGORIAS (Achado/Perdido/Doação/Venda) ===================== */
+.areas-container {
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.area-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--cinza-escuro);
+  transition: transform .15s ease;
+}
+.area-card:hover { transform: translateY(-2px); }
+
+.area-icone {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+}
+
+.area-seta { margin-left: auto; font-size: 20px; }
+
+/* Cada categoria usa a cor correspondente do mural */
+.area-achado { background: #E3F2E9; }
+.area-achado .area-icone { background: var(--verde-principal); }
+
+.area-perdido { background: #FCE4E4; }
+.area-perdido .area-icone { background: var(--vermelho); }
+
+.area-doacao { background: #FDF1D6; }
+.area-doacao .area-icone { background: var(--amarelo); color: var(--cinza-escuro); }
+
+.area-venda { background: #DFEFEC; }
+.area-venda .area-icone { background: #0E7C6B; }
+
+@media (max-width: 600px) {
+  .areas-grid { grid-template-columns: 1fr; }
+}
 
 /* ===================== RESPONSIVO ===================== */
 @media (max-width: 900px) {

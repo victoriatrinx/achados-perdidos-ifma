@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iFound - Início</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="home.css">
 </head>
 <body>
@@ -63,10 +65,11 @@
         </a>
       </nav>
 
-      <!-- "Filtros" agora é a própria aba: um botão verde que abre/fecha
-           o painel inteiro. Dentro dele, cada grupo (Local/Categoria/Data)
-           continua com o próprio accordion e seleção única (radio) -->
-      <div class="filtros-secao aberta" id="secaoFiltros">
+      <!-- "Filtros" agora é a própria aba: um botão (visual normal, igual
+           aos outros da sidebar) que abre/fecha o painel inteiro. Dentro
+           dele, cada grupo (Local/Categoria/Data) continua com o próprio
+           accordion e seleção única (radio) -->
+      <div class="filtros-secao" id="secaoFiltros">
         <button class="filtros-header" id="btnFiltros" type="button">
           <span class="nav-icon">🎚️</span> Filtros <span class="seta">▾</span>
         </button>
@@ -110,7 +113,6 @@
       </div>
 
       <div class="mascote">
-        <span>🎒</span>
         <p>Juntos por um Campus mais solidário!</p>
       </div>
     </aside>

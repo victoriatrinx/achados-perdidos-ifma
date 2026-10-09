@@ -1,162 +1,129 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iFound - Início</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Início</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="home.css">
 </head>
 <body>
 
-  <!-- ===================== HEADER ===================== -->
-  <header class="header">
-    <div class="logo">
-      <img src="Imagens/logo.png" alt="iFound" class="logo-icone">
-      <div class="logo-text">
-        <strong>iFound</strong>
-        <span>Campus Rosário</span>
-      </div>
-    </div>
-
-    <div class="search-bar">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="inputBusca" placeholder="Pesquisar por item, local, categoria...">
-    </div>
-
-    <div class="user-menu" id="userMenu">
-      <div class="user-avatar">👤</div>
-      <div class="user-text">
-        <strong>Aluno(a)</strong>
-        <span>Trocar conta</span>
-      </div>
-      <span class="chevron">▾</span>
-    </div>
-  </header>
-
-  <div class="layout">
-
-    <!-- ===================== SIDEBAR ===================== -->
-    <aside class="sidebar">
-
-      <nav class="sidebar-nav">
-        <a href="home.html" class="nav-item active" data-page="inicio">
-          <span class="nav-icon">🏠</span> Início
-        </a>
-        <a href="#" class="nav-item" data-page="perfil">
-          <span class="nav-icon">👤</span> Meu perfil
-        </a>
-        <a href="publicar.html" class="nav-item">
-          <span class="nav-icon">➕</span> Publicar item
-        </a>
-        <a href="#" class="nav-item" data-page="anuncios">
-          <span class="nav-icon">🏷️</span> Meus anúncios
-        </a>
-        <a href="#" class="nav-item" data-page="mensagens">
-          <span class="nav-icon">💬</span> Mensagens
-          <span class="badge" id="badgeMensagens" hidden></span>
-        </a>
-        <a href="#" class="nav-item" data-page="favoritos">
-          <span class="nav-icon">🤍</span> Favoritos
-        </a>
-        <a href="#" class="nav-item" data-page="config">
-          <span class="nav-icon">⚙️</span> Configurações
-        </a>
-      </nav>
-
-      <!-- "Filtros" agora é a própria aba: um botão (visual normal, igual
-           aos outros da sidebar) que abre/fecha o painel inteiro. Dentro
-           dele, cada grupo (Local/Categoria/Data) continua com o próprio
-           accordion e seleção única (radio) -->
-      <div class="filtros-secao" id="secaoFiltros">
-        <button class="filtros-header" id="btnFiltros" type="button">
-          <span class="nav-icon">🎚️</span> Filtros <span class="seta">▾</span>
-        </button>
-
-        <div class="filtros" id="painelFiltros">
-
-          <div class="filtro-grupo">
-            <button class="filtros-titulo" type="button">📍 Local <span class="seta">▾</span></button>
-            <div class="filtros-lista">
-              <label><input type="radio" name="local" value="todos" checked> Todos os locais</label>
-              <label><input type="radio" name="local" value="Biblioteca"> Biblioteca</label>
-              <label><input type="radio" name="local" value="Auditório"> Auditório</label>
-              <label><input type="radio" name="local" value="Sala"> Sala - todas as salas</label>
-              <label><input type="radio" name="local" value="Outros"> Outros - DDE, ônibus e outros locais</label>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <button class="filtros-titulo" type="button">🏷️ Categoria <span class="seta">▾</span></button>
-            <div class="filtros-lista">
-              <label><input type="radio" name="categoria" value="todas" checked> Todas as categorias</label>
-              <label><input type="radio" name="categoria" value="Achado"> Achados</label>
-              <label><input type="radio" name="categoria" value="Perdido"> Perdidos</label>
-              <label><input type="radio" name="categoria" value="Venda"> Vendas</label>
-              <label><input type="radio" name="categoria" value="Doação"> Doações</label>
-            </div>
-          </div>
-
-          <div class="filtro-grupo">
-            <button class="filtros-titulo" type="button">📅 Data <span class="seta">▾</span></button>
-            <div class="filtros-lista">
-              <label><input type="radio" name="data" value="qualquer" checked> Qualquer data</label>
-              <label><input type="radio" name="data" value="recentes"> Recentes - Ontem e Hoje</label>
-              <label><input type="radio" name="data" value="3dias"> Há 3 dias</label>
-              <label><input type="radio" name="data" value="semana"> Há uma semana</label>
-            </div>
-          </div>
-
-          <button class="btn-aplicar" id="btnAplicarFiltros">Aplicar filtros</button>
-        </div>
-      </div>
-
-      <div class="mascote">
-        <p>Juntos por um Campus mais solidário!</p>
-      </div>
-    </aside>
-
-    <!-- ===================== CONTEÚDO PRINCIPAL ===================== -->
-    <main class="conteudo">
-
-      <section class="boas-vindas">
-        <h1>Olá, Aluno(a)! 👋</h1>
-        <h2>Que bom ter você por aqui!</h2>
-        <p>Aqui você pode encontrar, publicar e trocar itens com a comunidade do IFMA Campus Rosário.</p>
-      </section>
-
-      <section class="publicacoes">
-        <div class="publicacoes-topo">
-          <h3>📣 Publicações recentes</h3>
-          <a href="#" id="linkVerTodas">Ver todas →</a>
-        </div>
-
-        <!-- Os cards são criados pelo JavaScript a partir da lista de itens fictícios -->
-        <div class="grid-cards" id="gridPublicacoes"></div>
-
-        <p class="msg-vazio" id="msgVazio" hidden>Nenhum item encontrado com esses filtros.</p>
-      </section>
-
-    </main>
+<header class="topo">
+  <div class="topo-logo">
+    <a class="logo" href="home.html" aria-label="iFound, página inicial">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+    </a>
   </div>
+  <div class="topo-busca">
+    <button class="btn-aba" id="btnAba" aria-controls="aba" aria-expanded="true" aria-label="Mostrar ou esconder o menu">
+      <span></span><span></span><span></span>
+    </button>
+    <label class="busca">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input type="search" id="busca" placeholder="Pesquisar por item, local, categoria...">
+    </label>
+  </div>
+  <button class="topo-user" type="button">
+    <span class="avatar"></span>
+    <span>Aluno(a)<br>Trocar conta</span>
+  </button>
+</header>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="footer-logo">
-      <img src="Imagens/logo.png" alt="iFound" class="footer-logo-icone">
-      <div>
-        <strong>iFound</strong>
-        <span>Campus Rosário</span>
-      </div>
-    </div>
-    <p>Plataforma oficial do IFMA Campus Rosário.<br>Achados, Perdidos, Doações e Vendas.</p>
-    <div class="footer-social">
-      <span>📷</span><span>📘</span><span>▶️</span>
-    </div>
-    <p>© 2026 IFMA Campus Rosário.<br>Todos os direitos reservados.</p>
-  </footer>
+<nav class="aba" id="aba" aria-label="Menu principal">
+  <a class="nav-item ativo" href="home.html" aria-current="page"><i>🏠</i>Início</a>
+  <a class="nav-item" href="meu-perfil.html"><i>👤</i>Meu perfil</a>
+  <a class="nav-item" href="publicar-item.html"><i>➕</i>Publicar item</a>
+  <a class="nav-item" href="meus-anuncios.html"><i>🏷️</i>Meus anúncios</a>
+  <a class="nav-item" href="mensagens.html"><i>💬</i>Mensagens</a>
+  <a class="nav-item" href="favoritos.html"><i>🤍</i>Favoritos</a>
+  <a class="nav-item" href="configuracoes.html"><i>⚙️</i>Configurações<span class="seta">⌄</span></a>
 
-  <script src="home.js"></script>
+  <button class="nav-item nav-filtros" id="btnFiltros" aria-expanded="false" aria-controls="painelFiltros">
+    <i>🔻</i>Filtros<span class="seta">⌄</span>
+  </button>
+  <form class="filtros" id="painelFiltros" hidden>
+    <label>Categoria
+      <select id="fCategoria">
+        <option value="">Todas as categorias</option>
+        <option>Achado</option><option>Perdido</option><option>Doação</option><option>Venda</option>
+      </select>
+    </label>
+    <label>Local
+      <input type="text" id="fLocal" placeholder="Buscar local...">
+    </label>
+    <div class="chips" id="chipsLocais">
+      <button type="button">Biblioteca</button><button type="button">Corredor</button>
+      <button type="button">Auditório</button><button type="button">Pátio</button>
+      <button type="button">Sala</button><button type="button">Bloco</button>
+    </div>
+    <label>Data
+      <select id="fData">
+        <option value="">Qualquer data</option>
+        <option value="2">Últimos 2 dias</option>
+        <option value="7">Últimos 7 dias</option>
+        <option value="30">Últimos 30 dias</option>
+      </select>
+    </label>
+    <button type="submit" class="btn-aplicar">Aplicar filtros</button>
+    <button type="reset" class="btn-limpar">Limpar filtros</button>
+  </form>
+
+  <p class="aba-lema">Juntos por<br>um campus<br>mais solidário!</p>
+</nav>
+
+<main class="pagina">
+  <section class="boas-vindas">
+    <div>
+      <h1>Olá, Aluno(a)! 👋</h1>
+      <h2>Que bom ter você por aqui!</h2>
+      <p>Aqui você pode encontrar, publicar e trocar itens com a comunidade do IFMA Campus Rosário.</p>
+    </div>
+    <p class="recado">Pequenos gestos também fazem a diferença!</p>
+  </section>
+
+  <section aria-labelledby="tituloRecentes">
+    <div class="secao-topo">
+      <h3 id="tituloRecentes"><i>📣</i>Publicações recentes</h3>
+      <a class="ver-todas" href="catalogo.html" data-pagina>Ver todas →</a>
+    </div>
+    <div class="grade" id="grade" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="rodape-col">
+    <a class="logo" href="home.html">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+    </a>
+    <p>Plataforma oficial do IFMA Campus Rosário, para Achados, Perdidos, Doações e Vendas.</p>
+    <div class="redes">
+      <a href="#" data-manutencao aria-label="Instagram">IG</a>
+      <a href="#" data-manutencao aria-label="Facebook">f</a>
+      <a href="#" data-manutencao aria-label="YouTube">▶</a>
+    </div>
+  </div>
+  <div class="rodape-col">
+    <h4>Links rápidos</h4>
+    <a href="#" data-manutencao>Sobre o projeto</a>
+    <a href="#" data-manutencao>Regras</a>
+    <a href="#" data-manutencao>Dúvidas frequentes</a>
+    <a href="#" data-manutencao>Fale conosco</a>
+  </div>
+  <div class="rodape-col">
+    <h4>Suporte</h4>
+    <p>DDE - Diretoria de Desenvolvimento Educacional</p>
+    <a href="#" data-manutencao>✉️ dde.ar@ifma.edu.br</a>
+    <a href="#" data-manutencao>📞 (98) 00000-0000</a>
+  </div>
+  <p class="direitos">© 2026 IFMA, Campus Rosário. Todos os direitos reservados.</p>
+</footer>
+
+<div class="aviso" id="aviso" role="status"></div>
+<script src="home.js"></script>
 </body>
 </html>

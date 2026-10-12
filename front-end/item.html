@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detalhes do item • iFound</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="item.css">
+</head>
+<body>
+
+  <main class="tela" id="tela">
+
+    <!-- Topo -->
+    <header class="topo">
+      <button class="btn-icone" id="btnVoltar" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <a class="marca" href="home.html" aria-label="iFound — Campus Rosário">
+        <img src="Imagens/logo.png" alt="" height="54" onerror="this.style.display='none'">
+        <span class="marca-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+      </a>
+    </header>
+
+    <!-- Conteúdo do item (preenchido pelo JS) -->
+    <section id="conteudo"></section>
+
+  </main>
+
+  <!-- Painel de denúncia -->
+  <div class="fundo" id="fundo" hidden></div>
+  <section class="painel" id="painel" role="dialog" aria-modal="true" aria-labelledby="painelTitulo" hidden>
+    <div class="painel-topo">
+      <h2 id="painelTitulo">Denunciar anúncio</h2>
+      <button class="btn-icone" id="btnFechar" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <!-- Passo 1: escolher motivo -->
+    <div id="passoMotivo">
+      <p class="painel-sub">Selecione o motivo da denúncia:</p>
+      <div class="motivos" id="listaMotivos"></div>
+      <button class="btn btn-verde btn-largo" id="btnContinuar" disabled>Continuar</button>
+    </div>
+
+    <!-- Passo 2: descrever (só para "Outro") -->
+    <div id="passoTexto" hidden>
+      <div class="motivo-escolhido"><span class="radio marcado"></span><span>Outro</span></div>
+      <label class="painel-sub" for="textoDenuncia">Descreva o motivo da denúncia:</label>
+      <textarea id="textoDenuncia" maxlength="500" placeholder="Ex.: O anúncio não condiz com a imagem ou com a descrição..."></textarea>
+      <div class="contador" id="contador">0/500</div>
+      <p class="erro" id="erroTexto" hidden>Descreva o motivo para enviar a denúncia.</p>
+      <div class="painel-botoes">
+        <button class="btn btn-claro" id="btnVoltarPasso">Voltar</button>
+        <button class="btn btn-verde" id="btnEnviar">Enviar</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="dados.js"></script>
+  <script src="item.js"></script>
+</body>
+</html>

@@ -1,6 +1,25 @@
 /* Código que toda página interna usa: aba lateral, filtros e avisos.
    Carregue o dados-perfil.js e depois este arquivo, ANTES do JS da própria página. */
 
+/* Mostra erros na própria tela (faixa vermelha embaixo). Ajuda enquanto o site está sendo feito;
+   quando tudo estiver pronto, pode apagar este bloco. */
+function erroNaTela(t){
+  let d = document.getElementById("erroTela");
+  if(!d){
+    d = document.createElement("div"); d.id = "erroTela";
+    d.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:999;background:#b00020;color:#fff;padding:10px 14px;font:600 14px/1.4 sans-serif";
+    document.body.appendChild(d);
+  }
+  if(!d.textContent) d.textContent = "ERRO: " + t;   /* mostra só o primeiro erro (é o que causa os outros) */
+}
+window.addEventListener("error", e => {
+  if(e.target && e.target.tagName === "SCRIPT") erroNaTela("não consegui carregar " + e.target.getAttribute("src"));
+  else if(e.message) erroNaTela(e.message + " (" + String(e.filename || "").split("/").pop() + ", linha " + e.lineno + ")");
+}, true);
+if(typeof lerPerfil === "undefined"){
+  erroNaTela("o dados-perfil.js não carregou. Ele precisa estar na mesma pasta e vir ANTES do comum.js no HTML.");
+}
+
 /* Páginas que já estão prontas. Quando terminar uma, adicione aqui (e no home.js). */
 const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html"];
 

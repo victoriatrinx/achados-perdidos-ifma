@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Meu perfil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-logo">
+    <a href="home.html" aria-label="iFound, página inicial">
+      <img src="Imagens/logo-completo.png" alt="iFound Campus Rosário">
+    </a>
+  </div>
+  <div class="topo-busca">
+    <button class="btn-aba" id="btnAba" aria-controls="aba" aria-expanded="true" aria-label="Mostrar ou esconder o menu">
+      <span></span><span></span><span></span>
+    </button>
+    <label class="busca">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input type="search" id="busca" placeholder="Pesquisar por item, local, categoria...">
+    </label>
+  </div>
+  <button class="topo-user" type="button">
+    <span class="avatar" id="topoAvatar"></span>
+    <span><span id="topoNome">Aluno(a)</span><br>Trocar conta</span>
+  </button>
+</header>
+
+<nav class="aba" id="aba" aria-label="Menu principal">
+  <a class="nav-item" href="home.html"><i>🏠</i>Início</a>
+  <a class="nav-item ativo" href="perfil.html" aria-current="page"><i>👤</i>Meu perfil</a>
+  <a class="nav-item" href="publicar-item.html"><i>➕</i>Publicar item</a>
+  <a class="nav-item" href="meus-anuncios.html"><i>🏷️</i>Meus anúncios</a>
+  <a class="nav-item" href="mensagens.html"><i>💬</i>Mensagens</a>
+  <a class="nav-item" href="favoritos.html"><i>🤍</i>Favoritos</a>
+
+  <button class="nav-item nav-filtros" id="btnFiltros" aria-expanded="false" aria-controls="painelFiltros">
+    <i>🔻</i>Filtros<span class="seta">⌄</span>
+  </button>
+  <form class="filtros" id="painelFiltros" hidden>
+    <label>Categoria
+      <select id="fCategoria">
+        <option value="">Todas as categorias</option>
+        <option>Achado</option><option>Perdido</option><option>Doação</option><option>Venda</option>
+      </select>
+    </label>
+    <label>Local
+      <input type="text" id="fLocal" placeholder="Buscar local...">
+    </label>
+    <div class="chips" id="chipsLocais">
+      <button type="button">Biblioteca</button><button type="button">Corredor</button>
+      <button type="button">Auditório</button><button type="button">Pátio</button>
+      <button type="button">Sala</button><button type="button">Bloco</button>
+    </div>
+    <label>Data
+      <select id="fData">
+        <option value="">Qualquer data</option>
+        <option value="2">Últimos 2 dias</option>
+        <option value="7">Últimos 7 dias</option>
+        <option value="30">Últimos 30 dias</option>
+      </select>
+    </label>
+    <button type="submit" class="btn-aplicar">Aplicar filtros</button>
+    <button type="reset" class="btn-limpar">Limpar filtros</button>
+  </form>
+
+  <p class="aba-lema">Juntos por<br>um campus<br>mais solidário!</p>
+</nav>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="tituloPerfil">
+    <div class="perfil-titulo">
+      <a class="voltar" href="home.html" aria-label="Voltar para o início">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>
+      </a>
+      <h1 id="tituloPerfil">Perfil</h1>
+    </div>
+
+    <!-- Dados da pessoa -->
+    <article class="perfil-cartao perfil-dados">
+      <div class="perfil-foto-box">
+        <span class="perfil-foto" id="perfilFoto" aria-hidden="true"></span>
+        <button class="btn-camera" id="btnCamera" type="button" aria-label="Trocar foto de perfil">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        </button>
+      </div>
+      <div class="perfil-nome">
+        <h2 id="perfilNome">Aluno(a)</h2>
+        <p id="perfilUsuario">@aluno(a)</p>
+      </div>
+      <button class="btn-editar" id="btnEditar" type="button" aria-label="Editar perfil">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L17 4l3 3L8 19z"/><path d="M14 7l3 3"/></svg>
+      </button>
+    </article>
+
+    <!-- Números -->
+    <article class="perfil-cartao perfil-numeros">
+      <div class="numero">
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4h4l7 4V6L7 10z"/><path d="M17.5 9a4 4 0 010 6"/></svg>
+        </span>
+        <p><strong id="statAnuncios">0</strong><span>Anúncios publicados</span></p>
+      </div>
+      <div class="numero">
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.600-7 10-7 10z"/></svg>
+        </span>
+        <p><strong id="statFavoritos">0</strong><span>Favoritos</span></p>
+      </div>
+    </article>
+
+    <!-- Atalhos -->
+    <nav class="perfil-cartao perfil-atalhos" aria-label="Atalhos do perfil">
+      <a class="atalho" href="meus-anuncios.html" data-pagina>
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 4h6"/></svg>
+        </span>
+        <span class="atalho-texto"><strong>Meus Anúncios</strong><small>Gerencie suas publicações</small></span>
+        <span class="atalho-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="atalho" href="favoritos.html" data-pagina>
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.400-7-10a4 4 0 017-2.600A4 4 0 0119 10c0 5.600-7 10-7 10z"/></svg>
+        </span>
+        <span class="atalho-texto"><strong>Favoritos</strong><small>Itens que você salvou</small></span>
+        <span class="atalho-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="atalho" href="historico.html" data-pagina>
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <span class="atalho-texto"><strong>Histórico</strong><small>Seus itens visualizados</small></span>
+        <span class="atalho-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="atalho" href="configuracoes.html" data-pagina>
+        <span class="icone-redondo">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.900 4.900l2.100 2.100M17 17l2.100 2.100M4.900 19.100L7 17M17 7l2.100-2.100"/></svg>
+        </span>
+        <span class="atalho-texto"><strong>Configurações</strong><small>Gerencie sua conta e preferências</small></span>
+        <span class="atalho-seta" aria-hidden="true">›</span>
+      </a>
+    </nav>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="rodape-col">
+    <a class="logo" href="home.html">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+    </a>
+    <p>Plataforma oficial do IFMA Campus Rosário, para Achados, Perdidos, Doações e Vendas.</p>
+    <div class="redes">
+      <a href="#" data-manutencao aria-label="Instagram">IG</a>
+      <a href="#" data-manutencao aria-label="Facebook">f</a>
+      <a href="#" data-manutencao aria-label="YouTube">▶</a>
+    </div>
+  </div>
+  <div class="rodape-col">
+    <h4>Links rápidos</h4>
+    <a href="#" data-manutencao>Sobre o projeto</a>
+    <a href="#" data-manutencao>Regras</a>
+    <a href="#" data-manutencao>Dúvidas frequentes</a>
+    <a href="#" data-manutencao>Fale conosco</a>
+  </div>
+  <div class="rodape-col">
+    <h4>Suporte</h4>
+    <p>DDE - Diretoria de Desenvolvimento Educacional</p>
+    <a href="#" data-manutencao>✉️ dde.ar@ifma.edu.br</a>
+    <a href="#" data-manutencao>📞 (98) 00000-0000</a>
+    <a class="rodape-legal" href="#" data-manutencao>Termos de Uso</a>
+    <a class="rodape-legal" href="#" data-manutencao>Política de Privacidade</a>
+  </div>
+  <p class="direitos">© 2026 IFMA, Campus Rosário. Todos os direitos reservados.</p>
+</footer>
+
+<input type="file" id="arquivoFoto" accept="image/*" hidden>
+
+<dialog class="modal" id="modalEditar" aria-labelledby="tituloEditar">
+  <form id="formEditar" method="dialog">
+    <h2 id="tituloEditar">Editar perfil</h2>
+    <label>Nome
+      <input type="text" id="campoNome" maxlength="40" required autocomplete="name">
+    </label>
+    <label>Nome de usuário
+      <input type="text" id="campoUsuario" maxlength="24" required autocomplete="username" placeholder="@seunome">
+    </label>
+    <p class="modal-erro" id="modalErro" role="alert" hidden></p>
+    <div class="modal-botoes">
+      <button type="button" class="modal-cancelar" id="btnCancelar">Cancelar</button>
+      <button type="submit" class="modal-salvar">Salvar alterações</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="aviso" id="aviso" role="status"></div>
+<script src="perfil.js"></script>
+</body>
+</html>

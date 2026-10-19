@@ -1,5 +1,5 @@
 /* Páginas que já estão prontas. Quando terminar uma, adicione o nome do arquivo aqui. */
-const PRONTAS = ["home.html"];
+const PRONTAS = ["home.html", "perfil.html"];
 
 /* ---------- Dados (trocar pelo back-end depois) ---------- */
 const ITENS = [
@@ -121,3 +121,8 @@ document.addEventListener("click", e => {
 
 /* ---------- Início ---------- */
 buscarItens().then(d => { todos = d; filtrar(); });
+const p = new URLSearchParams(location.search);
+  if(p.get("q")) $("#busca").value = p.get("q");
+  if(p.get("cat")) $("#fCategoria").value = p.get("cat");
+  if(p.get("local")) $("#fLocal").value = p.get("local");
+  if(p.get("data")) $("#fData").value = p.get("data");

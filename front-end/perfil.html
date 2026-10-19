@@ -9,13 +9,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="perfil.css">
+<script>
+/* Diagnóstico TEMPORÁRIO: mostra erros do perfil na própria página (pode apagar depois) */
+function erroNaTela(t){
+  var d = document.getElementById("erroTela");
+  if(!d){
+    d = document.createElement("div"); d.id = "erroTela";
+    d.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:999;background:#b00020;color:#fff;padding:10px 14px;font:600 14px/1.4 sans-serif";
+    document.body.appendChild(d);
+  }
+  d.textContent = "ERRO: " + t;
+}
+window.addEventListener("error", function(e){
+  if(e.target && e.target.tagName === "SCRIPT") erroNaTela("não consegui carregar " + e.target.getAttribute("src"));
+  else if(e.message) erroNaTela(e.message + " (" + String(e.filename || "").split("/").pop() + ", linha " + e.lineno + ")");
+}, true);
+window.addEventListener("load", function(){
+  if(!window.__perfilJs) erroNaTela("o perfil.js não rodou. Ele precisa estar na mesma pasta do perfil.html.");
+});
+</script>
 </head>
 <body>
 
 <header class="topo">
   <div class="topo-logo">
-    <a href="home.html" aria-label="iFound, página inicial">
-      <img src="Imagens/logo-completo.png" alt="iFound Campus Rosário">
+    <a class="logo" href="home.html" aria-label="iFound, página inicial">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
     </a>
   </div>
   <div class="topo-busca">
@@ -183,24 +203,8 @@
 
 <input type="file" id="arquivoFoto" accept="image/*" hidden>
 
-<dialog class="modal" id="modalEditar" aria-labelledby="tituloEditar">
-  <form id="formEditar" method="dialog">
-    <h2 id="tituloEditar">Editar perfil</h2>
-    <label>Nome
-      <input type="text" id="campoNome" maxlength="40" required autocomplete="name">
-    </label>
-    <label>Nome de usuário
-      <input type="text" id="campoUsuario" maxlength="24" required autocomplete="username" placeholder="@seunome">
-    </label>
-    <p class="modal-erro" id="modalErro" role="alert" hidden></p>
-    <div class="modal-botoes">
-      <button type="button" class="modal-cancelar" id="btnCancelar">Cancelar</button>
-      <button type="submit" class="modal-salvar">Salvar alterações</button>
-    </div>
-  </form>
-</dialog>
-
 <div class="aviso" id="aviso" role="status"></div>
+<script src="comum.js"></script>
 <script src="perfil.js"></script>
 </body>
 </html>

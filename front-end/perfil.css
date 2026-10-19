@@ -1,8 +1,11 @@
 /* Perfil: usa as variáveis e o layout do home.css */
 
 /* Painel que envolve a página */
+.pagina:has(.perfil-painel){display:flex}
 .perfil-painel{
-  max-width:1000px;
+  flex:1;
+  min-width:0;
+  align-content:start;
   background:#f1faf6;
   border:1px solid #d6e9e0;
   border-radius:18px;

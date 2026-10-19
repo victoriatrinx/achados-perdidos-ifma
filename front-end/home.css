@@ -123,3 +123,6 @@ h3 i{font-style:normal;font-size:1.8rem}
   .rodape{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.avatar.com-foto{background-size:cover;background-position:center}
+.avatar.com-foto::before,.avatar.com-foto::after{display:none}

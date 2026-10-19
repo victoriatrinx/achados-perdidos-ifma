@@ -126,3 +126,8 @@ const p = new URLSearchParams(location.search);
   if(p.get("cat")) $("#fCategoria").value = p.get("cat");
   if(p.get("local")) $("#fLocal").value = p.get("local");
   if(p.get("data")) $("#fData").value = p.get("data");
+  /* ---------- Perfil no topo e na saudação ---------- */
+const perfilHome = lerPerfil();
+mostrarTopo(perfilHome);
+const saudacao = $("#saudacao");
+if(saudacao) saudacao.textContent = "Olá, " + perfilHome.nome.split(" ")[0] + "! 👋";

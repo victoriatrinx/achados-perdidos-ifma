@@ -1,0 +1,69 @@
+/* Configurações: usa as variáveis e o layout do home.css */
+
+.pagina:has(.cfg){display:flex}
+.cfg{flex:1;min-width:0;display:grid;gap:16px;align-content:start}
+
+/* Barra de título */
+.cfg-barra{
+  display:flex;align-items:center;gap:18px;
+  background:var(--verde-medio);color:#fff;
+  border-radius:16px;padding:14px 22px;
+}
+.cfg-barra h1{font-size:1.8rem;font-weight:700}
+.cfg-voltar{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#fff}
+.cfg-voltar:hover{background:#ffffff26}
+
+/* Lista */
+.cfg-lista{
+  background:#f1faf6;
+  border:2px solid #b7e0cf;
+  border-radius:18px;
+  padding:6px 26px;
+  display:grid;
+}
+.cfg-item{
+  display:flex;align-items:center;gap:26px;
+  padding:20px 4px;
+  color:var(--verde-escuro);
+}
+.cfg-item + .cfg-item{border-top:2px solid #cfe9dc}
+.cfg-icone{flex:none;width:44px;display:grid;place-items:center}
+.cfg-nome{flex:1;font-size:1.2rem;font-weight:700}
+.cfg-seta{font-size:2.2rem;line-height:1;transition:transform .15s}
+.cfg-item:hover .cfg-nome{text-decoration:underline}
+.cfg-item:hover .cfg-seta{transform:translateX(4px)}
+
+/* Sair da conta */
+.cfg-sair{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  width:100%;padding:20px;
+  background:#f8dfe3;color:#b3122e;
+  border:0;border-radius:16px;
+  font-size:1.2rem;font-weight:700;cursor:pointer;
+}
+.cfg-sair:hover{background:#f3cdd3}
+
+/* Confirmação de saída */
+.cfg-modal{
+  border:0;border-radius:18px;padding:26px;
+  width:min(400px,calc(100vw - 28px));
+  background:var(--card);color:var(--texto);
+  box-shadow:0 12px 40px #0b3b2b66;
+}
+.cfg-modal::backdrop{background:#0b3b2b99}
+.cfg-modal h2{margin:0 0 8px;font-size:1.35rem}
+.cfg-modal p{color:var(--suave);line-height:1.5}
+.cfg-modal-botoes{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.cfg-modal-botoes button{border:0;border-radius:10px;padding:12px 20px;font-weight:700;cursor:pointer}
+.cfg-ficar{background:#d9efe6}
+.cfg-confirmar{background:#b3122e;color:#fff}
+.cfg-confirmar:hover{background:#8f0e24}
+
+@media (max-width:860px){
+  .cfg-barra{padding:10px 14px;gap:12px}
+  .cfg-barra h1{font-size:1.4rem}
+  .cfg-lista{padding:2px 14px}
+  .cfg-item{gap:18px;padding:16px 2px}
+  .cfg-nome{font-size:1.1rem}
+}
+@media (prefers-reduced-motion:reduce){.cfg-seta{transition:none!important}}

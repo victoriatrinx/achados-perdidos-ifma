@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Configurações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="configuracoes.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-logo">
+    <a class="logo" href="home.html" aria-label="iFound, página inicial">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+    </a>
+  </div>
+  <div class="topo-busca">
+    <button class="btn-aba" id="btnAba" aria-controls="aba" aria-expanded="true" aria-label="Mostrar ou esconder o menu">
+      <span></span><span></span><span></span>
+    </button>
+    <label class="busca">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input type="search" id="busca" placeholder="Pesquisar por item, local, categoria...">
+    </label>
+  </div>
+  <button class="topo-user" type="button">
+    <span class="avatar" id="topoAvatar"></span>
+    <span><span id="topoNome">Aluno(a)</span><br>Trocar conta</span>
+  </button>
+</header>
+
+<nav class="aba" id="aba" aria-label="Menu principal">
+  <a class="nav-item" href="home.html"><i>🏠</i>Início</a>
+  <a class="nav-item ativo" href="perfil.html" aria-current="page"><i>👤</i>Meu perfil</a>
+  <a class="nav-item" href="publicar-item.html"><i>➕</i>Publicar item</a>
+  <a class="nav-item" href="meus-anuncios.html"><i>🏷️</i>Meus anúncios</a>
+  <a class="nav-item" href="mensagens.html"><i>💬</i>Mensagens</a>
+  <a class="nav-item" href="favoritos.html"><i>🤍</i>Favoritos</a>
+
+  <button class="nav-item nav-filtros" id="btnFiltros" aria-expanded="false" aria-controls="painelFiltros">
+    <i>🔻</i>Filtros<span class="seta">⌄</span>
+  </button>
+  <form class="filtros" id="painelFiltros" hidden>
+    <label>Categoria
+      <select id="fCategoria">
+        <option value="">Todas as categorias</option>
+        <option>Achado</option><option>Perdido</option><option>Doação</option><option>Venda</option>
+      </select>
+    </label>
+    <label>Local
+      <input type="text" id="fLocal" placeholder="Buscar local...">
+    </label>
+    <div class="chips" id="chipsLocais">
+      <button type="button">Biblioteca</button><button type="button">Corredor</button>
+      <button type="button">Auditório</button><button type="button">Pátio</button>
+      <button type="button">Sala</button><button type="button">Bloco</button>
+    </div>
+    <label>Data
+      <select id="fData">
+        <option value="">Qualquer data</option>
+        <option value="2">Últimos 2 dias</option>
+        <option value="7">Últimos 7 dias</option>
+        <option value="30">Últimos 30 dias</option>
+      </select>
+    </label>
+    <button type="submit" class="btn-aplicar">Aplicar filtros</button>
+    <button type="reset" class="btn-limpar">Limpar filtros</button>
+  </form>
+
+  <p class="aba-lema">Juntos por<br>um campus<br>mais solidário!</p>
+</nav>
+
+<main class="pagina">
+  <section class="cfg" aria-labelledby="tituloCfg">
+    <div class="cfg-barra">
+      <a class="cfg-voltar" href="perfil.html" aria-label="Voltar para o perfil">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>
+      </a>
+      <h1 id="tituloCfg">Configurações</h1>
+    </div>
+
+    <nav class="cfg-lista" aria-label="Configurações">
+      <a class="cfg-item" href="editar-perfil.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></span>
+        <span class="cfg-nome">Editar perfil</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="alterar-senha.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3M12 15v2"/></svg></span>
+        <span class="cfg-nome">Alterar senha</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="notificacoes.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 0112 0v6l2 2H4z"/><path d="M10 21a2 2 0 004 0M12 3V2"/></svg></span>
+        <span class="cfg-nome">Notificações</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="acessibilidade.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="7.5" r="1.2"/><path d="M7 10.5l5 1 5-1M12 11.5V16M12 16l-2.5 4M12 16l2.5 4"/></svg></span>
+        <span class="cfg-nome">Acessibilidade</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="privacidade.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+        <span class="cfg-nome">Privacidade</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="termos.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span>
+        <span class="cfg-nome">Termos de Uso</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+      <a class="cfg-item" href="sobre.html" data-pagina>
+        <span class="cfg-icone"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/></svg></span>
+        <span class="cfg-nome">Sobre o iFound</span>
+        <span class="cfg-seta" aria-hidden="true">›</span>
+      </a>
+    </nav>
+
+    <button class="cfg-sair" id="btnSair" type="button">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M9 12h11M16 8l4 4-4 4"/></svg>
+      Sair da conta
+    </button>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="rodape-col">
+    <a class="logo" href="home.html">
+      <img src="Imagens/logo.png" alt="">
+      <span class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></span>
+    </a>
+    <p>Plataforma oficial do IFMA Campus Rosário, para Achados, Perdidos, Doações e Vendas.</p>
+    <div class="redes">
+      <a href="#" data-manutencao aria-label="Instagram">IG</a>
+      <a href="#" data-manutencao aria-label="Facebook">f</a>
+      <a href="#" data-manutencao aria-label="YouTube">▶</a>
+    </div>
+  </div>
+  <div class="rodape-col">
+    <h4>Links rápidos</h4>
+    <a href="#" data-manutencao>Sobre o projeto</a>
+    <a href="#" data-manutencao>Regras</a>
+    <a href="#" data-manutencao>Dúvidas frequentes</a>
+    <a href="#" data-manutencao>Fale conosco</a>
+  </div>
+  <div class="rodape-col">
+    <h4>Suporte</h4>
+    <p>DDE - Diretoria de Desenvolvimento Educacional</p>
+    <a href="#" data-manutencao>✉️ dde.ar@ifma.edu.br</a>
+    <a href="#" data-manutencao>📞 (98) 00000-0000</a>
+    <a class="rodape-legal" href="#" data-manutencao>Termos de Uso</a>
+    <a class="rodape-legal" href="#" data-manutencao>Política de Privacidade</a>
+  </div>
+  <p class="direitos">© 2026 IFMA, Campus Rosário. Todos os direitos reservados.</p>
+</footer>
+
+<dialog class="cfg-modal" id="modalSair" aria-labelledby="tituloSair">
+  <h2 id="tituloSair">Sair da conta?</h2>
+  <p>Você poderá entrar de novo quando quiser.</p>
+  <div class="cfg-modal-botoes">
+    <button type="button" class="cfg-ficar" id="btnFicar">Cancelar</button>
+    <button type="button" class="cfg-confirmar" id="btnConfirmarSair">Sair</button>
+  </div>
+</dialog>
+
+<div class="aviso" id="aviso" role="status"></div>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="configuracoes.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* Páginas que já estão prontas. Quando terminar uma, adicione o nome do arquivo aqui. */
-const PRONTAS = ["home.html", "perfil.html"];
+const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html", "RedefinirSenha.html"];
 
 /* ---------- Dados (trocar pelo back-end depois) ---------- */
 const ITENS = [
@@ -119,15 +119,18 @@ document.addEventListener("click", e => {
   }
 });
 
-/* ---------- Início ---------- */
-buscarItens().then(d => { todos = d; filtrar(); });
-const p = new URLSearchParams(location.search);
-  if(p.get("q")) $("#busca").value = p.get("q");
-  if(p.get("cat")) $("#fCategoria").value = p.get("cat");
-  if(p.get("local")) $("#fLocal").value = p.get("local");
-  if(p.get("data")) $("#fData").value = p.get("data");
-  /* ---------- Perfil no topo e na saudação ---------- */
+/* ---------- Perfil no topo e na saudação (usa o dados-perfil.js) ---------- */
 const perfilHome = lerPerfil();
 mostrarTopo(perfilHome);
 const saudacao = $("#saudacao");
 if(saudacao) saudacao.textContent = "Olá, " + perfilHome.nome.split(" ")[0] + "! 👋";
+
+/* ---------- Busca vinda de outras páginas (ex.: digitou no perfil) ---------- */
+const params = new URLSearchParams(location.search);
+if(params.get("q")) $("#busca").value = params.get("q");
+if(params.get("cat")) $("#fCategoria").value = params.get("cat");
+if(params.get("local")) $("#fLocal").value = params.get("local");
+if(params.get("data")) $("#fData").value = params.get("data");
+
+/* ---------- Início ---------- */
+buscarItens().then(d => { todos = d; filtrar(); });

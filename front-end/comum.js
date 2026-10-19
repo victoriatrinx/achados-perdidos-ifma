@@ -21,7 +21,7 @@ if(typeof lerPerfil === "undefined"){
 }
 
 /* Páginas que já estão prontas. Quando terminar uma, adicione aqui (e no home.js). */
-const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html"];
+const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html", "RedefinirSenha.html"];
 
 /* ---------- Utilidades ---------- */
 const $ = s => document.querySelector(s);

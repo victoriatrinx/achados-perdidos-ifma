@@ -61,3 +61,4 @@ function limparErro(input) {
     const erro = input.closest('.input-group').querySelector('.erro-msg');
     if (erro) erro.remove();
 }
+});

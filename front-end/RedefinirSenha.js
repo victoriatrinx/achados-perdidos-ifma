@@ -3,7 +3,7 @@
 // Depende do auth.js (carregado antes no HTML).
 
 document.addEventListener('DOMContentLoaded', async function () {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await clienteSupabase.auth.getSession();
 
     if (error || !data.session) {
         alert('Link de recuperação inválido ou expirado. Solicite outro.');

@@ -1,0 +1,35 @@
+/* Estilos das páginas internas (termos, privacidade, sobre, produto). Usa as variáveis do Ifound.css */
+.topo-pagina{background:var(--menta);border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:20}
+.topo-pagina .in{max-width:720px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.voltar{width:40px;height:40px;border-radius:50%;border:1px solid var(--borda);background:var(--branco);color:var(--verde);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.voltar svg{width:20px;height:20px}
+.pagina{max-width:720px;margin:0 auto;padding:28px 20px 0}
+.doc{background:var(--branco);border:1px solid var(--borda);border-radius:18px;padding:32px 28px}
+.doc-icone{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;background:#D5EBDD;color:var(--verde);display:flex;align-items:center;justify-content:center}
+.doc-icone svg{width:38px;height:38px}
+.doc h1{text-align:center;font-size:28px;font-weight:800;color:var(--verde)}
+.doc .sub{text-align:center;margin:6px auto 24px;max-width:420px;color:var(--texto-suave)}
+.doc h2{font-size:17px;font-weight:800;color:var(--verde);margin-top:18px}
+.doc h2+p{margin-top:4px;font-size:15px;line-height:1.55;color:#2F5A49}
+.doc .btn{width:100%;margin-top:28px;background:var(--verde);color:var(--branco);border-radius:999px;height:50px}
+.doc .btn:hover{background:var(--verde-escuro)}
+.doc .lema{text-align:center;margin-top:22px;font-weight:700;font-style:italic;color:var(--verde)}
+
+/* detalhes do anúncio */
+.produto{max-width:460px;margin:0 auto;padding:20px 20px 0}
+.produto-foto{position:relative;height:280px;border-radius:16px;background:var(--pessego);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.produto-foto img{width:100%;height:100%;padding:14px;object-fit:contain}
+.produto-foto .tag{top:12px;left:12px;height:30px;padding:0 16px;font-size:14px}
+.produto-foto .coracao{position:absolute;top:10px;right:12px;margin:0}
+.produto-foto .coracao svg{width:28px;height:28px}
+.produto h1{margin-top:16px;font-size:26px;font-weight:800;color:#12383F}
+.produto .desc{margin-top:4px;color:var(--texto-suave);line-height:1.5}
+.chips{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:#E1F0E7}
+.chip svg{width:26px;height:26px;color:var(--verde);flex-shrink:0}
+.chip small{display:block;font-size:12px;color:var(--verde)}
+.chip strong{font-size:15px;color:#12383F}
+.chip.largo{grid-column:1/-1}
+.produto .btn{width:100%;margin-top:12px;background:var(--verde);color:var(--branco)}
+.produto .btn:hover{background:var(--verde-escuro)}
+.vazio{text-align:center;padding:60px 0}

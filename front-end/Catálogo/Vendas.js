@@ -34,7 +34,7 @@ function criarCard(item) {
                 <img src="imagens/vendas/${item.foto}" alt="${item.titulo}" loading="lazy">
             </div>
             <div class="info-item">
-                <h3><a class="link-produto" href="produto.html?id=venda-${item.id}">${item.titulo}</a></h3>
+                <h3><a class="link-produto" href="../produto.html?id=venda-${item.id}">${item.titulo}</a></h3>
                 <p class="preco">${formatarPreco(item.preco)}</p>
                 <div class="rodape-card">
                     <p class="linha-info">${ICONE_DATA}${item.data}</p>

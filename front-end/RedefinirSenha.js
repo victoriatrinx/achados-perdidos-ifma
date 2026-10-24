@@ -2,14 +2,15 @@
 // Tela "Redefinir senha": troca a senha da conta que veio da tela anterior.
 // Depende do auth.js (carregado antes no HTML).
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    const { data, error } = await supabase.auth.getSession();
 
-    // Se a pessoa chegou aqui sem passar pela tela "Recuperar senha", volta para lá
-    const emailRecuperacao = sessionStorage.getItem('emailRecuperacao');
-    if (!emailRecuperacao) {
+    if (error || !data.session) {
+        alert('Link de recuperação inválido ou expirado. Solicite outro.');
         window.location.href = 'RecuperarSenha.html';
         return;
     }
+    
 
     // Botões do "olhinho": alternam entre esconder e mostrar a senha
     document.querySelectorAll('.toggle-senha').forEach(function (botao) {
@@ -46,10 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!valido) return;
 
         // Tudo certo: troca a senha da conta
-        const resultado = Auth.redefinirSenha(emailRecuperacao, senha.value);
+        const resultado = await Auth.redefinirSenha(senha.value);
 
         if (resultado.ok) {
-            sessionStorage.removeItem('emailRecuperacao');
             alert('Senha redefinida com sucesso! Faça login com a nova senha.');
             window.location.href = 'login.html';
         } else {

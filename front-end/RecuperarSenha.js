@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const form = document.getElementById('recuperar-form');
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault(); // não deixa a página recarregar
 
         const email = document.getElementById('email');
@@ -19,24 +19,21 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // 2) existe conta com esse e-mail?
-        if (!Auth.emailExiste(email.value)) {
-            mostrarErro(email, 'Não encontramos uma conta com esse e-mail.');
+
+       const botao = form.querySelector('button[type="submit"]');
+        botao.disabled = true;
+
+        const resultado = await Auth.recuperarSenha(email.value);
+
+        if (!resultado.ok) {
+            botao.disabled = false;
+            mostrarErro(email, resultado.mensagem);
             return;
         }
 
-        // 3) guarda o e-mail para a próxima tela (só enquanto a aba estiver aberta)
-        sessionStorage.setItem('emailRecuperacao', email.value.trim().toLowerCase());
-
-        // 4) mostra a confirmação e, depois de 2 segundos, vai para a redefinição
-        form.querySelector('button[type="submit"]').disabled = true;
         mostrarConfirmacao(form);
-
-        setTimeout(function () {
-            window.location.href = 'RedefinirSenha.html';
-        }, 2000);
-    });
-
+        form.querySelector('.mensagem-sucesso').textContent =
+            'Se esse e-mail estiver cadastrado, você receberá instruções para recuperar sua senha.';
 });
 
 // Mensagem verde de confirmação, acima do card

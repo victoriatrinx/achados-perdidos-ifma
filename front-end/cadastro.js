@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('telefone').addEventListener('input', aplicarMascaraTelefone);
 
     // Escuta o clique em "Criar conta"
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // impede o navegador de recarregar a página
+form.addEventListener('submit', async function (event) { 
+    event.preventDefault(); // impede o navegador de recarregar a página
 
         const formValido = validarFormulario();
 
        if (formValido) {
     const email = document.getElementById('email');
 
-    const resultado = Auth.cadastrar({
+    const resultado = await Auth.cadastrar({
         nome: document.getElementById('nome').value,
         email: email.value,
         curso: document.getElementById('curso').value,
@@ -26,12 +26,17 @@ document.addEventListener('DOMContentLoaded', function () {
         senha: document.getElementById('senha').value
     });
 
-    if (resultado.ok) {
-        alert('Conta criada com sucesso! Faça login para entrar.');
-        window.location.href = 'login.html';
+   if (resultado.ok) {
+    if (resultado.sessao) {
+        alert('Conta criada com sucesso!');
+        window.location.href = 'home.html';
     } else {
-        mostrarErro(email, resultado.mensagem);
+        alert('Conta criada! Confira seu e-mail para confirmar o cadastro antes de entrar.');
+        window.location.href = 'login.html';
     }
+} else {
+    mostrarErro(email, resultado.mensagem);
+}
 }
     });
 

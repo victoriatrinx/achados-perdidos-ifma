@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const form = document.getElementById('login-form');
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault(); // impede o envio real pro action="/login" por enquanto
 
         const formValido = validarLogin();
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = document.getElementById('user-identifier');
     const senha = document.getElementById('password');
 
-    const resultado = Auth.entrar(email.value, senha.value);
+    const resultado = await Auth.entrar(email.value, senha.value);
 
     if (resultado.ok) {
-        window.location.href = 'Home.html';
+        window.location.href = 'home.html';
         } else {
         mostrarErro(senha, resultado.mensagem);
         }

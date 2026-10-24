@@ -42,15 +42,29 @@ function lerConta(){
 
 /* Sair da conta: apaga os dados do login e vai para esta página */
 const SAIR_PARA = "iFound.html";
-function sairDaConta(){
-  const tokens = ["token", "jwt", "accessToken", "access_token", "refreshToken", "refresh_token"];
-  for(const loja of [localStorage, sessionStorage]){
-    for(let i = loja.length - 1; i >= 0; i--){
+async function sairDaConta(){
+  const resultado = await Auth.sair();
+
+  if (!resultado.ok) {
+    avisar(resultado.mensagem);
+    return;
+  }
+
+  for (const loja of [localStorage, sessionStorage]) {
+    for (let i = loja.length - 1; i >= 0; i--) {
       const chave = loja.key(i);
-      if(chave.startsWith("ifoundPerfil") || chave === "abaAberta") continue;
-      if(tokens.includes(chave) || dadosDaConta(loja.getItem(chave))) loja.removeItem(chave);
+
+      if (
+        chave.startsWith("ifoundPerfil") ||
+        chave === "abaAberta"
+      ) continue;
+
+      if (dadosDaConta(loja.getItem(chave))) {
+        loja.removeItem(chave);
+      }
     }
   }
+
   location.href = SAIR_PARA;
 }
 

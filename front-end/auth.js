@@ -1,90 +1,90 @@
-// auth.js
-// Cuida das contas de usuário do iFound.
-// Por enquanto guarda tudo no localStorage do navegador (simulação, sem banco de dados).
-// Quando o banco chegar, só ESTE arquivo precisa mudar: as telas continuam chamando Auth.algumaCoisa().
-
 const Auth = {
-
-    // Devolve a lista de contas salvas (ou uma lista vazia se ainda não existir nenhuma)
-    listarUsuarios() {
-        return JSON.parse(localStorage.getItem('usuarios')) || [];
-    },
-
-    // Cria uma conta nova. Recusa se o e-mail já estiver em uso.
-    cadastrar(dados) {
-        const emailLimpo = dados.email.trim().toLowerCase();
-        const usuarios = this.listarUsuarios();
-
-        const jaExiste = usuarios.some(function (u) {
-            return u.email === emailLimpo;
+    async cadastrar(dados) {
+        const { data, error } = await clienteSupabase.auth.signUp({
+            email: dados.email.trim().toLowerCase(),
+            password: dados.senha,
+            options: {
+                data: {
+                    nome: dados.nome.trim(),
+                    curso_setor: dados.curso,
+                    telefone: dados.telefone
+                }
+            }
         });
 
-        if (jaExiste) {
-            return { ok: false, mensagem: 'Já existe uma conta com esse e-mail.' };
+        if (error) {
+            return {
+                ok: false,
+                mensagem: error.message
+            };
         }
 
-        usuarios.push({
-            nome: dados.nome.trim(),
-            email: emailLimpo,
-            curso: dados.curso,
-            telefone: dados.telefone,
-            senha: dados.senha
+        return {
+            ok: true,
+            usuario: data.user,
+            sessao: data.session
+        };
+    },
+    async entrar(email, senha) {
+        const { data, error } = await clienteSupabase.auth.signInWithPassword({
+            email: email.trim().toLowerCase(),
+            password: senha
         });
 
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        if (error) {
+            return {
+                ok: false,
+                mensagem: 'E-mail ou senha incorretos.'
+            };
+        }
+
+        return {
+            ok: true,
+            usuario: data.user,
+            sessao: data.session
+        };
+    },
+    async sair() {
+        const { error } = await clienteSupabase.auth.signOut();
+
+        if (error) {
+            return {
+                ok: false,
+                mensagem: 'Não foi possível sair da conta.'
+            };
+        }
+
         return { ok: true };
     },
+    async recuperarSenha(email) {
+        const { error } = await clienteSupabase.auth.resetPasswordForEmail(
+            email.trim().toLowerCase(),
+            {
+                redirectTo: new URL('RedefinirSenha.html', window.location.href).href
+            }
+        );
 
-    // Confere e-mail e senha. Se estiver certo, guarda quem entrou.
-    entrar(email, senha) {
-        const emailLimpo = email.trim().toLowerCase();
-
-        const usuario = this.listarUsuarios().find(function (u) {
-            return u.email === emailLimpo && u.senha === senha;
-        });
-
-        if (!usuario) {
-            return { ok: false, mensagem: 'E-mail ou senha incorretos.' };
+        if (error) {
+            return {
+                ok: false,
+                mensagem: 'Não foi possível solicitar a recuperação. Tente novamente.'
+            };
         }
 
-        localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
         return { ok: true };
     },
-
-    // Quem está logado agora (ou null se ninguém)
-    usuarioLogado() {
-        return JSON.parse(localStorage.getItem('usuarioLogado'));
-    },
-
-    // Faz logout
-    sair() {
-        localStorage.removeItem('usuarioLogado');
-    },
-
-    // Responde sim/não: "esse e-mail tem conta?"
-    emailExiste(email) {
-        const emailLimpo = email.trim().toLowerCase();
-
-        return this.listarUsuarios().some(function (u) {
-            return u.email === emailLimpo;
-        });
-    },
-
-    // Troca a senha da conta que tem esse e-mail
-    redefinirSenha(email, novaSenha) {
-        const emailLimpo = email.trim().toLowerCase();
-        const usuarios = this.listarUsuarios();
-
-        const usuario = usuarios.find(function (u) {
-            return u.email === emailLimpo;
+    async redefinirSenha(novaSenha) {
+        const { error } = await clienteSupabase.auth.updateUser({
+            password: novaSenha
         });
 
-        if (!usuario) {
-            return { ok: false, mensagem: 'Conta não encontrada.' };
+        if (error) {
+            return {
+                ok: false,
+                mensagem: 'Não foi possível alterar a senha. Solicite um novo link de recuperação.'
+            };
         }
 
-        usuario.senha = novaSenha;
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
         return { ok: true };
     }
 };

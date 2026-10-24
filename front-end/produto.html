@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anúncio - iFound</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="Ifound.css"><link rel="stylesheet" href="paginas.css"></head>
+<body>
+<header class="topo-pagina"><div class="in">
+  <button class="voltar" type="button" aria-label="Voltar" onclick="if(history.length>1){history.back()}else{location.href='iFound.html'}"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+  <a href="iFound.html" class="logo-texto"><strong>iFound</strong><small>Campus Rosário</small></a>
+</div></header>
+
+<main class="produto" id="produto"></main>
+<div id="rodape"></div>
+
+<script>
+// Detalhes dos anúncios da home (pré-login). Os ids são os mesmos de produto.html?id=N na iFound.html.
+var ANUNCIOS = {
+ 1:{tag:'Achado',c:'achado',t:'Mochila preta',d:'Mochila preta encontrada na biblioteca do campus.',l:'Biblioteca',dt:'17 de maio',img:'imagens/ItensIlu(2).png'},
+ 2:{tag:'Perdido',c:'perdido',t:'AirPods',d:'AirPods perdidos no Bloco B.',l:'Bloco B',dt:'16 de maio',img:'imagens/Airpods.jpg'},
+ 3:{tag:'Doação',c:'doacao',t:'Livros diversos',d:'Livros didáticos para doação.',l:'Bloco A',dt:'15 de maio',img:'imagens/ItensIlu(5).jpg'},
+ 4:{tag:'Venda',c:'venda',t:'Calculadora científica',d:'Calculadora científica em bom estado.',p:'R$ 40,00',dt:'17 de maio',img:'imagens/ItensIlu(4).jpg'},
+ 5:{tag:'Doação',c:'doacao',t:'Chaves',d:'Chaves com chaveiro verde.',l:'Pátio',dt:'5 dias atrás',img:'imagens/ItensIlu(3).jpg'},
+ 6:{tag:'Perdido',c:'perdido',t:'Caderno',d:'Caderno verde perdido na sala 203.',l:'Sala 203',dt:'6 dias atrás',img:'imagens/Caderno.jpg'},
+ 7:{tag:'Doação',c:'doacao',t:'Fone de ouvido com fio',d:'Fone de ouvido funcionando perfeitamente. Em bom estado.',l:'Bloco C',dt:'1 semana atrás',img:'imagens/fonedeouvido.jpg'},
+ 8:{tag:'Venda',c:'venda',t:'Tesoura',d:'Tesoura em ótimo estado.',p:'R$ 6,00',dt:'17 de maio',img:'imagens/Tesoura.jpg'}
+};
+var ico={
+ pin:'<path d="M12 21s7-4.6 7-11a7 7 0 1 0-14 0c0 6.4 7 11 7 11z"/><circle cx="12" cy="10" r="2"/>',
+ cal:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
+ preco:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5C14.2 8.6 13.3 8 12 8c-1.5 0-2.5.8-2.5 1.9 0 2.6 5 1.4 5 4.1 0 1.1-1.1 2-2.5 2-1.3 0-2.3-.6-2.6-1.7M12 6.5V8M12 16v1.5"/>'
+};
+function chip(i,rot,val,largo){return '<div class="chip'+(largo?' largo':'')+'"><svg viewBox="0 0 24 24">'+ico[i]+'</svg><div><small>'+rot+'</small><strong>'+val+'</strong></div></div>';}
+
+var id = new URLSearchParams(location.search).get('id');
+var a = ANUNCIOS[id], alvo = document.getElementById('produto');
+if (!a) {
+  alvo.innerHTML = '<div class="vazio"><h1>Anúncio não encontrado</h1><p class="desc">Volte para a página inicial e escolha outro item.</p><a class="btn" href="iFound.html">Ir para o início</a></div>';
+} else {
+  document.title = a.t + ' - iFound';
+  alvo.innerHTML =
+   '<div class="produto-foto"><span class="tag tag-'+a.c+'">'+a.tag+'</span>'+
+   '<button class="coracao" type="button" aria-label="Favoritar"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>'+
+   '<img src="'+a.img+'" alt="'+a.t+'"></div>'+
+   '<h1>'+a.t+'</h1><p class="desc">'+a.d+'</p>'+
+   '<div class="chips">'+
+     (a.p ? chip('preco','Preço',a.p) : (a.l ? chip('pin','Local',a.l) : '')) +
+     chip('cal','Data',a.dt) + chip('user','Publicado por','Usuário',true)+
+   '</div>'+
+   // Pré-login: "Mensagem" leva para o login
+   '<a class="btn" href="login.html">Mensagem</a>';
+  alvo.querySelector('.coracao').addEventListener('click', function(){ this.classList.toggle('curtido'); });
+}
+</script>
+<script src="rodape.js"></script>
+</body></html>

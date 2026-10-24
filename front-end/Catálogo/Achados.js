@@ -204,7 +204,7 @@ function criarCard(item) {
                 <h3>
                     <a
                         class="link-produto"
-                        href="produto.html?id=achado-${item.id}"
+                        href="../produto.html?id=achado-${item.id}"
                     >
                         ${item.titulo}
                     </a>

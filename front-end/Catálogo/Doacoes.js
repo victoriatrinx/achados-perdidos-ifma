@@ -29,7 +29,7 @@ function criarCard(item) {
                 <img src="imagens/doacoes/${item.foto}" alt="${item.titulo}" loading="lazy">
             </div>
             <div class="info-item">
-                <h3><a class="link-produto" href="produto.html?id=doacao-${item.id}">${item.titulo}</a></h3>
+                <h3><a class="link-produto" href="../produto.html?id=doacao-${item.id}">${item.titulo}</a></h3>
                 <div class="rodape-card">
                     <p class="linha-info">${ICONE_DATA}${item.data}</p>
                     <button class="coracao" type="button" aria-label="Curtir ${item.titulo}" aria-pressed="false">${ICONE_CORACAO}</button>

@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const form = document.getElementById('redefinir-form');
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault(); // não deixa a página recarregar
 
         const senha = document.getElementById('senha');

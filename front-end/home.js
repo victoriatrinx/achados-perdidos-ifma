@@ -1,5 +1,3 @@
-/* Páginas que já estão prontas. Quando terminar uma, adicione o nome do arquivo aqui. */
-const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html", "RedefinirSenha.html", "publicar-item.html", "meus-anuncios.html", "mensagens.html", "favoritos.html", "sobre.html", "termos.html", "privacidade.html"];
 
 /* ---------- Dados (trocar pelo back-end depois) ---------- */
 const ITENS = [
@@ -45,16 +43,6 @@ function filtrar(){
     i.dias <= dias));
 }
 
-/* Rolar em cima da aba nunca move a página de trás */
-aba.addEventListener("wheel", e => {
-  const noTopo = aba.scrollTop <= 0 && e.deltaY < 0;
-  const noFim = aba.scrollTop + aba.clientHeight >= aba.scrollHeight - 1 && e.deltaY > 0;
-  if(noTopo || noFim) e.preventDefault();
-}, {passive:false});
-aba.addEventListener("touchmove", e => {
-  if(aba.scrollHeight <= aba.clientHeight) e.preventDefault();
-}, {passive:false});
-
 /* ---------- Filtros ---------- */
 const btnFiltros = $("#btnFiltros"), painel = $("#painelFiltros");
 btnFiltros.addEventListener("click", () => {
@@ -94,11 +82,22 @@ document.addEventListener("click", e => {
   }
 });
 
-/* ---------- Perfil no topo e na saudação (usa o dados-perfil.js) ---------- */
-const perfilHome = lerPerfil();
-mostrarTopo(perfilHome);
 const saudacao = $("#saudacao");
-if(saudacao) saudacao.textContent = "Olá, " + perfilHome.nome.split(" ")[0] + "! 👋";
+
+async function atualizarSaudacao() {
+  const resultado = await carregarPerfilSupabase();
+
+  if (!resultado.ok) return;
+
+  const perfilHome = resultado.perfil;
+
+  if (saudacao) {
+    saudacao.textContent =
+      "Olá, " + perfilHome.nome.split(" ")[0] + "! 👋";
+  }
+}
+
+atualizarSaudacao();
 
 /* ---------- Busca vinda de outras páginas (ex.: digitou no perfil) ---------- */
 const params = new URLSearchParams(location.search);

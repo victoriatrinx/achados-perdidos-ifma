@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Favoritos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('favoritos')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" href="perfil.html" aria-label="Voltar para o perfil"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Favoritos</h1>
+    </div>
+    <p class="sub">Itens que você salvou.</p>
+    <div class="grade" id="grade"></div>
+    <div class="vazio" id="vazio" hidden></div>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var grade=document.getElementById('grade'),vazio=document.getElementById('vazio');
+function render(){
+  var f=IF.favoritos().sort(function(a,b){return b.salvoEm-a.salvoEm}),e=IF.esc;
+  grade.innerHTML=f.map(function(a){
+    var tag=a.href?'a':'div';
+    return '<article class="anu" data-id="'+e(a.id)+'">'+
+      (a.tipo?IF.etq(a.tipo):'')+
+      '<button class="ponto" type="button" data-rm aria-label="Remover dos favoritos" style="color:var(--vinho)">'+IF.svg(IF.ico.cor,20)+'</button>'+
+      '<'+tag+(a.href?' href="'+e(a.href)+'"':'')+' style="display:grid;gap:6px;color:inherit;text-decoration:none">'+
+      '<div class="anu-img">'+(a.img?'<img src="'+e(a.img)+'" alt="">':IF.svg(IF.ico.caixa,40))+'</div>'+
+      '<h3>'+e(a.titulo)+(a.preco!=null&&a.preco!==''?'<span>'+(typeof a.preco==='number'?IF.preco(a.preco):e(a.preco))+'</span>':'')+'</h3>'+
+      (a.local?'<small>'+IF.svg(IF.ico.pin,14)+e(a.local)+'</small>':'')+
+      '</'+tag+'></article>';
+  }).join('');
+  grade.hidden=!f.length;vazio.hidden=!!f.length;
+}
+grade.addEventListener('click',function(ev){
+  var b=ev.target.closest('[data-rm]');if(!b)return;
+  var id=b.closest('.anu').dataset.id;
+  IF.gravarFavoritos(IF.favoritos().filter(function(x){return String(x.id)!==id}));
+  IF.aviso('Removido dos favoritos.');render();
+});
+vazio.innerHTML=IF.svg(IF.ico.cor,56)+'<strong>Você ainda não tem favoritos.</strong><p>Toque no coração de um anúncio para salvá-lo aqui.</p><a class="btn-p" href="home.html">Ver anúncios</a>';
+render();
+</script>
+</body>
+</html>

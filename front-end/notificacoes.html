@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Notificações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('perfil')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" href="configuracoes.html" aria-label="Voltar para configurações"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Notificações</h1>
+    </div>
+    <p class="sub">Escolha o que você quer ver destacado no iFound.</p>
+    <div class="perfil-cartao">
+      <label class="linha"><span><strong>Novas mensagens</strong><small>Mostra o contador de mensagens não lidas no menu.</small></span><input type="checkbox" class="sw" id="notifMsg"></label>
+      <label class="linha"><span><strong>Avisos da plataforma</strong><small>Comunicados do ADM e da DDE.</small></span><input type="checkbox" class="sw" id="notifAvisos"></label>
+    </div>
+    <p class="nota">As preferências ficam salvas neste dispositivo.</p>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var a=IFA.ler();
+['notifMsg','notifAvisos'].forEach(function(k){
+  var el=document.getElementById(k);
+  el.checked=a[k]!==false;
+  el.addEventListener('change',function(){var o={};o[k]=el.checked;IFA.salvar(o);IF.aviso('Preferência salva.')});
+});
+</script>
+</body>
+</html>

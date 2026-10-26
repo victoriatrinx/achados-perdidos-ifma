@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Mensagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('mensagens')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" id="voltar" href="home.html" aria-label="Voltar"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Mensagens</h1>
+    </div>
+    <div id="conteudo"></div>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var q=new URLSearchParams(location.search),id=q.get('c'),alvo=document.getElementById('conteudo'),aba='todas',e=IF.esc;
+function hora(ts){
+  var d=new Date(ts),h=new Date(),o=new Date();o.setDate(h.getDate()-1);
+  if(d.toDateString()===h.toDateString())return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  if(d.toDateString()===o.toDateString())return 'Ontem';
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+}
+function avatar(){return '<span class="av">'+IF.svg(IF.ico.pessoa,26)+'</span>'}
+
+function lista(){
+  var todas=IF.conversas().sort(function(a,b){return ult(b)-ult(a)}),nl=todas.filter(function(c){return c.naoLida}),ex=aba==='nao'?nl:todas;
+  function ult(c){return c.msgs.length?c.msgs[c.msgs.length-1].ts:c.criado}
+  var h='<div class="abas"><button type="button" class="aba-btn'+(aba==='todas'?' on':'')+'" data-a="todas">Todas</button>'+
+        '<button type="button" class="aba-btn'+(aba==='nao'?' on':'')+'" data-a="nao">Não lidas <b>'+nl.length+'</b></button></div>';
+  if(!ex.length){
+    h+='<div class="vazio">'+IF.svg(IF.ico.chat,56)+(aba==='nao'?'<strong>Nenhuma mensagem não lida.</strong>':'<strong>Nenhuma mensagem ainda</strong><p>Quando você receber e enviar mensagens, elas aparecerão aqui.</p>')+'</div>';
+  }else{
+    h+='<div class="lista-msg">'+ex.map(function(c){
+      var m=c.msgs[c.msgs.length-1];
+      return '<a class="conv" href="mensagens.html?c='+c.id+'">'+avatar()+
+        '<span class="conv-t"><strong>'+e(c.com)+'</strong><span>'+(m?e(m.t):e(c.anuncio?c.anuncio.titulo:''))+'</span></span>'+
+        '<span class="conv-d"><span>'+hora(ult(c))+'</span>'+(c.naoLida?'<span class="ponto-n" aria-label="Não lida"></span>':'')+'</span></a>';
+    }).join('')+'</div>';
+  }
+  alvo.innerHTML=h;
+}
+
+function chat(c){
+  var a=c.anuncio||{};
+  document.getElementById('titulo').textContent=c.com;
+  document.getElementById('voltar').href='mensagens.html';
+  alvo.innerHTML='<div class="chat">'+
+    '<div class="perfil-cartao chat-anu">'+(a.img?'<img src="'+e(a.img)+'" alt="">':'<span class="av">'+IF.svg(IF.ico.caixa,24)+'</span>')+
+      '<div><strong>'+e(a.titulo||'Anúncio')+'</strong><small>'+(IF.TIPOS[a.tipo]||'')+(a.local?' · '+e(a.local):'')+'</small></div>'+
+      (a.href?'<a class="btn-sec" href="'+e(a.href)+'">Ver anúncio</a>':'')+'</div>'+
+    '<div class="bolhas" id="bolhas" aria-live="polite">'+
+      (c.msgs.length?c.msgs.map(function(m){return '<div class="bolha eu">'+e(m.t)+'<small>'+hora(m.ts)+'</small></div>'}).join(''):'<p class="sub" style="margin:0">Envie a primeira mensagem para '+e(c.com)+'.</p>')+
+    '</div>'+
+    '<form class="envio" id="envio"><input id="txt" maxlength="500" autocomplete="off" placeholder="Digite sua mensagem..." aria-label="Mensagem"><button type="submit" aria-label="Enviar">'+IF.svg('<path d="M4 12l16-8-6 16-3-7z"/>',20)+'</button></form></div>';
+  var b=document.getElementById('bolhas');b.scrollTop=b.scrollHeight;
+  document.getElementById('envio').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=document.getElementById('txt').value.trim();if(!t)return;
+    var todas=IF.conversas();
+    todas.forEach(function(x){if(x.id===c.id){x.msgs.push({de:'eu',t:t,ts:Date.now()});c=x}});
+    if(!IF.gravarConversas(todas)){IF.aviso('Não foi possível enviar a mensagem.');return}
+    chat(c);document.getElementById('txt').focus();
+  });
+}
+
+if(id){
+  var todas=IF.conversas(),c=todas.find(function(x){return x.id===id});
+  if(!c)alvo.innerHTML='<div class="vazio"><strong>Conversa não encontrada.</strong><a class="btn-p" href="mensagens.html">Ver mensagens</a></div>';
+  else{
+    if(c.naoLida){c.naoLida=false;IF.gravarConversas(todas)}
+    chat(c);
+  }
+}else{
+  alvo.addEventListener('click',function(ev){var b=ev.target.closest('[data-a]');if(b){aba=b.dataset.a;lista()}});
+  lista();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Meus anúncios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('anuncios')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" href="perfil.html" aria-label="Voltar para o perfil"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Meus anúncios</h1>
+    </div>
+    <p class="sub" id="sub">Acompanhe e gerencie todos os itens que você publicou.</p>
+    <div class="abas" id="abas" role="tablist"></div>
+    <div class="grade" id="grade"></div>
+    <div class="vazio" id="vazio" hidden></div>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var filtro='todos',
+FILT=[['todos','Todos'],['venda','Vendas'],['doacao','Doações'],['achado','Achados'],['perdido','Perdidos'],['finalizados','Finalizados']],
+abas=document.getElementById('abas'),grade=document.getElementById('grade'),vazio=document.getElementById('vazio');
+
+function card(a){
+  var fin=a.status==='finalizado',img=a.fotos&&a.fotos[0],e=IF.esc;
+  return '<article class="anu" data-id="'+a.id+'">'+
+    (fin?'<span class="etq etq-fin">Finalizado</span>':IF.etq(a.tipo)+
+      '<button class="ponto" type="button" data-menu aria-label="Opções do anúncio">⋮</button>'+
+      '<div class="menu-l" hidden><button type="button" data-ac="editar">Editar anúncio</button><button type="button" data-ac="finalizar">Finalizar anúncio</button><button type="button" data-ac="excluir" class="perigo">Excluir anúncio</button></div>')+
+    '<div class="anu-img">'+(img?'<img src="'+img+'" alt="">':IF.svg(IF.ico.caixa,40))+'</div>'+
+    '<h3>'+e(a.titulo)+(a.tipo==='venda'&&a.preco!=null?'<span>'+IF.preco(a.preco)+'</span>':'')+'</h3>'+
+    (fin?'<div>'+IF.etq(a.tipo)+'</div>':'')+
+    (a.local?'<small>'+IF.svg(IF.ico.pin,14)+e(a.local)+'</small>':'')+
+    '<small>'+IF.svg(IF.ico.rel,14)+(fin?(a.motivo==='removido'?'Retirado em ':'Finalizado em ')+IF.data(a.finalizadoEm):'Publicado '+IF.ha(a.criado))+'</small>'+
+    (fin?'<div class="anu-acoes"><button type="button" class="perigo" data-ac="apagar">Excluir anúncio</button><a href="publicar-item.html">Publicar outro item</a></div>':'')+
+  '</article>';
+}
+
+function render(){
+  var todos=IF.anuncios(),at=todos.filter(function(a){return a.status!=='finalizado'}),fi=todos.filter(function(a){return a.status==='finalizado'});
+  function cont(k){return k==='todos'?at.length:k==='finalizados'?fi.length:at.filter(function(a){return a.tipo===k}).length}
+  abas.innerHTML=FILT.map(function(f){return '<button type="button" role="tab" class="aba-btn'+(f[0]===filtro?' on':'')+'" aria-selected="'+(f[0]===filtro)+'" data-f="'+f[0]+'">'+f[1]+' <b>'+cont(f[0])+'</b></button>'}).join('');
+  var lista=filtro==='finalizados'?fi:filtro==='todos'?at:at.filter(function(a){return a.tipo===filtro});
+  lista.sort(function(a,b){return (b.finalizadoEm||b.criado)-(a.finalizadoEm||a.criado)});
+  grade.innerHTML=lista.map(card).join('');
+  grade.hidden=!lista.length;vazio.hidden=!!lista.length;
+  if(lista.length)return;
+  if(filtro==='finalizados')vazio.innerHTML=IF.svg(IF.ico.caixa,48)+'<strong>Você ainda não possui anúncios finalizados.</strong><p>Quando você finalizar algum anúncio, ele aparecerá aqui.</p>';
+  else if(!at.length)vazio.innerHTML=IF.svg(IF.ico.caixa,64)+'<strong>Você ainda não possui anúncios.</strong><p>Que tal publicar algo agora?</p><a class="btn-p" href="publicar-item.html">+ Publicar item</a>';
+  else vazio.innerHTML=IF.svg(IF.ico.caixa,48)+'<strong>Nenhum anúncio nesta categoria.</strong>';
+}
+
+abas.addEventListener('click',function(e){var b=e.target.closest('[data-f]');if(b){filtro=b.dataset.f;render()}});
+
+document.addEventListener('click',function(e){
+  var m=e.target.closest('[data-menu]');
+  document.querySelectorAll('.menu-l').forEach(function(x){if(!m||x!==m.nextElementSibling)x.hidden=true});
+  if(m){m.nextElementSibling.hidden=!m.nextElementSibling.hidden;return}
+  var b=e.target.closest('[data-ac]');if(!b)return;
+  var id=b.closest('.anu').dataset.id,lista=IF.anuncios(),a=lista.find(function(x){return x.id===id});
+  if(!a)return;
+  var ac=b.dataset.ac;
+  if(ac==='editar'){location.href='publicar-item.html?editar='+id;return}
+  if(ac==='finalizar'){a.status='finalizado';a.motivo='finalizado';a.finalizadoEm=Date.now();IF.aviso('Anúncio finalizado.')}
+  if(ac==='excluir'){
+    if(!confirm('Retirar este anúncio da visualização pública? Ele deixa de aparecer para os outros usuários e continua no seu histórico, em Finalizados.'))return;
+    a.status='finalizado';a.motivo='removido';a.finalizadoEm=Date.now();IF.aviso('Anúncio retirado da visualização pública.');
+  }
+  if(ac==='apagar'){
+    if(!confirm('Excluir este anúncio do histórico? Essa ação não pode ser desfeita.'))return;
+    lista=lista.filter(function(x){return x.id!==id});IF.aviso('Anúncio excluído do histórico.');
+  }
+  IF.gravarAnuncios(lista);render();
+});
+render();
+</script>
+</body>
+</html>

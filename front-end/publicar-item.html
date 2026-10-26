@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Publicar item</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('publicar')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" id="voltar" href="home.html" aria-label="Voltar"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Publicar item</h1>
+    </div>
+    <p class="sub" id="sub"></p>
+    <div id="conteudo"></div>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var q=new URLSearchParams(location.search),edId=q.get('editar'),
+    ed=edId?IF.anuncios().find(function(a){return a.id===edId}):null,
+    tipo=ed?ed.tipo:q.get('tipo'),
+    alvo=document.getElementById('conteudo'),sub=document.getElementById('sub'),
+    fotos=ed?(ed.fotos||[]).slice():[],MAX=3;
+
+if(edId&&!ed){
+  sub.hidden=true;
+  alvo.innerHTML='<div class="vazio"><strong>Anúncio não encontrado.</strong><p>Ele pode ter sido excluído.</p><a class="btn-p" href="meus-anuncios.html">Ver meus anúncios</a></div>';
+}else if(!IF.TIPOS[tipo]){
+  sub.textContent='O que você quer publicar?';
+  alvo.innerHTML='<div class="escolhas">'+Object.keys(IF.TIPOS).map(function(k){
+    return '<a class="escolha '+k+'" href="publicar-item.html?tipo='+k+'">'+IF.TIPOS[k]+'<span aria-hidden="true">›</span></a>';
+  }).join('')+'</div>';
+}else{
+  document.getElementById('titulo').textContent=ed?'Editar anúncio':'Publicar '+IF.TIPOS[tipo].toLowerCase();
+  document.getElementById('voltar').href=ed?'meus-anuncios.html':'publicar-item.html';
+  sub.textContent=ed?'Corrija as informações, a descrição, o preço ou as fotos.':'Preencha os dados do item.';
+  var venda=tipo==='venda';
+  alvo.innerHTML=
+  '<form id="f" class="form perfil-cartao" novalidate>'+
+   '<label>Título<input name="titulo" maxlength="60" autocomplete="off"></label>'+
+   '<label>Descrição<textarea name="descricao" rows="4" maxlength="300"></textarea></label>'+
+   (venda?'<label>Preço (R$)<input name="preco" inputmode="decimal" placeholder="0,00"></label>'
+         :'<label>Local<input name="local" maxlength="60" placeholder="Ex.: Biblioteca, Bloco A"></label>')+
+   '<div><button type="button" class="btn-sec" id="addFoto">Adicionar fotos</button> <small>Até '+MAX+' fotos.</small>'+
+   '<input type="file" id="arq" accept="image/*" multiple hidden><div class="prev" id="prev"></div></div>'+
+   '<p class="modal-erro" id="erro" role="alert"></p>'+
+   '<div class="acoes"><a class="btn-sec" href="'+(ed?'meus-anuncios.html':'publicar-item.html')+'">Cancelar</a>'+
+   '<button class="btn-p" type="submit">'+(ed?'Salvar alterações':'Publicar')+'</button></div></form>';
+  var f=document.getElementById('f'),erro=document.getElementById('erro'),prev=document.getElementById('prev');
+  if(ed){
+    f.titulo.value=ed.titulo||'';f.descricao.value=ed.descricao||'';
+    if(venda&&ed.preco!=null)f.preco.value=String(ed.preco).replace('.',',');
+    if(!venda)f.local.value=ed.local||'';
+  }
+  function pintar(){
+    prev.innerHTML=fotos.map(function(s,i){return '<div><img src="'+s+'" alt="Foto '+(i+1)+'"><button type="button" data-i="'+i+'" aria-label="Remover foto '+(i+1)+'">×</button></div>'}).join('');
+  }
+  pintar();
+  prev.addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b){fotos.splice(+b.dataset.i,1);pintar()}});
+  document.getElementById('addFoto').addEventListener('click',function(){document.getElementById('arq').click()});
+  document.getElementById('arq').addEventListener('change',function(e){
+    var arqs=Array.prototype.slice.call(e.target.files).slice(0,MAX-fotos.length);e.target.value='';
+    erro.textContent='';
+    if(!arqs.length){erro.textContent='Você já adicionou '+MAX+' fotos.';return}
+    Promise.all(arqs.map(IF.foto)).then(function(r){fotos=fotos.concat(r);pintar()}).catch(function(err){erro.textContent=err.message});
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault();erro.textContent='';
+    var titulo=f.titulo.value.trim(),local=venda?'':f.local.value.trim(),preco=null;
+    if(!titulo){erro.textContent='Informe o título do anúncio.';f.titulo.focus();return}
+    if(venda){
+      var t=f.preco.value.trim();
+      preco=t.indexOf(',')>=0?parseFloat(t.replace(/\./g,'').replace(',','.')):parseFloat(t);
+      if(!t||isNaN(preco)||preco<0){erro.textContent='Informe um preço válido. Ex.: 40,00';f.preco.focus();return}
+    }else if(!local){erro.textContent='Informe o local.';f.local.focus();return}
+    var dados={tipo:tipo,titulo:titulo,descricao:f.descricao.value.trim(),local:local,preco:preco,fotos:fotos},lista=IF.anuncios();
+    if(ed){lista=lista.map(function(a){return a.id===edId?Object.assign({},a,dados):a})}
+    else lista.push(Object.assign({id:Date.now().toString(36),criado:Date.now(),status:'ativo'},dados));
+    if(!IF.gravarAnuncios(lista)){erro.textContent='Não foi possível salvar. Tente usar menos fotos.';return}
+    location.href='meus-anuncios.html';
+  });
+}
+</script>
+</body>
+</html>

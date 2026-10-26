@@ -1,3 +1,5 @@
+/* Páginas que já estão prontas. Quando terminar uma, adicione o nome do arquivo aqui. */
+const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html", "RedefinirSenha.html", "publicar-item.html", "meus-anuncios.html", "mensagens.html", "favoritos.html", "sobre.html", "termos.html", "privacidade.html"];
 
 /* ---------- Dados (trocar pelo back-end depois) ---------- */
 const ITENS = [
@@ -76,6 +78,21 @@ $("#grade").addEventListener("click", e => {
   b.textContent = ativo ? "♥" : "♡";
 });
 
+/* ---------- Links: páginas em construção e rodapé em manutenção ---------- */
+document.addEventListener("click", e => {
+  const pagina = e.target.closest("a[data-pagina]");
+  if(pagina){
+    if(!PRONTAS.includes(pagina.getAttribute("href"))){
+      e.preventDefault();
+      avisar("Esta página ainda está sendo feita.");
+    }
+    return;
+  }
+  if(e.target.closest("[data-manutencao]")){
+    e.preventDefault();
+    avisar("Esta função ainda está em manutenção.");
+  }
+});
 
 /* ---------- Perfil no topo e na saudação (usa o dados-perfil.js) ---------- */
 const perfilHome = lerPerfil();

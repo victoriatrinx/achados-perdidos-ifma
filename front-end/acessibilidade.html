@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iFound | Acessibilidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="perfil.css">
+<link rel="stylesheet" href="paginas-app.css">
+<script src="shell.js"></script>
+</head>
+<body>
+<script>IFShell.topo('perfil')</script>
+
+<main class="pagina">
+  <section class="perfil-painel" aria-labelledby="titulo">
+    <div class="perfil-titulo">
+      <a class="voltar" href="configuracoes.html" aria-label="Voltar para configurações"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></a>
+      <h1 id="titulo">Acessibilidade</h1>
+    </div>
+    <p class="sub">Personalize o app para uma experiência mais confortável e acessível para você.</p>
+
+    <fieldset class="perfil-cartao" style="border:1px solid #d6e9e0;padding:0">
+      <legend style="padding:16px 20px 0;font-weight:700;font-size:1.1rem">Tema</legend>
+      <p class="nota" style="padding:4px 20px 0">Escolha o estilo visual do aplicativo.</p>
+      <div class="opcoes">
+        <label class="opc"><strong>Tema claro</strong><small>Melhor para ambientes bem iluminados.</small><input type="radio" name="tema" value="claro"></label>
+        <label class="opc"><strong>Tema escuro</strong><small>Ideal para ambientes com pouca luz.</small><input type="radio" name="tema" value="escuro"></label>
+      </div>
+    </fieldset>
+
+    <div class="perfil-cartao">
+      <label class="linha"><span><strong>Alto contraste</strong><small>Melhora a legibilidade das informações com mais contraste entre cores.</small></span><input type="checkbox" class="sw" id="contraste"></label>
+    </div>
+    <p class="nota">As configurações são salvas neste dispositivo e valem nas páginas que carregam o shell.js.</p>
+  </section>
+</main>
+
+<script>IFShell.rodape()</script>
+<script src="dados-perfil.js"></script>
+<script src="comum.js"></script>
+<script src="anuncios.js"></script>
+<script>
+var a=IFA.ler();
+document.querySelectorAll('input[name=tema]').forEach(function(r){
+  r.checked=r.value===(a.tema==='escuro'?'escuro':'claro');
+  r.addEventListener('change',function(){IFA.salvar({tema:r.value})});
+});
+var c=document.getElementById('contraste');
+c.checked=!!a.contraste;
+c.addEventListener('change',function(){IFA.salvar({contraste:c.checked})});
+</script>
+</body>
+</html>

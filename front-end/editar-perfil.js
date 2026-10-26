@@ -1,8 +1,8 @@
 window.__editarJs = true;
 
 /* Precisa do comum.js carregado antes (aba, filtros, avisos e dados do perfil). */
-let perfil = lerPerfil();
-let fotoNova = perfil.foto;          /* só vai para o perfil quando clicar em Salvar */
+let perfil = null;
+let fotoNova = "";          /* só vai para o perfil quando clicar em Salvar */
 
 const VAZIOS = ["Aluno(a)", "@aluno(a)"];   /* textos de quem ainda não entrou */
 const campos = {
@@ -20,14 +20,31 @@ function mascaraTelefone(v){
   return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
 }
 
-/* Preenche a tela com o que já existe */
-campos.nome.value = VAZIOS.includes(perfil.nome) ? "" : perfil.nome;
-campos.usuario.value = VAZIOS.includes(perfil.usuario) ? "" : perfil.usuario;
-campos.email.value = perfil.email || "";
-campos.telefone.value = mascaraTelefone(perfil.telefone || "");
-$("#nomeExibido").textContent = VAZIOS.includes(perfil.nome) ? "Usuário anônimo" : perfil.nome;
-pintarFoto($("#fotoEditar"), fotoNova);
-mostrarTopo(perfil);
+//* Carrega os dados atualizados do Supabase */
+async function iniciarEdicaoPerfil() {
+  const resultado = await carregarPerfilSupabase();
+
+  if (!resultado.ok) {
+    avisar(resultado.mensagem);
+    return;
+  }
+
+  perfil = resultado.perfil;
+  fotoNova = perfil.foto || "";
+
+  campos.nome.value = VAZIOS.includes(perfil.nome) ? "" : perfil.nome;
+  campos.usuario.value = VAZIOS.includes(perfil.usuario) ? "" : perfil.usuario;
+  campos.email.value = perfil.email || "";
+  campos.telefone.value = mascaraTelefone(perfil.telefone || "");
+
+  $("#nomeExibido").textContent =
+    VAZIOS.includes(perfil.nome) ? "Usuário anônimo" : perfil.nome;
+
+  pintarFoto($("#fotoEditar"), fotoNova);
+  mostrarTopo(perfil);
+}
+
+iniciarEdicaoPerfil();
 
 campos.telefone.addEventListener("input", () => { campos.telefone.value = mascaraTelefone(campos.telefone.value); });
 
@@ -51,7 +68,7 @@ function mostrarErro(msg, campo){
 }
 
 /* Salvar */
-$("#formEditar").addEventListener("submit", e => {
+$("#formEditar").addEventListener("submit", async e => {
   e.preventDefault();
   const nome = campos.nome.value.trim().replace(/\s+/g, " ");
   const usuario = campos.usuario.value.trim().replace(/^@+/, "");
@@ -65,12 +82,36 @@ $("#formEditar").addEventListener("submit", e => {
   if(telefone && telefone.length < 10) return mostrarErro("O telefone precisa ter DDD + número, ou deixe em branco.", campos.telefone);
 
   erro.hidden = true;
-  perfil = {...perfil, nome, usuario: "@" + usuario, email, telefone, foto: fotoNova};
-  if(!salvarPerfil(perfil)) return mostrarErro("Não foi possível salvar neste navegador.");
+  perfil = {
+  ...perfil,
+  nome,
+  usuario: "@" + usuario,
+  email,
+  telefone,
+  foto: fotoNova
+};
+
+const botaoSalvar = $("#formEditar").querySelector(".ep-salvar");
+botaoSalvar.disabled = true;
+
+try {
+  const resultado = await salvarPerfilSupabase(perfil);
+
+  if (!resultado.ok) {
+    mostrarErro(resultado.mensagem);
+    return;
+  }
 
   mostrarTopo(perfil);
   $("#nomeExibido").textContent = nome;
-  $("#formEditar").querySelector(".ep-salvar").disabled = true;
   avisar("Perfil atualizado.");
-  setTimeout(() => { location.href = "perfil.html"; }, 900);
+  setTimeout(() => {
+    location.href = "perfil.html";
+  }, 900);
+} catch (erro) {
+  console.error(erro);
+  mostrarErro("Ocorreu um erro ao salvar o perfil.");
+} finally {
+  botaoSalvar.disabled = false;
+}
 });

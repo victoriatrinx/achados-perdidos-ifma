@@ -1,5 +1,3 @@
-/* Páginas que já estão prontas. Quando terminar uma, adicione o nome do arquivo aqui. */
-const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoes.html", "RedefinirSenha.html"];
 
 /* ---------- Dados (trocar pelo back-end depois) ---------- */
 const ITENS = [
@@ -17,19 +15,6 @@ const ITENS = [
    const r = await fetch("/api/itens"); return r.json();  */
 async function buscarItens(){ return ITENS; }
 
-/* ---------- Utilidades ---------- */
-const $ = s => document.querySelector(s);
-const norm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-function quando(d){ return d>=7 ? "1 semana atrás" : `${d} dias atrás`; }
-
-let tempoAviso;
-function avisar(msg){
-  const a = $("#aviso");
-  a.textContent = msg;
-  a.classList.add("mostra");
-  clearTimeout(tempoAviso);
-  tempoAviso = setTimeout(() => a.classList.remove("mostra"), 2600);
-}
 
 /* ---------- Lista de itens ---------- */
 let todos = [];
@@ -57,18 +42,6 @@ function filtrar(){
     (!loc || norm(i.local).includes(loc)) &&
     i.dias <= dias));
 }
-
-/* ---------- Aba lateral: mostrar / esconder ---------- */
-const aba = $("#aba"), btnAba = $("#btnAba");
-function definirAba(aberta){
-  document.body.classList.toggle("sem-aba", !aberta);
-  btnAba.setAttribute("aria-expanded", aberta);
-  try{ localStorage.setItem("abaAberta", aberta); }catch(e){}
-}
-let guardada = null;
-try{ guardada = localStorage.getItem("abaAberta"); }catch(e){}
-definirAba(guardada !== null ? guardada === "true" : window.innerWidth > 860);
-btnAba.addEventListener("click", () => definirAba(document.body.classList.contains("sem-aba")));
 
 /* Rolar em cima da aba nunca move a página de trás */
 aba.addEventListener("wheel", e => {
@@ -103,21 +76,6 @@ $("#grade").addEventListener("click", e => {
   b.textContent = ativo ? "♥" : "♡";
 });
 
-/* ---------- Links: páginas em construção e rodapé em manutenção ---------- */
-document.addEventListener("click", e => {
-  const pagina = e.target.closest(".aba a[href], a[data-pagina]");
-  if(pagina){
-    if(!PRONTAS.includes(pagina.getAttribute("href"))){
-      e.preventDefault();
-      avisar("Esta página ainda está sendo feita.");
-    }
-    return;
-  }
-  if(e.target.closest("[data-manutencao]")){
-    e.preventDefault();
-    avisar("Esta função ainda está em manutenção.");
-  }
-});
 
 /* ---------- Perfil no topo e na saudação (usa o dados-perfil.js) ---------- */
 const perfilHome = lerPerfil();

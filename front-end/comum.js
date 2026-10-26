@@ -25,6 +25,33 @@ const PRONTAS = ["home.html", "perfil.html", "editar-perfil.html", "configuracoe
 
 /* ---------- Utilidades ---------- */
 const $ = s => document.querySelector(s);
+/* Atualiza o usuário exibido no cabeçalho */
+async function atualizarTopoUsuario() {
+  const avatar = $("#topoAvatar");
+  const nome = $("#topoNome");
+
+  if (!avatar || !nome) return;
+
+  const resultado = await carregarPerfilSupabase();
+
+  if (!resultado.ok) return;
+
+  const perfil = resultado.perfil;
+
+  nome.textContent = perfil.nome || "Aluno(a)";
+  avatar.replaceChildren();
+
+  if (perfil.foto) {
+    const img = document.createElement("img");
+    img.src = perfil.foto;
+    img.alt = "Foto do perfil";
+    avatar.appendChild(img);
+  } else {
+    avatar.textContent = (perfil.nome || "A").charAt(0).toUpperCase();
+  }
+}
+
+atualizarTopoUsuario();
 
 let tempoAviso;
 function avisar(msg){

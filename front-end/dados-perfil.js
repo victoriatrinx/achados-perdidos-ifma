@@ -124,3 +124,76 @@ function reduzirFoto(arq){
     img.src = url;
   });
 }
+async function carregarPerfilSupabase() {
+  const { data: { user }, error: erroAuth } =
+    await clienteSupabase.auth.getUser();
+
+  if (erroAuth || !user) {
+    return {
+      ok: false,
+      mensagem: "Entre na sua conta para acessar o perfil."
+    };
+  }
+
+  const { data, error } = await clienteSupabase
+    .from("perfis")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  if (error) {
+    return {
+      ok: false,
+      mensagem: "Não foi possível carregar seu perfil."
+    };
+  }
+
+  return {
+    ok: true,
+    perfil: {
+      id: data.id,
+      nome: data.nome,
+      usuario: data.usuario ? "@" + data.usuario.replace(/^@+/, "") : "@aluno(a)",
+      email: data.email,
+      telefone: data.telefone || "",
+      foto: data.foto_url || "",
+      anuncios: 0,
+      favoritos: 0
+    }
+  };
+}
+async function salvarPerfilSupabase(perfil) {
+  const { data: { user }, error: erroAuth } =
+    await clienteSupabase.auth.getUser();
+
+  if (erroAuth || !user) {
+    return {
+      ok: false,
+      mensagem: "Você precisa entrar na sua conta."
+    };
+  }
+
+  const dados = {
+    nome: perfil.nome,
+    email: user.email,
+    usuario: perfil.usuario.replace(/^@+/, ""),
+    telefone: perfil.telefone || "",
+    foto_url: perfil.foto||""
+  };
+
+  const { error } = await clienteSupabase
+    .from("perfis")
+    .update(dados)
+    .eq("id", user.id);
+
+  if (error) {
+    console.error("Erro ao salvar perfil:", error);
+
+    return {
+      ok: false,
+      mensagem: "Não foi possível salvar o perfil."
+    };
+  }
+
+  return { ok: true };
+}

@@ -1,31 +1,67 @@
-window.__perfilJs = true; /* avisa o diagnóstico do HTML que este arquivo carregou */
+window.__perfilJs = true;
 
-/* Precisa do comum.js carregado antes (aba, filtros, avisos e dados do perfil). */
-let perfil = lerPerfil();
+let perfil = null;
 
-function mostrarPerfil(p){
+function mostrarPerfil(p) {
   $("#perfilNome").textContent = p.nome;
   $("#perfilUsuario").textContent = p.usuario;
-  $("#statAnuncios").textContent = p.anuncios;
-  $("#statFavoritos").textContent = p.favoritos;
+  $("#statAnuncios").textContent = p.anuncios ?? 0;
+  $("#statFavoritos").textContent = p.favoritos ?? 0;
+
   pintarFoto($("#perfilFoto"), p.foto);
   mostrarTopo(p);
 }
-mostrarPerfil(perfil);
 
-/* Lápis: abre a página de editar perfil */
-$("#btnEditar").addEventListener("click", () => { location.href = "editar-perfil.html"; });
+async function iniciarPerfil() {
+  const resultado = await carregarPerfilSupabase();
 
-/* Câmera: troca a foto direto aqui */
-$("#btnCamera").addEventListener("click", () => $("#arquivoFoto").click());
-$("#arquivoFoto").addEventListener("change", e => {
-  const arq = e.target.files[0];
+  if (!resultado.ok) {
+    avisar(resultado.mensagem);
+    return;
+  }
+
+  perfil = resultado.perfil;
+  mostrarPerfil(perfil);
+}
+
+iniciarPerfil();
+
+/* Lápis: abre a edição do perfil */
+$("#btnEditar").addEventListener("click", () => {
+  location.href = "editar-perfil.html";
+});
+
+/* Câmera: seleciona uma foto */
+$("#btnCamera").addEventListener("click", () => {
+  $("#arquivoFoto").click();
+});
+
+/* Atualiza a foto */
+$("#arquivoFoto").addEventListener("change", async e => {
+  const arquivo = e.target.files[0];
   e.target.value = "";
-  if(!arq) return;
-  reduzirFoto(arq).then(foto => {
-    perfil = {...perfil, foto};
-    if(!salvarPerfil(perfil)){ avisar("Não foi possível salvar a foto."); return; }
+
+  if (!arquivo || !perfil) return;
+
+  try {
+    const foto = await reduzirFoto(arquivo);
+
+    const { error } = await clienteSupabase
+      .from("perfis")
+      .update({ foto_url: foto })
+      .eq("id", perfil.id);
+
+    if (error) {
+      console.error(error);
+      avisar("Não foi possível salvar a foto.");
+      return;
+    }
+
+    perfil = { ...perfil, foto };
     mostrarPerfil(perfil);
     avisar("Foto atualizada.");
-  }).catch(err => avisar(err.message));
+  } catch (erro) {
+    console.error(erro);
+    avisar("Não foi possível carregar a imagem.");
+  }
 });

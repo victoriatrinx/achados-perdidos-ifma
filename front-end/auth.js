@@ -10,7 +10,7 @@ const Auth = {
                     telefone: dados.telefone
                 }
             }
-        });
+        }); 
 
         if (error) {
             return {
@@ -70,7 +70,7 @@ const Auth = {
                 mensagem: 'Não foi possível solicitar a recuperação. Tente novamente.'
             };
         }
-
+ 
         return { ok: true };
     },
     async redefinirSenha(novaSenha) {

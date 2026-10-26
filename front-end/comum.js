@@ -90,7 +90,7 @@ function avisar(msg){
 
   /* Links: páginas em construção e botões em manutenção */
   document.addEventListener("click", e => {
-    const pagina = e.target.closest(".aba a[href], a[data-pagina]");
+    const pagina = e.target.closest("a[data-pagina]");
     if(pagina){
       if(!PRONTAS.includes(pagina.getAttribute("href"))){
         e.preventDefault();

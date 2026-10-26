@@ -23,9 +23,9 @@
     </div>
     <p class="sub">Personalize o app para uma experiência mais confortável e acessível para você.</p>
 
-    <fieldset class="perfil-cartao" style="border:1px solid #d6e9e0;padding:0">
-      <legend style="padding:16px 20px 0;font-weight:700;font-size:1.1rem">Tema</legend>
-      <p class="nota" style="padding:4px 20px 0">Escolha o estilo visual do aplicativo.</p>
+    <fieldset class="perfil-cartao fs-tema">
+      <legend>Tema</legend>
+      <p class="nota">Escolha o estilo visual do aplicativo.</p>
       <div class="opcoes">
         <label class="opc"><strong>Tema claro</strong><small>Melhor para ambientes bem iluminados.</small><input type="radio" name="tema" value="claro"></label>
         <label class="opc"><strong>Tema escuro</strong><small>Ideal para ambientes com pouca luz.</small><input type="radio" name="tema" value="escuro"></label>
@@ -33,7 +33,7 @@
     </fieldset>
 
     <div class="perfil-cartao">
-      <label class="linha"><span><strong>Alto contraste</strong><small>Melhora a legibilidade das informações com mais contraste entre cores.</small></span><input type="checkbox" class="sw" id="contraste"></label>
+      <label class="linha"><span><strong>Alto contraste</strong><small>Melhora a legibilidade com mais contraste entre cores. Disponível apenas no tema escuro.</small></span><input type="checkbox" class="sw" id="contraste"></label>
     </div>
     <p class="nota">As configurações são salvas neste dispositivo e valem nas páginas que carregam o shell.js.</p>
   </section>
@@ -47,9 +47,11 @@
 var a=IFA.ler();
 document.querySelectorAll('input[name=tema]').forEach(function(r){
   r.checked=r.value===(a.tema==='escuro'?'escuro':'claro');
-  r.addEventListener('change',function(){IFA.salvar({tema:r.value})});
+  r.addEventListener('change',function(){IFA.salvar({tema:r.value});sync()});
 });
 var c=document.getElementById('contraste');
+function sync(){c.disabled=a.tema!=='escuro'}
+sync();
 c.checked=!!a.contraste;
 c.addEventListener('change',function(){IFA.salvar({contraste:c.checked})});
 </script>

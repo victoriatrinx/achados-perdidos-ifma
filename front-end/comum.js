@@ -31,10 +31,24 @@ async function atualizarTopoUsuario() {
   const nome = $("#topoNome");
 
   if (!avatar || !nome) return;
+// Esconde os dados antigos enquanto carrega o perfil atual.
+nome.textContent = "";
+avatar.replaceChildren();
+avatar.style.backgroundImage = "";
+avatar.textContent = ""; 
+
+  // Evita mostrar dados antigos enquanto o perfil carrega
+  nome.textContent = "Carregando...";
+  avatar.replaceChildren();
+  avatar.textContent = "...";
 
   const resultado = await carregarPerfilSupabase();
 
-  if (!resultado.ok) return;
+  if (!resultado.ok) {
+    nome.textContent = "Aluno(a)";
+    avatar.textContent = "A";
+    return;
+  }
 
   const perfil = resultado.perfil;
 
@@ -51,16 +65,48 @@ async function atualizarTopoUsuario() {
   }
 }
 
-atualizarTopoUsuario();
+async function atualizarTopoUsuario() {
+  const avatar = document.querySelector("#topoAvatar");
+  const nome = document.querySelector("#topoNome");
 
-let tempoAviso;
-function avisar(msg){
-  const a = $("#aviso");
-  a.textContent = msg;
-  a.classList.add("mostra");
-  clearTimeout(tempoAviso);
-  tempoAviso = setTimeout(() => a.classList.remove("mostra"), 2600);
+  if (!avatar || !nome) return;
+
+  const resultado = await carregarPerfilSupabase();
+
+  if (!resultado.ok) {
+    nome.textContent = "Aluno(a)";
+    avatar.replaceChildren();
+    avatar.textContent = "A";
+    avatar.style.backgroundImage = "";
+    return;
+  }
+
+  const perfil = resultado.perfil;
+
+  nome.textContent = perfil.nome || "Aluno(a)";
+  avatar.replaceChildren();
+  avatar.style.backgroundImage = "";
+
+  if (perfil.foto) {
+    const img = document.createElement("img");
+    img.src = perfil.foto;
+    img.alt = "Foto do perfil";
+    avatar.appendChild(img);
+  } else {
+    avatar.textContent = (perfil.nome || "A").charAt(0).toUpperCase();
+  }
 }
+function avisar(mensagem) {
+  const elemento = document.querySelector("#aviso");
+
+  if (elemento) {
+    elemento.textContent = mensagem;
+    elemento.classList.add("visivel");
+  } else {
+    console.error(mensagem);
+  }
+}
+atualizarTopoUsuario();
 
 /* ---------- Topo, aba lateral e filtros ---------- */
 (function(){

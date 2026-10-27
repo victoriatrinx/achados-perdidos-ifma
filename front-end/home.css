@@ -126,3 +126,25 @@ h3 i{font-style:normal;font-size:1.8rem}
 
 .avatar.com-foto{background-size:cover;background-position:center}
 .avatar.com-foto::before,.avatar.com-foto::after{display:none}
+.avatar img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  border-radius:50%;
+}
+.avatar.com-foto::before,
+.avatar.com-foto::after {
+  content: none !important;
+  display: none !important;
+}
+.avatar img ~ * {
+  display: none !important;
+}
+
+.avatar:has(img)::before,
+.avatar:has(img)::after {
+  content: none !important;
+  display: none !important;
+}

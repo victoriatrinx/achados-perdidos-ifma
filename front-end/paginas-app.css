@@ -336,3 +336,84 @@ html.tema-escuro .perfil-titulo h1{color:var(--realce)}
 html.tema-escuro.alto-contraste .perfil-painel{border:2px solid #8dffd2}
 html.tema-escuro.alto-contraste .icone-redondo,
 html.tema-escuro.alto-contraste .btn-editar{background:#000;border:2px solid #8dffd2}
+/* ===== Tema escuro (segue o PDF: fundo quase preto, bordas e títulos verde-menta) ===== */
+html.tema-escuro{--fundo:#04120d;--card:#0a1d15;--texto:#e8f3ee;--suave:#a9c2b8;--menta:#7fe3c0;--borda:#1f5a46;--ativo-bg:#0f3a2b;color-scheme:dark}
+html.tema-escuro body{background:var(--fundo);color:var(--texto)}
+
+/* Topo e menu lateral */
+html.tema-escuro .topo{background:var(--fundo)}
+html.tema-escuro .topo-logo,html.tema-escuro .aba,html.tema-escuro .topo-user,html.tema-escuro .btn-aba,html.tema-escuro .rodape{background:#061a13;border:1px solid var(--borda)}
+html.tema-escuro .topo-logo{border-radius:0 0 18px 0}
+html.tema-escuro .topo-user{border-radius:0 0 0 18px}
+html.tema-escuro .rodape{border-width:1px 0 0}
+html.tema-escuro .busca{background:var(--card);color:var(--menta);border:1px solid var(--borda);box-shadow:none}
+html.tema-escuro .busca input{color:var(--texto)}
+html.tema-escuro .busca input::placeholder{color:var(--suave)}
+html.tema-escuro .nav-item{color:var(--texto)}
+html.tema-escuro .nav-item:hover{background:#0c2a20}
+html.tema-escuro .nav-item.ativo{background:var(--ativo-bg);color:var(--menta);border:1px solid #35c28b}
+html.tema-escuro .nav-filtros,html.tema-escuro .filtros{background:var(--card);border:1px solid var(--borda)}
+html.tema-escuro .filtros select,html.tema-escuro .filtros input{background:var(--fundo);border-color:var(--borda);color:var(--texto)}
+html.tema-escuro .chips button{border-color:var(--borda)}
+html.tema-escuro .btn-aplicar{background:var(--ativo-bg);color:var(--menta);border:1px solid #35c28b}
+html.tema-escuro .aba-lema,html.tema-escuro .recado{color:var(--texto)}
+html.tema-escuro .rodape h4,html.tema-escuro .rodape-legal{color:var(--amarelo)}
+html.tema-escuro .redes a{border-color:var(--amarelo);color:var(--amarelo)}
+html.tema-escuro .aviso{background:var(--ativo-bg);color:var(--texto)}
+
+/* Títulos e textos */
+html.tema-escuro h1,html.tema-escuro h2,html.tema-escuro h3{color:var(--texto)}
+html.tema-escuro .boas-vindas h2,html.tema-escuro .boas-vindas p,html.tema-escuro .sub{color:var(--menta)}
+html.tema-escuro .voltar{color:var(--menta)}
+html.tema-escuro .voltar:hover{background:var(--ativo-bg)}
+html.tema-escuro .ver-todas{color:var(--menta)}
+
+/* Painéis e cartões */
+html.tema-escuro .perfil-painel{background:#07160f;border-color:var(--borda)}
+html.tema-escuro .perfil-cartao,html.tema-escuro .card,html.tema-escuro .anu,html.tema-escuro .aba-btn,html.tema-escuro .vazio,html.tema-escuro .conv,html.tema-escuro .bolha,html.tema-escuro .menu-l,html.tema-escuro .modal{background:var(--card);border-color:var(--borda);color:var(--texto)}
+html.tema-escuro .atalho+.atalho,html.tema-escuro .numero+.numero,html.tema-escuro .linha+.linha{border-color:var(--borda)}
+html.tema-escuro .icone-redondo,html.tema-escuro .btn-editar{background:var(--ativo-bg);color:var(--menta)}
+html.tema-escuro .btn-editar:hover{background:#14503b}
+html.tema-escuro .atalho-seta,html.tema-escuro .vazio svg{color:var(--menta)}
+html.tema-escuro .btn-camera{background:#061a13;color:var(--menta);border-color:var(--card)}
+html.tema-escuro .perfil-foto,html.tema-escuro .avatar,html.tema-escuro .av{background:#1b3a2e;color:var(--menta)}
+html.tema-escuro .perfil-foto::before,html.tema-escuro .perfil-foto::after,html.tema-escuro .avatar::before,html.tema-escuro .avatar::after{background:#6fc7a8}
+html.tema-escuro .thumb,html.tema-escuro .anu-img{background:#0f241b}
+html.tema-escuro .fav,html.tema-escuro .ponto{color:var(--menta)}
+html.tema-escuro .ponto:hover,html.tema-escuro .menu-l button:hover{background:var(--ativo-bg)}
+html.tema-escuro .menu-l button,html.tema-escuro .anu-acoes button,html.tema-escuro .anu-acoes a{color:var(--texto)}
+html.tema-escuro .perigo,html.tema-escuro .modal-erro{color:#ff8a9a!important}
+html.tema-escuro .aba-btn b{background:#244036;color:var(--texto)}
+html.tema-escuro .aba-btn.on{background:var(--ativo-bg);color:#fff;border-color:#35c28b}
+html.tema-escuro .aba-btn.on b{background:#ffffff33}
+html.tema-escuro .conv:hover{border-color:#35c28b}
+html.tema-escuro .bolha.eu{background:#12503b;color:var(--texto)}
+
+/* Formulários, janelas e botões */
+html.tema-escuro .form input,html.tema-escuro .form textarea,html.tema-escuro .modal input,html.tema-escuro .envio input{background:var(--fundo);color:var(--texto);border-color:var(--borda)}
+html.tema-escuro .form input::placeholder,html.tema-escuro .form textarea::placeholder,html.tema-escuro .envio input::placeholder{color:var(--suave)}
+html.tema-escuro .btn-p,html.tema-escuro .modal-salvar,html.tema-escuro .envio button{background:var(--ativo-bg);color:var(--texto);border:1px solid #35c28b}
+html.tema-escuro .btn-p:hover,html.tema-escuro .modal-salvar:hover{background:#14503b}
+html.tema-escuro .btn-sec,html.tema-escuro .modal-cancelar{background:transparent;color:var(--texto);border:1px solid var(--borda)}
+html.tema-escuro .prev div{border-color:var(--borda)}
+
+/* Acessibilidade / configurações */
+.fs-tema{border:1px solid #d6e9e0;padding:0;margin:0;min-width:0}
+.fs-tema legend{padding:16px 20px 0;font-weight:700;font-size:1.1rem}
+.fs-tema .nota{padding:4px 20px 0}
+html.tema-escuro .fs-tema{border-color:var(--borda)}
+html.tema-escuro .opc{border-color:var(--borda);color:var(--texto)}
+html.tema-escuro .opc:has(input:checked){background:var(--ativo-bg);border-color:#35c28b;color:var(--texto)}
+html.tema-escuro .opc input{accent-color:#35c28b}
+html.tema-escuro .sw{background:#3b5a4e}
+html.tema-escuro .sw:checked{background:#35c28b}
+.sw:disabled{opacity:.45;cursor:not-allowed}
+
+/* ===== Alto contraste: só vale junto com o tema escuro ===== */
+html.tema-escuro.alto-contraste{--texto:#ffffff;--suave:#ffffff;--borda:#7fe3c0;--fundo:#000;--card:#050f0b}
+html.tema-escuro.alto-contraste body{background:#000}
+html.tema-escuro.alto-contraste .perfil-painel{background:#020a07}
+html.tema-escuro.alto-contraste .perfil-cartao,html.tema-escuro.alto-contraste .card,html.tema-escuro.alto-contraste .anu,html.tema-escuro.alto-contraste .aba-btn,html.tema-escuro.alto-contraste .vazio,html.tema-escuro.alto-contraste .conv,html.tema-escuro.alto-contraste .opc,html.tema-escuro.alto-contraste .form input,html.tema-escuro.alto-contraste .form textarea,html.tema-escuro.alto-contraste .busca,html.tema-escuro.alto-contraste .fs-tema{border:2px solid var(--menta)}
+html.tema-escuro.alto-contraste .boas-vindas p,html.tema-escuro.alto-contraste .sub{color:var(--menta)}
+html.tema-escuro.alto-contraste .nav-item.ativo{outline:2px solid var(--menta)}
+html.tema-escuro.alto-contraste a:focus-visible,html.tema-escuro.alto-contraste button:focus-visible,html.tema-escuro.alto-contraste input:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}

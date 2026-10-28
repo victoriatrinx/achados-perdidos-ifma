@@ -1,36 +1,76 @@
 
-/* ---------- Dados (trocar pelo back-end depois) ---------- */
-const ITENS = [
-  {id:1,cat:"Achado",nome:"Mochila preta",desc:"Encontrada na biblioteca. Sem marca aparente.",local:"Biblioteca",dias:2,forma:"mochila"},
-  {id:2,cat:"Perdido",nome:"AirPods",desc:"Perdi no intervalo, próximo ao bloco B.",local:"Bloco B",dias:3,forma:"airpods"},
-  {id:3,cat:"Doação",nome:"Livros didáticos",desc:"Livros em bom estado. Pode ser doado!",local:"Bloco A",dias:4,forma:"livros"},
-  {id:4,cat:"Venda",nome:"Garrafa térmica",desc:"Garrafa de 750ml. Pouco uso e em ótimo estado.",local:"IFMA Rosário",dias:5,forma:"garrafa"},
-  {id:5,cat:"Achado",nome:"Chaves",desc:"Encontradas no pátio central.",local:"Pátio",dias:5,forma:"chaves"},
-  {id:6,cat:"Perdido",nome:"Caderno",desc:"Perdi na sala do 2º ano.",local:"Sala 203",dias:6,forma:"caderno"},
-  {id:7,cat:"Doação",nome:"Fone de ouvido",desc:"Funcionando perfeitamente.",local:"Bloco C",dias:7,forma:"fone"},
-  {id:8,cat:"Venda",nome:"Calculadora científica",desc:"Em ótimo estado.",local:"Bloco C",dias:7,forma:"calculadora"}
-];
+//* ---------- Publicações do Supabase ---------- */
 
-/* Quando o back-end existir, troque o corpo por:
-   const r = await fetch("/api/itens"); return r.json();  */
-async function buscarItens(){ return ITENS; }
+async function buscarItens() {
+    const { data, error } = await clienteSupabase
+        .from("publicacoes")
+        .select("*")
+        .eq("status", "ativo")
+        .order("criado_em", { ascending: false });
 
+    if (error) {
+        console.error("Erro ao carregar publicações:", error);
+        avisar("Não foi possível carregar as publicações.");
+        return [];
+    }
 
+    return data.map(function(p) {
+        const categorias = {
+            encontrado: "Achado",
+            perdido: "Perdido",
+            doacao: "Doação",
+            venda: "Venda"
+        };
+
+        return {
+            id: p.id,
+            cat: categorias[p.tipo] || p.tipo,
+            nome: p.titulo,
+            desc: p.descricao,
+            local: p.local || "Local não informado",
+            dias: Math.floor(
+                (Date.now() - new Date(p.criado_em).getTime())
+                / 86400000
+            ),
+            imagem: p.imagem_url ||
+                (Array.isArray(p.fotos_urls)
+                    ? p.fotos_urls[0]
+                    : ""),
+            forma: ""
+        };
+    });
+}
 /* ---------- Lista de itens ---------- */
 let todos = [];
+function quando(dias) {
+    if (dias === 0) return "Hoje";
+    if (dias === 1) return "Ontem";
+    return "Há " + dias + " dias";
+}
 function desenhar(lista){
   $("#grade").innerHTML = lista.length ? lista.map(i => `
-    <article class="card">
+    <article class="card"
+    style="cursor:pointer"
+    onclick="if (!event.target.closest('button, a')) location.href='Item.html?id=${i.id}'">
       <span class="tag ${i.cat}">${i.cat}</span>
       <button class="fav" type="button" aria-label="Favoritar ${i.nome}" aria-pressed="false">♡</button>
-      <div class="thumb"><span class="obj ${i.forma}"></span></div>
+      <div class="thumb">
+      ${i.imagem
+        ? `<img src="${i.imagem}" alt="${i.nome}">`
+        : `<span class="obj ${i.forma}"></span>`}
+      </div>
       <h4>${i.nome}</h4>
       <p class="desc">${i.desc}</p>
       <p class="meta">📍 ${i.local}</p>
       <p class="meta">🗓️ ${quando(i.dias)}</p>
     </article>`).join("") : `<p class="vazio">Nenhum item encontrado. Tente mudar a busca ou os filtros.</p>`;
 }
-
+function norm(texto) {
+    return String(texto || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+}
 function filtrar(){
   const q = norm($("#busca").value.trim());
   const cat = $("#fCategoria").value;

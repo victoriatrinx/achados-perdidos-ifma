@@ -69,6 +69,13 @@ h3 i{font-style:normal;font-size:1.8rem}
 .tag.Doação{background:var(--ocre)}
 .fav{position:absolute;top:16px;right:18px;z-index:1;background:none;border:0;font-size:1.1rem;cursor:pointer;color:var(--verde-ativo)}
 .thumb{height:130px;border-radius:8px;background:#edf5f1;position:relative;margin-bottom:6px}
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
 .card h4{font-size:1rem;font-weight:700}
 .desc{font-size:.78rem;color:var(--suave);line-height:1.4;min-height:2.2em}
 .meta{font-size:.78rem;color:var(--suave);display:flex;gap:8px;align-items:center}

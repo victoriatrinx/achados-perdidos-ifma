@@ -78,7 +78,17 @@ function desenharFoto(item) {
   };
   return partes[item.icone] || "";
 }
+async function exigirLogin() {
+    const { data: { session }, error } =
+        await clienteSupabase.auth.getSession();
 
+    if (error || !session) {
+        window.location.href = "login.html";
+        return false;
+    }
+
+    return true;
+}
 function desenharItem(item) {
   const favorito = lerFavoritos().indexOf(item.id) !== -1;
   const icoSelo = item.tipo === "perdido" ? SVG.alerta : "";
@@ -110,10 +120,20 @@ function desenharItem(item) {
   conteudo.innerHTML = html;
 
   document.getElementById("btnFav").addEventListener("click", alternarFavorito);
-  document.getElementById("btnMensagem").addEventListener("click", function () {
-    avisar("A página de Mensagens ainda está sendo feita.");
-  });
-  document.getElementById("btnDenunciar").addEventListener("click", abrirPainel);
+ document.getElementById("btnMensagem").addEventListener("click", async function () {
+    const autenticado = await exigirLogin();
+
+    if (!autenticado) return;
+
+    window.location.href = "mensagens.html";
+});
+  document.getElementById("btnDenunciar").addEventListener("click", async function () {
+    const autenticado = await exigirLogin();
+
+    if (!autenticado) return;
+
+    abrirPainel();
+});
   document.title = item.titulo + " • iFound";
 }
 
@@ -264,8 +284,57 @@ document.getElementById("btnVoltar").addEventListener("click", function () {
 });
 
 /* ---------- Início ---------- */
-(function iniciar() {
-  const id = new URLSearchParams(location.search).get("id");
-  itemAtual = buscarItemPorId(id);
-  if (itemAtual) desenharItem(itemAtual); else desenharNaoEncontrado();
-})();
+async function iniciar() {
+    const id = new URLSearchParams(location.search).get("id");
+
+    if (!id || !/^\d+$/.test(id)) {
+        desenharNaoEncontrado();
+        return;
+    }
+
+    const { data: publicacao, error } = await clienteSupabase
+        .from("publicacoes")
+.select(`
+    *,
+    perfis (
+        nome,
+        usuario
+    )
+`)
+.eq("id", id)
+.maybeSingle();
+
+    if (error) {
+        console.error("Erro ao buscar anúncio:", error);
+        alert("Erro do Supabase: " + error.message);
+        desenharNaoEncontrado();
+        return;
+    }
+    
+
+    if (!publicacao) {
+        desenharNaoEncontrado();
+        return;
+    }
+
+    itemAtual = {
+        id: Number(publicacao.id),
+        tipo: publicacao.tipo === "encontrado"
+            ? "achado"
+            : publicacao.tipo,
+        titulo: publicacao.titulo,
+        descricao: publicacao.descricao,
+        local: publicacao.local || "Local não informado",
+        data: publicacao.data_perda || publicacao.criado_em?.slice(0, 10),
+        imagem: publicacao.imagem_url ||
+            (Array.isArray(publicacao.fotos_urls)
+                ? publicacao.fotos_urls[0]
+                : ""),
+        autor: publicacao.perfis?.nome || "Usuário do iFound",
+usuario: publicacao.perfis?.usuario || ""
+    };
+
+    desenharItem(itemAtual);
+}
+
+iniciar();

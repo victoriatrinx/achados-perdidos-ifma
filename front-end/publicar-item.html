@@ -82,21 +82,108 @@ if(edId&&!ed){
     if(!arqs.length){erro.textContent='Você já adicionou '+MAX+' fotos.';return}
     Promise.all(arqs.map(IF.foto)).then(function(r){fotos=fotos.concat(r);pintar()}).catch(function(err){erro.textContent=err.message});
   });
-  f.addEventListener('submit',function(e){
-    e.preventDefault();erro.textContent='';
-    var titulo=f.titulo.value.trim(),local=venda?'':f.local.value.trim(),preco=null;
-    if(!titulo){erro.textContent='Informe o título do anúncio.';f.titulo.focus();return}
-    if(venda){
-      var t=f.preco.value.trim();
-      preco=t.indexOf(',')>=0?parseFloat(t.replace(/\./g,'').replace(',','.')):parseFloat(t);
-      if(!t||isNaN(preco)||preco<0){erro.textContent='Informe um preço válido. Ex.: 40,00';f.preco.focus();return}
-    }else if(!local){erro.textContent='Informe o local.';f.local.focus();return}
-    var dados={tipo:tipo,titulo:titulo,descricao:f.descricao.value.trim(),local:local,preco:preco,fotos:fotos},lista=IF.anuncios();
-    if(ed){lista=lista.map(function(a){return a.id===edId?Object.assign({},a,dados):a})}
-    else lista.push(Object.assign({id:Date.now().toString(36),criado:Date.now(),status:'ativo'},dados));
-    if(!IF.gravarAnuncios(lista)){erro.textContent='Não foi possível salvar. Tente usar menos fotos.';return}
-    location.href='meus-anuncios.html';
-  });
+  f.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    erro.textContent = '';
+
+    var titulo = f.titulo.value.trim();
+    var local = venda ? '' : f.local.value.trim();
+    var preco = null;
+
+    if (!titulo) {
+        erro.textContent = 'Informe o título do anúncio.';
+        f.titulo.focus();
+        return;
+    }
+
+    if (!f.descricao.value.trim()) {
+        erro.textContent = 'Informe a descrição do item.';
+        f.descricao.focus();
+        return;
+    }
+
+    if (venda) {
+        var t = f.preco.value.trim();
+        preco = t.indexOf(',') >= 0
+            ? parseFloat(t.replace(/\./g, '').replace(',', '.'))
+            : parseFloat(t);
+
+        if (!t || isNaN(preco) || preco < 0) {
+            erro.textContent = 'Informe um preço válido. Ex.: 40,00';
+            f.preco.focus();
+            return;
+        }
+    } else if (!local) {
+        erro.textContent = 'Informe o local.';
+        f.local.focus();
+        return;
+    }
+
+    if (ed) {
+        erro.textContent =
+            'A edição no Supabase será conectada na próxima etapa. Por enquanto, publique um novo item.';
+        return;
+    }
+
+    var botao = f.querySelector('button[type="submit"]');
+    botao.disabled = true;
+    botao.textContent = 'Publicando...';
+
+    try {
+        var resultadoUsuario = await clienteSupabase.auth.getUser();
+        var usuario = resultadoUsuario.data.user;
+
+        if (resultadoUsuario.error || !usuario) {
+            throw new Error('Sua sessão expirou. Entre na sua conta novamente.');
+        }
+
+        var tiposBanco = {
+            achado: 'encontrado',
+            perdido: 'perdido',
+            doacao: 'doacao',
+            venda: 'venda'
+        };
+
+        var categorias = {
+            achado: 'Achado',
+            perdido: 'Perdido',
+            doacao: 'Doação',
+            venda: 'Venda'
+        };
+
+        var publicacao = {
+            usuario_id: usuario.id,
+            titulo: titulo,
+            descricao: f.descricao.value.trim(),
+            categoria: categorias[tipo],
+            tipo: tiposBanco[tipo],
+            local: local || null,
+            imagem_url: fotos.length ? fotos[0] : null,
+            fotos_urls: fotos
+        };
+
+        var resultado = await clienteSupabase
+            .from('publicacoes')
+            .insert(publicacao);
+
+        if (resultado.error) {
+            console.error('Erro do Supabase:', resultado.error);
+            throw new Error(
+                'O banco recusou a publicação. Confira o acesso à tabela e tente novamente.'
+            );
+        }
+
+        alert('Item publicado com sucesso!');
+        location.href = 'meus-anuncios.html';
+
+    } catch (err) {
+        console.error(err);
+        erro.textContent = err.message ||
+            'Não foi possível publicar. Tente novamente.';
+        botao.disabled = false;
+        botao.textContent = 'Publicar';
+    }
+}); 
 }
 </script>
 </body>

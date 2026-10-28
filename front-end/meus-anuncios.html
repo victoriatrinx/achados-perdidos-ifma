@@ -37,62 +37,213 @@
 <script src="anuncios.js"></script>
 
 <script>
-var filtro='todos',
-FILT=[['todos','Todos'],['venda','Vendas'],['doacao','Doações'],['achado','Achados'],['perdido','Perdidos'],['finalizados','Finalizados']],
-abas=document.getElementById('abas'),grade=document.getElementById('grade'),vazio=document.getElementById('vazio');
+var anunciosSupabase = [];
+var filtro = 'todos';
+var FILT = [
+  ['todos', 'Todos'],
+  ['venda', 'Vendas'],
+  ['doacao', 'Doações'],
+  ['achado', 'Achados'],
+  ['perdido', 'Perdidos'],
+  ['finalizados', 'Finalizados']
+];
 
-function card(a){
-  var fin=a.status==='finalizado',img=a.fotos&&a.fotos[0],e=IF.esc;
-  return '<article class="anu" data-id="'+a.id+'">'+
-    (fin?'<span class="etq etq-fin">Finalizado</span>':IF.etq(a.tipo)+
-      '<button class="ponto" type="button" data-menu aria-label="Opções do anúncio">⋮</button>'+
-      '<div class="menu-l" hidden><button type="button" data-ac="editar">Editar anúncio</button><button type="button" data-ac="finalizar">Finalizar anúncio</button><button type="button" data-ac="excluir" class="perigo">Excluir anúncio</button></div>')+
-    '<div class="anu-img">'+(img?'<img src="'+img+'" alt="">':IF.svg(IF.ico.caixa,40))+'</div>'+
-    '<h3>'+e(a.titulo)+(a.tipo==='venda'&&a.preco!=null?'<span>'+IF.preco(a.preco)+'</span>':'')+'</h3>'+
-    (fin?'<div>'+IF.etq(a.tipo)+'</div>':'')+
-    (a.local?'<small>'+IF.svg(IF.ico.pin,14)+e(a.local)+'</small>':'')+
-    '<small>'+IF.svg(IF.ico.rel,14)+(fin?(a.motivo==='removido'?'Retirado em ':'Finalizado em ')+IF.data(a.finalizadoEm):'Publicado '+IF.ha(a.criado))+'</small>'+
-    (fin?'<div class="anu-acoes"><button type="button" class="perigo" data-ac="apagar">Excluir anúncio</button><a href="publicar-item.html">Publicar outro item</a></div>':'')+
+var abas = document.getElementById('abas');
+var grade = document.getElementById('grade');
+var vazio = document.getElementById('vazio');
+
+function card(a) {
+  var fin = a.status === 'finalizado';
+  var img = a.fotos && a.fotos[0];
+  var e = IF.esc;
+
+  return '<article class="anu" data-id="' + a.id + '" style="cursor:pointer" onclick="if(!event.target.closest(\'button,a,.menu-l\')) location.href=\'Item.html?id=' + a.id + '\'">' +
+    (fin
+      ? '<span class="etq etq-fin">Finalizado</span>'
+      : IF.etq(a.tipo) +
+        '<button class="ponto" type="button" data-menu aria-label="Opções do anúncio">⋮</button>' +
+        '<div class="menu-l" hidden>' +
+        '<button type="button" data-ac="editar">Editar anúncio</button>' +
+        '<button type="button" data-ac="finalizar">Finalizar anúncio</button>' +
+        '<button type="button" data-ac="excluir" class="perigo">Excluir anúncio</button>' +
+        '</div>') +
+    '<div class="anu-img">' +
+      (img ? '<img src="' + img + '" alt="">' : IF.svg(IF.ico.caixa, 40)) +
+    '</div>' +
+    '<h3>' + e(a.titulo) +
+      (a.tipo === 'venda' && a.preco != null ? '<span>' + IF.preco(a.preco) + '</span>' : '') +
+    '</h3>' +
+    (fin ? '<div>' + IF.etq(a.tipo) + '</div>' : '') +
+    (a.local ? '<small>' + IF.svg(IF.ico.pin, 14) + e(a.local) + '</small>' : '') +
+    '<small>' + IF.svg(IF.ico.rel, 14) +
+      (fin ? 'Finalizado' : 'Publicado ' + IF.ha(a.criado)) +
+    '</small>' +
+    (fin
+      ? '<div class="anu-acoes"><button type="button" class="perigo" data-ac="apagar">Excluir anúncio</button></div>'
+      : '') +
   '</article>';
 }
 
-function render(){
-  var todos=IF.anuncios(),at=todos.filter(function(a){return a.status!=='finalizado'}),fi=todos.filter(function(a){return a.status==='finalizado'});
-  function cont(k){return k==='todos'?at.length:k==='finalizados'?fi.length:at.filter(function(a){return a.tipo===k}).length}
-  abas.innerHTML=FILT.map(function(f){return '<button type="button" role="tab" class="aba-btn'+(f[0]===filtro?' on':'')+'" aria-selected="'+(f[0]===filtro)+'" data-f="'+f[0]+'">'+f[1]+' <b>'+cont(f[0])+'</b></button>'}).join('');
-  var lista=filtro==='finalizados'?fi:filtro==='todos'?at:at.filter(function(a){return a.tipo===filtro});
-  lista.sort(function(a,b){return (b.finalizadoEm||b.criado)-(a.finalizadoEm||a.criado)});
-  grade.innerHTML=lista.map(card).join('');
-  grade.hidden=!lista.length;vazio.hidden=!!lista.length;
-  if(lista.length)return;
-  if(filtro==='finalizados')vazio.innerHTML=IF.svg(IF.ico.caixa,48)+'<strong>Você ainda não possui anúncios finalizados.</strong><p>Quando você finalizar algum anúncio, ele aparecerá aqui.</p>';
-  else if(!at.length)vazio.innerHTML=IF.svg(IF.ico.caixa,64)+'<strong>Você ainda não possui anúncios.</strong><p>Que tal publicar algo agora?</p><a class="btn-p" href="publicar-item.html">+ Publicar item</a>';
-  else vazio.innerHTML=IF.svg(IF.ico.caixa,48)+'<strong>Nenhum anúncio nesta categoria.</strong>';
+async function carregarAnunciosSupabase() {
+  const { data: { user }, error: erroUsuario } =
+    await clienteSupabase.auth.getUser();
+
+  if (erroUsuario || !user) {
+    vazio.hidden = false;
+    vazio.textContent = 'Entre na sua conta para ver seus anúncios.';
+    grade.hidden = true;
+    return;
+  }
+
+  const { data, error } = await clienteSupabase
+    .from('publicacoes')
+    .select('*')
+    .eq('usuario_id', user.id)
+    .order('criado_em', { ascending: false });
+
+  if (error) {
+    console.error(error);
+    vazio.hidden = false;
+    vazio.textContent = 'Não foi possível carregar seus anúncios.';
+    grade.hidden = true;
+    return;
+  }
+
+  anunciosSupabase = (data || []).map(function(p) {
+    return {
+      id: String(p.id),
+      tipo: p.tipo === 'encontrado' ? 'achado' : p.tipo,
+      titulo: p.titulo,
+      descricao: p.descricao,
+      local: p.local,
+      preco: p.preco,
+      fotos: Array.isArray(p.fotos_urls)
+        ? p.fotos_urls
+        : (p.imagem_url ? [p.imagem_url] : []),
+      status: p.status === 'ativo' ? 'ativo' : 'finalizado',
+      criado: new Date(p.criado_em).getTime()
+    };
+  });
+
+  render();
 }
 
-abas.addEventListener('click',function(e){var b=e.target.closest('[data-f]');if(b){filtro=b.dataset.f;render()}});
+function render() {
+  var ativos = anunciosSupabase.filter(a => a.status !== 'finalizado');
+  var finalizados = anunciosSupabase.filter(a => a.status === 'finalizado');
 
-document.addEventListener('click',function(e){
-  var m=e.target.closest('[data-menu]');
-  document.querySelectorAll('.menu-l').forEach(function(x){if(!m||x!==m.nextElementSibling)x.hidden=true});
-  if(m){m.nextElementSibling.hidden=!m.nextElementSibling.hidden;return}
-  var b=e.target.closest('[data-ac]');if(!b)return;
-  var id=b.closest('.anu').dataset.id,lista=IF.anuncios(),a=lista.find(function(x){return x.id===id});
-  if(!a)return;
-  var ac=b.dataset.ac;
-  if(ac==='editar'){location.href='publicar-item.html?editar='+id;return}
-  if(ac==='finalizar'){a.status='finalizado';a.motivo='finalizado';a.finalizadoEm=Date.now();IF.aviso('Anúncio finalizado.')}
-  if(ac==='excluir'){
-    if(!confirm('Retirar este anúncio da visualização pública? Ele deixa de aparecer para os outros usuários e continua no seu histórico, em Finalizados.'))return;
-    a.status='finalizado';a.motivo='removido';a.finalizadoEm=Date.now();IF.aviso('Anúncio retirado da visualização pública.');
+  function cont(k) {
+    if (k === 'todos') return ativos.length;
+    if (k === 'finalizados') return finalizados.length;
+    return ativos.filter(a => a.tipo === k).length;
   }
-  if(ac==='apagar'){
-    if(!confirm('Excluir este anúncio do histórico? Essa ação não pode ser desfeita.'))return;
-    lista=lista.filter(function(x){return x.id!==id});IF.aviso('Anúncio excluído do histórico.');
+
+  abas.innerHTML = FILT.map(function(f) {
+    return '<button type="button" role="tab" class="aba-btn' +
+      (f[0] === filtro ? ' on' : '') +
+      '" aria-selected="' + (f[0] === filtro) +
+      '" data-f="' + f[0] + '">' + f[1] +
+      ' <b>' + cont(f[0]) + '</b></button>';
+  }).join('');
+
+  var lista = filtro === 'finalizados'
+    ? finalizados
+    : filtro === 'todos'
+      ? ativos
+      : ativos.filter(a => a.tipo === filtro);
+
+  lista.sort((a, b) => b.criado - a.criado);
+  grade.innerHTML = lista.map(card).join('');
+  grade.hidden = !lista.length;
+  vazio.hidden = !!lista.length;
+
+  if (lista.length) return;
+
+  if (filtro === 'finalizados') {
+    vazio.innerHTML = '<strong>Você ainda não possui anúncios finalizados.</strong>';
+  } else if (!ativos.length) {
+    vazio.innerHTML = '<strong>Você ainda não possui anúncios.</strong><p>Que tal publicar algo agora?</p><a class="btn-p" href="publicar-item.html">+ Publicar item</a>';
+  } else {
+    vazio.innerHTML = '<strong>Nenhum anúncio nesta categoria.</strong>';
   }
-  IF.gravarAnuncios(lista);render();
+}
+
+abas.addEventListener('click', function(e) {
+  var b = e.target.closest('[data-f]');
+  if (b) {
+    filtro = b.dataset.f;
+    render();
+  }
 });
-render();
-</script>
+
+document.addEventListener('click', async function(e) {
+  var m = e.target.closest('[data-menu]');
+
+  document.querySelectorAll('.menu-l').forEach(function(x) {
+    if (!m || x !== m.nextElementSibling) x.hidden = true;
+  });
+
+  if (m) {
+    m.nextElementSibling.hidden = !m.nextElementSibling.hidden;
+    return;
+  }
+
+  var b = e.target.closest('[data-ac]');
+  if (!b) return;
+
+  e.stopPropagation();
+
+  var cardElement = b.closest('.anu');
+  var id = cardElement.dataset.id;
+  var ac = b.dataset.ac;
+  var anuncio = anunciosSupabase.find(a => a.id === id);
+
+  if (!anuncio) return;
+
+  if (ac === 'editar') {
+    location.href = 'publicar-item.html?editar=' + encodeURIComponent(id);
+    return;
+  }
+
+  if (ac === 'finalizar') {
+    if (!confirm('Deseja finalizar este anúncio?')) return;
+
+    const { error } = await clienteSupabase
+      .from('publicacoes')
+      .update({ status: 'finalizado' })
+      .eq('id', id);
+
+    if (error) {
+      console.error(error);
+      alert('Não foi possível finalizar o anúncio: ' + error.message);
+      return;
+    }
+
+    alert('Anúncio finalizado!');
+    await carregarAnunciosSupabase();
+    return;
+  }
+
+  if (ac === 'excluir' || ac === 'apagar') {
+    if (!confirm('Deseja excluir este anúncio permanentemente?')) return;
+
+    const { error } = await clienteSupabase
+      .from('publicacoes')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error(error);
+      alert('Não foi possível excluir o anúncio: ' + error.message);
+      return;
+    }
+
+    alert('Anúncio excluído!');
+    await carregarAnunciosSupabase();
+  }
+});
+
+carregarAnunciosSupabase();
+</script>```
 </body>
 </html>

@@ -61,3 +61,72 @@ function filtrarPublicacoes() {
 
     document.getElementById('sem-resultado').hidden = visiveis > 0;
 }
+
+// Buscar publicações reais no Supabase
+async function buscarPublicacoesSupabase() {
+    const { data, error } = await clienteSupabase
+        .from("publicacoes")
+        .select("*")
+        .eq("status", "ativo")
+        .order("criado_em", { ascending: false });
+
+    if (error) {
+        console.error("Erro ao buscar publicações:", error);
+        return [];
+    }
+
+    return data;
+}
+
+// Mostrar publicações do Supabase na pré-login
+async function carregarPublicacoes() {
+    const grade = document.getElementById("grid-publicacoes");
+
+    if (!grade) {
+        console.error("Área de publicações não encontrada.");
+        return;
+    }
+
+    const publicacoes = await buscarPublicacoesSupabase();
+
+    const categorias = {
+        encontrado: "Achado",
+        perdido: "Perdido",
+        doacao: "Doação",
+        venda: "Venda"
+    };
+
+    grade.innerHTML = "";
+
+    publicacoes.forEach(function (item) {
+        const artigo = document.createElement("article");
+        artigo.className = "publicacao";
+        artigo.style.cursor = "pointer";
+
+        artigo.addEventListener("click", function () {
+            window.location.href = `item.html?id=${item.id}`;
+        });
+
+        const categoria = categorias[item.tipo] || item.tipo;
+        const imagem = item.imagem_url ||
+            (Array.isArray(item.fotos_urls) ? item.fotos_urls[0] : "");
+
+        artigo.innerHTML = `
+            <div class="foto-item">
+                <span class="tag">${categoria}</span>
+                ${imagem ? `<img src="${imagem}" alt="${item.titulo}" loading="lazy">` : ""}
+            </div>
+            <div class="info-item">
+                <h3>${item.titulo}</h3>
+                <p>${item.descricao || ""}</p>
+                <p class="linha-info">${item.local || "Local não informado"}</p>
+            </div>
+        `;
+
+        grade.appendChild(artigo);
+    });
+
+    filtrarPublicacoes();
+}
+
+document.addEventListener("DOMContentLoaded", carregarPublicacoes);

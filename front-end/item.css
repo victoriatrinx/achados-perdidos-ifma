@@ -87,7 +87,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .infos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .info {
   display: flex; align-items: center; gap: 12px;
-  background-color: #0b3a2c; border-radius: 14px; padding: 12px;
+  background-color: #76c086; border-radius: 14px; padding: 12px;
 }
 .info.largo { grid-column: 1 / -1; }
 .info .ico {
@@ -104,7 +104,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 14px 16px; border-radius: 14px; font-weight: 700; font-size: 1rem;
 }
-.btn-verde { background: var(--verde); color: #0b3a2c; }
+.btn-verde { background: var(--verde); color: #36dfac; }
 .btn-verde:hover:not(:disabled) { background: #127e5d; }
 .btn-verde:disabled { opacity: .45; cursor: not-allowed; }
 .btn-claro { background: var(--verde-claro); color: var(--verde); }

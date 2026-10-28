@@ -231,3 +231,39 @@ html.tema-escuro .perfil-titulo h1{color:var(--realce)}
 html.tema-escuro.alto-contraste .perfil-painel{border:2px solid #8dffd2}
 html.tema-escuro.alto-contraste .icone-redondo,
 html.tema-escuro.alto-contraste .btn-editar{background:#000;border:2px solid #8dffd2}
+
+/* ---------- Página do item (item.html) ---------- */
+html.tema-escuro{
+  --menta-2:#102a20;      /* painel de denúncia, textarea */
+  --verde-claro:#17402f;  /* hover, botão claro, selo de sucesso */
+}
+html.tema-escuro .tela{background:var(--card);border-color:var(--linha)}
+
+/* selos e favorito sobre a foto */
+html.tema-escuro .selo.achado,
+html.tema-escuro .selo.venda{background:#12382b;border:1px solid var(--realce)}
+html.tema-escuro .fav{background:rgba(6,19,14,.65)}
+
+/* cards de informação */
+html.tema-escuro .info{background:var(--sup2);border:1px solid var(--linha)}
+html.tema-escuro .info .ico{background:#12382b;color:var(--realce)}
+html.tema-escuro .info strong{color:var(--texto)}
+
+/* botões */
+html.tema-escuro .btn-verde{background:var(--realce);color:#06130e}
+html.tema-escuro .btn-verde:hover:not(:disabled){background:#8df0cb}
+html.tema-escuro .btn-claro{background:var(--sup2);color:var(--texto);border:1px solid var(--linha)}
+html.tema-escuro .btn-rosa{background:#3a1119;color:#ff9aa9}
+
+/* painel de denúncia */
+html.tema-escuro .painel{background:var(--card);border-top:1px solid var(--linha)}
+html.tema-escuro .painel-topo h2{color:var(--realce)}
+html.tema-escuro textarea{background:var(--sup);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro textarea::placeholder{color:var(--suave)}
+html.tema-escuro .erro{color:#ff9aa9}
+
+/* alto contraste */
+html.tema-escuro.alto-contraste .tela,
+html.tema-escuro.alto-contraste .info,
+html.tema-escuro.alto-contraste .painel,
+html.tema-escuro.alto-contraste textarea{border:2px solid #8dffd2!important}

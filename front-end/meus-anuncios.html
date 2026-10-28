@@ -226,13 +226,19 @@ document.addEventListener('click', async function(e) {
       .eq('id', id);
 
     if (error) {
-      console.error(error);
-      alert('Não foi possível finalizar o anúncio: ' + error.message);
-      return;
-    }
+  console.error('Erro ao finalizar:', JSON.stringify(error, null, 2));
+  alert(
+    'Erro: ' + error.message +
+    '\nCódigo: ' + error.code +
+    '\nDetalhes: ' + (error.details || 'Nenhum') +
+    '\nDica: ' + (error.hint || 'Nenhuma')
+  );
+  return;
+}
 
     alert('Anúncio finalizado!');
     await carregarAnunciosSupabase();
+    console.log('Usuário conectado:', user?.id);
     return;
   }
 

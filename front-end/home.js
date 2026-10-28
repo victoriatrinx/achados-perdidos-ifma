@@ -1,4 +1,3 @@
-
 //* ---------- Publicações do Supabase ---------- */
 
 async function buscarItens() {
@@ -145,6 +144,7 @@ if(params.get("q")) $("#busca").value = params.get("q");
 if(params.get("cat")) $("#fCategoria").value = params.get("cat");
 if(params.get("local")) $("#fLocal").value = params.get("local");
 if(params.get("data")) $("#fData").value = params.get("data");
+if(params.get("cat") || params.get("local") || params.get("data")){ painel.hidden = false; btnFiltros.setAttribute("aria-expanded", "true"); }
 
 /* ---------- Início ---------- */
 buscarItens().then(d => { todos = d; filtrar(); });

@@ -149,6 +149,8 @@ atualizarTopoUsuario();
     if($("#fData").value) p.set("data", $("#fData").value);
     location.href = "home.html" + (p.toString() ? "?" + p : "");
   }
+  /* Na home quem cuida dos filtros é o home.js; aqui só nas outras páginas (senão o clique é tratado 2x e o painel nunca abre) */
+  if(!$("#grade")){
   const btnFiltros = $("#btnFiltros"), painel = $("#painelFiltros");
   btnFiltros.addEventListener("click", () => {
     const abrir = painel.hidden;
@@ -160,6 +162,7 @@ atualizarTopoUsuario();
     if(e.target.tagName === "BUTTON"){ $("#fLocal").value = e.target.textContent; irParaBusca(); }
   });
   $("#busca").addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); irParaBusca(); } });
+  }
 
   /* Links: páginas em construção e botões em manutenção */
   document.addEventListener("click", e => {

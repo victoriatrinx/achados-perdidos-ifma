@@ -4,6 +4,7 @@ var K='ifound_acess',a={},h=document.documentElement;
 try{a=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
 function aplicar(){h.classList.toggle('tema-escuro',a.tema==='escuro');h.classList.toggle('alto-contraste',!!a.contraste)}
 aplicar();
+document.write('<link rel="stylesheet" href="tema-escuro.css">');
 window.IFA={
   ler:function(){return a},
   salvar:function(n){Object.assign(a,n);aplicar();try{localStorage.setItem(K,JSON.stringify(a))}catch(e){}}

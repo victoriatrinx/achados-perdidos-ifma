@@ -103,13 +103,236 @@ a.anu{text-decoration:none}
 .nota{padding:14px 18px;color:var(--suave);font-weight:500}
 @media (max-width:560px){.opcoes{grid-template-columns:1fr}.grade{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
 
-/* Tema escuro e alto contraste (valem para as variáveis do home.css e para estas páginas) */
-html.tema-escuro{--card:#14261e;--texto:#e8f3ee;--suave:#a9c2b8}
-html.tema-escuro .perfil-painel{background:#0e1c16;border-color:#244036}
-html.tema-escuro .perfil-cartao,html.tema-escuro .anu,html.tema-escuro .aba-btn,html.tema-escuro .vazio,html.tema-escuro .conv,html.tema-escuro .bolha,html.tema-escuro .menu-l{border-color:#2b4a3e}
-html.tema-escuro .opc:has(input:checked),html.tema-escuro .bolha.eu,html.tema-escuro .btn-sec{background:#1f4636;color:#e8f3ee}
-html.tema-escuro .aba-btn b{background:#244036;color:#e8f3ee}
-html.alto-contraste{--suave:#1a1a1a}
-html.alto-contraste.tema-escuro{--suave:#ffffff}
-html.alto-contraste .perfil-cartao,html.alto-contraste .anu,html.alto-contraste .aba-btn,html.alto-contraste .vazio,html.alto-contraste .conv,html.alto-contraste .opc,html.alto-contraste .form input,html.alto-contraste .form textarea{border:2px solid currentColor}
-html.alto-contraste .nav-item.ativo,html.alto-contraste a:focus-visible,html.alto-contraste button:focus-visible{outline:3px solid var(--amarelo);outline-offset:2px}
+/* ==========================================================
+   tema-escuro.css — tema escuro e alto contraste do iFound
+   Carregado automaticamente pelo shell.js. Tudo aqui só vale
+   quando o <html> tem a classe "tema-escuro".
+   ========================================================== */
+
+html.tema-escuro{
+  color-scheme:dark;
+  --fundo:#06130e;
+  --card:#0e2019;
+  --texto:#e8f3ee;
+  --suave:#a9c2b8;
+  --amarelo:#f0b400;
+  --realce:#6fe3b8;      /* verde-água dos títulos e ícones */
+  --sup:#0a1a14;         /* superfícies: topo, menu, rodapé */
+  --sup2:#102a20;        /* superfícies elevadas */
+  --linha:#2b4a3e;       /* bordas */
+
+  /* variáveis usadas por paginas.css (termos, privacidade, sobre, produto) */
+  --branco:#0e2019;
+  --menta:#0a1a14;
+  --borda:#2b4a3e;
+  --verde:#6fe3b8;
+  --texto-suave:#a9c2b8;
+  --pessego:#14261e;
+}
+html.tema-escuro body{background:var(--fundo);color:var(--texto)}
+html.tema-escuro h1,html.tema-escuro h2,html.tema-escuro h3{color:var(--texto)}
+
+/* ---------- Topo ---------- */
+html.tema-escuro .topo{background:var(--fundo)}
+html.tema-escuro .topo-logo,
+html.tema-escuro .topo-user{background:var(--sup);border:1px solid var(--linha);border-top:0}
+html.tema-escuro .btn-aba{background:var(--sup2);border:1px solid var(--linha)}
+html.tema-escuro .busca{background:var(--sup2);color:var(--realce);border:1px solid var(--linha);box-shadow:none}
+html.tema-escuro .busca input{color:var(--texto)}
+html.tema-escuro .busca input::placeholder{color:var(--suave)}
+html.tema-escuro .avatar{background:#1d3a2f}
+html.tema-escuro .avatar::before,html.tema-escuro .avatar::after{background:var(--realce)}
+
+/* ---------- Menu lateral ---------- */
+html.tema-escuro .aba{background:var(--sup);border-right:1px solid var(--linha)}
+html.tema-escuro .nav-item:hover{background:var(--sup2)}
+html.tema-escuro .nav-item.ativo{background:#12382b;color:var(--realce);box-shadow:inset 0 0 0 1px var(--realce)}
+html.tema-escuro .nav-filtros,
+html.tema-escuro .filtros{background:var(--sup2)}
+html.tema-escuro .filtros select,
+html.tema-escuro .filtros input{background:var(--sup);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .chips button{border-color:var(--linha)}
+html.tema-escuro .btn-aplicar{background:var(--realce);color:#06130e}
+
+/* ---------- Rodapé ---------- */
+html.tema-escuro .rodape{background:var(--sup);border-top:1px solid var(--linha)}
+
+/* ---------- Home: cartões ---------- */
+html.tema-escuro .card{background:var(--card);border-color:var(--linha)}
+html.tema-escuro .thumb{background:#14261e}
+html.tema-escuro .fav{color:var(--realce)}
+html.tema-escuro .boas-vindas p{color:var(--realce)}
+html.tema-escuro .recado{color:var(--texto)}
+html.tema-escuro .vazio{background:var(--card);border-color:var(--linha);color:var(--texto)}
+
+/* ---------- Perfil (perfil.css não foi enviado: cobre as classes conhecidas) ---------- */
+html.tema-escuro .perfil-painel{background:#0b1913;border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .perfil-cartao{background:var(--card);border-color:var(--linha)!important;color:var(--texto)}
+html.tema-escuro .perfil-titulo h1,
+html.tema-escuro .perfil-titulo .voltar{color:var(--realce)}
+html.tema-escuro .perfil-painel a,
+html.tema-escuro .perfil-painel button{color:inherit}
+html.tema-escuro .perfil-painel svg{color:var(--realce)}
+html.tema-escuro .sub{color:var(--realce)}
+
+/* ---------- Configurações ---------- */
+html.tema-escuro .cfg-barra,
+html.tema-escuro .ep-barra{background:var(--sup);border:1px solid var(--linha);color:var(--realce)}
+html.tema-escuro .cfg-lista{background:var(--card);border-color:var(--linha)}
+html.tema-escuro .cfg-item{color:var(--texto)}
+html.tema-escuro .cfg-item + .cfg-item{border-top-color:var(--linha)}
+html.tema-escuro .cfg-icone,
+html.tema-escuro .cfg-seta{color:var(--realce)}
+html.tema-escuro .cfg-sair{background:#3a1119;color:#ff9aa9}
+html.tema-escuro .cfg-sair:hover{background:#4d1620}
+html.tema-escuro .cfg-ficar{background:var(--sup2);color:var(--texto)}
+
+/* ---------- Editar perfil ---------- */
+html.tema-escuro .ep-cartao{background:var(--card);border-color:var(--linha)}
+html.tema-escuro .ep-foto{background:#1d3a2f}
+html.tema-escuro .ep-foto::before,html.tema-escuro .ep-foto::after{background:var(--realce)}
+html.tema-escuro .ep-camera{border-color:var(--card);background:var(--sup2);color:var(--realce)}
+html.tema-escuro .ep-icone{color:var(--realce)}
+html.tema-escuro .ep-campo input{background:var(--sup);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .ep-campo input::placeholder{color:var(--suave)}
+html.tema-escuro .ep-salvar{background:var(--sup2);color:var(--realce);border:1px solid var(--realce)}
+html.tema-escuro .ep-salvar:hover{background:#17402f}
+html.tema-escuro .ep-cancelar{color:var(--texto)}
+html.tema-escuro .ep-erro{color:#ff9aa9}
+
+/* ---------- Páginas novas (anúncios, mensagens, favoritos, formulários) ---------- */
+html.tema-escuro .anu,
+html.tema-escuro .aba-btn,
+html.tema-escuro .conv,
+html.tema-escuro .bolha,
+html.tema-escuro .menu-l,
+html.tema-escuro .vazio{background:var(--card);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .aba-btn b{background:#244036;color:var(--texto)}
+html.tema-escuro .aba-btn.on{background:#12382b;color:var(--realce);border-color:var(--realce)}
+html.tema-escuro .aba-btn.on b{background:#ffffff22;color:var(--realce)}
+html.tema-escuro .anu-img{background:#14261e}
+html.tema-escuro .anu-acoes button,
+html.tema-escuro .anu-acoes a{color:var(--texto)}
+html.tema-escuro .anu-acoes .perigo,
+html.tema-escuro .menu-l .perigo{color:#ff9aa9}
+html.tema-escuro .ponto{color:var(--texto)}
+html.tema-escuro .ponto:hover,
+html.tema-escuro .menu-l button:hover{background:var(--sup2)}
+html.tema-escuro .menu-l button{color:var(--texto)}
+html.tema-escuro .vazio svg{color:var(--realce)}
+html.tema-escuro .btn-p{background:var(--realce);color:#06130e}
+html.tema-escuro .btn-p:hover{background:#8df0cb}
+html.tema-escuro .btn-sec{background:#1f4636;color:var(--texto)}
+html.tema-escuro .modal-erro{color:#ff9aa9}
+
+html.tema-escuro .escolha{color:var(--texto)}
+html.tema-escuro .escolha.achado{background:#0f2a20;border-color:#2b5a46}
+html.tema-escuro .escolha.perdido{background:#2c0f17;border-color:#6a2a38}
+html.tema-escuro .escolha.doacao{background:#2a210d;border-color:#6b5a22}
+html.tema-escuro .escolha.venda{background:#0f2a2d;border-color:#2b5f66}
+
+html.tema-escuro .form input,
+html.tema-escuro .form textarea,
+html.tema-escuro .envio input{background:var(--sup);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .form input::placeholder,
+html.tema-escuro .form textarea::placeholder,
+html.tema-escuro .envio input::placeholder{color:var(--suave)}
+html.tema-escuro .prev div{border-color:var(--linha)}
+html.tema-escuro .envio button{background:var(--realce);color:#06130e}
+
+html.tema-escuro .av{background:#1d3a2f;color:var(--realce)}
+html.tema-escuro .bolha.eu{background:#1f4636;color:var(--texto)}
+
+/* ---------- Acessibilidade (switch e opções) ---------- */
+html.tema-escuro .linha+.linha{border-top-color:var(--linha)}
+html.tema-escuro .sw{background:#3b5249}
+html.tema-escuro .sw:checked{background:var(--realce)}
+html.tema-escuro .sw::after{background:#fff}
+html.tema-escuro .opc{border-color:var(--linha)}
+html.tema-escuro .opc:has(input:checked){background:#12382b;border-color:var(--realce);color:var(--texto)}
+html.tema-escuro .opc input{accent-color:var(--realce)}
+/* o fieldset do Tema tem borda inline no HTML: precisa de !important */
+html.tema-escuro fieldset.perfil-cartao{border-color:var(--linha)!important;background:var(--card)}
+html.tema-escuro legend{color:var(--texto)}
+
+/* ---------- Páginas de documento (termos, privacidade, sobre, produto) ---------- */
+html.tema-escuro .doc{background:var(--card);border-color:var(--linha)}
+html.tema-escuro .doc-icone{background:#12382b;color:var(--realce)}
+html.tema-escuro .doc h1,
+html.tema-escuro .doc h2,
+html.tema-escuro .doc .lema{color:var(--realce)}
+html.tema-escuro .doc h2+p{color:var(--texto)}
+html.tema-escuro .doc .btn,
+html.tema-escuro .produto .btn{background:var(--realce);color:#06130e}
+html.tema-escuro .produto h1{color:var(--texto)}
+html.tema-escuro .chip{background:var(--sup2)}
+html.tema-escuro .chip strong{color:var(--texto)}
+html.tema-escuro .voltar{background:var(--sup2);border-color:var(--linha);color:var(--realce)}
+
+/* ---------- Modais e avisos ---------- */
+html.tema-escuro .cfg-modal{background:var(--card);color:var(--texto);border:1px solid var(--linha)}
+html.tema-escuro .aviso{background:var(--sup2);color:var(--texto)}
+
+/* ==========================================================
+   Alto contraste (no protótipo é só para o modo escuro)
+   ========================================================== */
+html.tema-escuro.alto-contraste{
+  --fundo:#000;--card:#000;--sup:#000;--sup2:#000;
+  --texto:#fff;--suave:#fff;--linha:#6fe3b8;--realce:#8dffd2;
+}
+html.tema-escuro.alto-contraste .card,
+html.tema-escuro.alto-contraste .anu,
+html.tema-escuro.alto-contraste .aba-btn,
+html.tema-escuro.alto-contraste .conv,
+html.tema-escuro.alto-contraste .bolha,
+html.tema-escuro.alto-contraste .menu-l,
+html.tema-escuro.alto-contraste .vazio,
+html.tema-escuro.alto-contraste .perfil-cartao,
+html.tema-escuro.alto-contraste .cfg-lista,
+html.tema-escuro.alto-contraste .ep-cartao,
+html.tema-escuro.alto-contraste .doc,
+html.tema-escuro.alto-contraste .opc,
+html.tema-escuro.alto-contraste .form input,
+html.tema-escuro.alto-contraste .form textarea,
+html.tema-escuro.alto-contraste .ep-campo input,
+html.tema-escuro.alto-contraste .envio input,
+html.tema-escuro.alto-contraste .busca{border:2px solid #8dffd2!important}
+html.tema-escuro.alto-contraste .nav-item.ativo{background:#000;color:#8dffd2;box-shadow:inset 0 0 0 2px #8dffd2}
+html.tema-escuro.alto-contraste .sw{background:#555;outline:2px solid #fff}
+html.tema-escuro.alto-contraste .sw:checked{background:#8dffd2}
+html.tema-escuro.alto-contraste .desc,
+html.tema-escuro.alto-contraste .meta,
+html.tema-escuro.alto-contraste small{color:#fff}
+html.tema-escuro.alto-contraste :focus-visible{outline:3px solid #ffd000;outline-offset:2px}
+
+/* ==========================================================
+   Perfil (perfil.css) e home — cores que estavam fixas
+   ========================================================== */
+html.tema-escuro .icone-redondo,
+html.tema-escuro .btn-editar{background:#12382b;color:var(--realce)}
+html.tema-escuro .btn-editar:hover{background:#17402f}
+html.tema-escuro .btn-camera{background:var(--sup2);color:var(--realce);border-color:var(--card)}
+html.tema-escuro .btn-camera:hover{background:#17402f}
+html.tema-escuro .perfil-foto{background:#1d3a2f}
+html.tema-escuro .perfil-foto::before,
+html.tema-escuro .perfil-foto::after{background:var(--realce)}
+html.tema-escuro .perfil-nome p,
+html.tema-escuro .numero span:not(.icone-redondo),
+html.tema-escuro .atalho-texto small{color:var(--suave)}
+html.tema-escuro .numero + .numero,
+html.tema-escuro .atalho + .atalho{border-color:var(--linha)}
+html.tema-escuro .atalho-seta{color:var(--realce)}
+html.tema-escuro .voltar:hover{background:var(--sup2)}
+html.tema-escuro .modal{background:var(--card);color:var(--texto);border:1px solid var(--linha)}
+html.tema-escuro .modal input{background:var(--sup);border-color:var(--linha);color:var(--texto)}
+html.tema-escuro .modal-cancelar{background:var(--sup2);color:var(--texto)}
+html.tema-escuro .modal-salvar{background:var(--realce);color:#06130e}
+html.tema-escuro .rodape-legal{color:var(--amarelo)}
+html.tema-escuro .perfil-painel h1,
+html.tema-escuro .perfil-nome h2,
+html.tema-escuro .numero strong,
+html.tema-escuro .atalho-texto strong{color:var(--texto)}
+html.tema-escuro .perfil-titulo h1{color:var(--realce)}
+html.tema-escuro.alto-contraste .perfil-painel{border:2px solid #8dffd2}
+html.tema-escuro.alto-contraste .icone-redondo,
+html.tema-escuro.alto-contraste .btn-editar{background:#000;border:2px solid #8dffd2}

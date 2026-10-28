@@ -61,7 +61,7 @@
             <div class="arco arco-verde"></div>
             <div class="arco arco-amarelo"></div>
 
-            <a href="../iFound.html" class="voltar">
+            <a href="../meus-anuncios.html" class="voltar">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
                 Voltar
             </a>
@@ -108,6 +108,7 @@
                         <svg class="camera" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v10H4z"/><circle cx="12" cy="13" r="3"/></svg>
                         <span class="upload-texto">Selecione ou arraste as fotos</span>
                         <span class="upload-legenda">(até 3 imagens)</span>
+                        <div id="fotos-preview"></div>
                     </label>
                 </div>
 
@@ -119,6 +120,9 @@
         </main>
 
     </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+<script src="../auth.js"></script>
+<script src="publicar-achados.js"></script>
 </body>
 </html>

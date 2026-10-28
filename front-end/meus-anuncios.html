@@ -198,12 +198,24 @@ document.addEventListener('click', async function(e) {
   var ac = b.dataset.ac;
   var anuncio = anunciosSupabase.find(a => a.id === id);
 
-  if (!anuncio) return;
-
   if (ac === 'editar') {
-    location.href = 'publicar-item.html?editar=' + encodeURIComponent(id);
+  const formularios = {
+    perdido: 'Formulário/Perdidos.html',
+    achado: 'Formulário/achados.html',
+    doacao: 'Formulário/Doacoes.html',
+    venda: 'Formulário/Vendas.html'
+  };
+
+  const destino = formularios[anuncio.tipo];
+
+  if (!destino) {
+    alert('Tipo de anúncio não identificado.');
     return;
   }
+
+  location.href = destino + '?editar=' + encodeURIComponent(anuncio.id);
+  return;
+}
 
   if (ac === 'finalizar') {
     if (!confirm('Deseja finalizar este anúncio?')) return;
